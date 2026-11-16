@@ -1,0 +1,266 @@
+---
+// SideMenu.astro — collapsible side navigation with icons.
+// Visibility is controlled by the `sidebar-open` class on <body> (see BaseLayout).
+interface Props {
+	/** The current page path (e.g. "/", "/paper-explorer") for active state. */
+	currentPath: string;
+}
+const { currentPath } = Astro.props;
+
+const iconPaths: Record<string, string> = {
+	home: 'M3 10.5 12 3l9 7.5M5 9.5V21h5v-6h4v6h5V9.5',
+	category: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+	paper: 'M6 2h9l5 5v15H6zM15 2v5h5M9 13h6M9 17h6',
+};
+
+const links = [
+	{ href: '/', label: 'Home', icon: 'home' },
+	{ href: '/category-explorer', label: 'Category Explorer', icon: 'category', submenu: true },
+	{ href: '/paper-explorer', label: 'Paper Explorer', icon: 'paper' },
+];
+
+// Subpages of the category explorer.
+const categorySubpages = [
+	{ href: '/ml-tasks', label: 'ML Tasks' },
+	{ href: '/xuq-methods', label: 'XUQ Methods' },
+	{ href: '/xuq-evaluation', label: 'XUQ Evaluation' },
+];
+
+// Whether the category submenu should start expanded (when on the category
+// explorer or one of its subpages).
+const isCategorySubpage =
+	currentPath === '/category-explorer' || categorySubpages.some((s) => currentPath === s.href);
+---
+
+<nav id="side-menu" class="sidemenu" aria-label="Main navigation">
+	<ul class="sidemenu__list">
+		{
+			links.map((link) => (
+				<li>
+					<div class:list={['sidemenu__row', { 'sidemenu__row--active': currentPath === link.href }]}>
+						<a
+							href={link.href}
+							class:list={['sidemenu__link', { 'sidemenu__link--active': currentPath === link.href }]}
+							{...(link.submenu ? { 'data-submenu-parent': true } : {})}
+						>
+							<span class="sidemenu__icon" aria-hidden="true">
+								<svg
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.8"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d={iconPaths[link.icon]} />
+								</svg>
+							</span>
+							<span>{link.label}</span>
+						</a>
+						{
+							link.submenu && (
+								<button
+									class:list={['sidemenu__toggle', { 'sidemenu__toggle--open': isCategorySubpage }]}
+									type="button"
+									aria-label="Toggle category subpages"
+									aria-expanded={isCategorySubpage}
+									data-submenu-toggle
+								>
+									<span class="sidemenu__toggle-arrow" aria-hidden="true">▸</span>
+								</button>
+							)
+						}
+					</div>
+					{
+						link.submenu && (
+							<ul
+								class:list={['sidemenu__submenu', { 'sidemenu__submenu--open': isCategorySubpage }]}
+								data-submenu
+							>
+								{
+									categorySubpages.map((sub) => (
+										<li>
+											<a
+												href={sub.href}
+												class:list={['sidemenu__sublink', { 'sidemenu__sublink--active': currentPath === sub.href }]}
+											>
+												{sub.label}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						)
+					}
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<script>
+	// Toggle the category submenu.
+	document.querySelectorAll<HTMLElement>('[data-submenu-toggle]').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const open = btn.getAttribute('aria-expanded') === 'true';
+			btn.setAttribute('aria-expanded', String(!open));
+			btn.classList.toggle('sidemenu__toggle--open', !open);
+			const submenu = btn.closest('li')?.querySelector<HTMLElement>('[data-submenu]');
+			submenu?.classList.toggle('sidemenu__submenu--open', !open);
+		});
+	});
+
+	// Clicking the category link also opens the submenu.
+	document.querySelectorAll<HTMLElement>('[data-submenu-parent]').forEach((link) => {
+		link.addEventListener('click', () => {
+			const li = link.closest('li');
+			const toggle = li?.querySelector<HTMLElement>('[data-submenu-toggle]');
+			const submenu = li?.querySelector<HTMLElement>('[data-submenu]');
+			if (toggle && toggle.getAttribute('aria-expanded') !== 'true') {
+				toggle.setAttribute('aria-expanded', 'true');
+				toggle.classList.add('sidemenu__toggle--open');
+				submenu?.classList.add('sidemenu__submenu--open');
+			}
+		});
+	});
+</script>
+
+<style>
+	.sidemenu {
+		position: fixed;
+		top: var(--header-height);
+		left: 0;
+		bottom: 0;
+		z-index: 40;
+		width: var(--sidebar-width);
+		padding: var(--space-4) var(--space-3);
+		background: var(--color-bg-alt);
+		border-right: 1px solid var(--color-border);
+		transform: translateX(-100%);
+		transition: transform var(--transition-base);
+		overflow-y: auto;
+	}
+
+	/* Open state driven by the body class (shared with content offset). */
+	body.sidebar-open .sidemenu {
+		transform: translateX(0);
+		box-shadow: var(--shadow-lg);
+	}
+
+	/* On desktop the sidebar is a fixed rail, visible by default. */
+	@media (min-width: 64rem) {
+		.sidemenu {
+			transform: translateX(0);
+			box-shadow: none;
+		}
+		body:not(.sidebar-open) .sidemenu {
+			transform: translateX(-100%);
+			box-shadow: none;
+		}
+	}
+
+	.sidemenu__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+
+	.sidemenu__link {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		border-radius: var(--radius-md);
+		color: var(--color-text);
+		font-weight: 500;
+		transition: background var(--transition-fast), color var(--transition-fast);
+	}
+	.sidemenu__link:hover {
+		background: var(--color-teal-50);
+		color: var(--color-teal-700);
+	}
+	.sidemenu__link--active {
+		background: var(--color-teal-100);
+		color: var(--color-teal-800);
+	}
+
+	.sidemenu__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 1.5rem;
+		color: var(--color-teal-600);
+	}
+	.sidemenu__link--active .sidemenu__icon {
+		color: var(--color-teal-800);
+	}
+
+	/* Row containing the link + submenu toggle */
+	.sidemenu__row {
+		display: flex;
+		align-items: center;
+	}
+	.sidemenu__row .sidemenu__link {
+		flex: 1;
+	}
+	.sidemenu__toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+		margin-right: var(--space-2);
+		border: none;
+		border-radius: var(--radius-sm);
+		background: none;
+		color: var(--color-text-muted);
+		cursor: pointer;
+	}
+	.sidemenu__toggle:hover {
+		background: var(--color-teal-50);
+		color: var(--color-teal-700);
+	}
+	.sidemenu__toggle-arrow {
+		font-size: var(--text-sm);
+		transition: transform var(--transition-base);
+	}
+	.sidemenu__toggle--open .sidemenu__toggle-arrow {
+		transform: rotate(90deg);
+	}
+
+	/* Submenu (category subpages) */
+	.sidemenu__submenu {
+		list-style: none;
+		margin: 0;
+		padding: 0 0 0 var(--space-6);
+		display: none;
+		flex-direction: column;
+		gap: 2px;
+	}
+	.sidemenu__submenu--open {
+		display: flex;
+	}
+	.sidemenu__sublink {
+		display: block;
+		padding: var(--space-2) var(--space-4);
+		border-radius: var(--radius-sm);
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		transition: background var(--transition-fast), color var(--transition-fast);
+	}
+	.sidemenu__sublink:hover {
+		background: var(--color-teal-50);
+		color: var(--color-teal-700);
+	}
+	.sidemenu__sublink--active {
+		background: var(--color-teal-100);
+		color: var(--color-teal-800);
+		font-weight: 600;
+	}
+</style>

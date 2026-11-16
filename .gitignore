@@ -1,0 +1,20 @@
+# Python utility environment
+.venv/
+__pycache__/
+*.pyc
+
+# Node / Astro (site/ has its own .gitignore, but keep these safe at root too)
+node_modules/
+dist/
+.astro/
+
+# Source data & paper (not committed)
+paper/
+
+# Internal planning docs (not committed)
+plan.md
+Project_context.md
+
+# OS / editor
+.DS_Store
+.idea/

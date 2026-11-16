@@ -1,0 +1,183 @@
+---
+// index.astro — landing page: paper intro, XUQ definition, Figure 1, methodology, nav buttons.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FigureOne from '../components/FigureOne.astro';
+---
+
+<BaseLayout
+	title="Explainable Uncertainty Quantification"
+	description="Companion site to the systematic literature review on Explainable Uncertainty Quantification (XUQ)."
+	currentPath="/"
+>
+	<article class="landing">
+		<!-- Paper title -->
+		<header class="landing__header">
+			<p class="landing__kicker">A Systematic Literature Review, Novel Definition, and Future Directions</p>
+			<h1 class="landing__title">
+				Explainable Uncertainty Quantification
+			</h1>
+		</header>
+
+		<!-- Definition -->
+		<section class="landing__section" id="definition">
+			<h2>What is Explainable Uncertainty Quantification?</h2>
+			<blockquote class="landing__definition">
+				<p>
+					<strong>Explainable Uncertainty Quantification (XUQ)</strong> contains all the mechanisms that make
+					the estimates of uncertainty of AI-based models more understandable to humans.
+				</p>
+			</blockquote>
+			<p>
+				While conventional Explainable AI (XAI) explains <em>what</em> was predicted, and Uncertainty-Aware XAI
+				quantifies <em>how (un)certain an explanation is</em>, XUQ instead asks <em>why a given uncertainty
+				estimate takes the value it does</em>. Its target of analysis is the model’s uncertainty estimate — for
+				example a predictive variance or a prediction-interval width — rather than the prediction itself.
+			</p>
+		</section>
+
+		<!-- Figure 1 -->
+		<section class="landing__section" id="figure">
+			<h2>Two ways of combining XAI and Uncertainty Quantification</h2>
+			<FigureOne />
+		</section>
+
+		<!-- Methodology -->
+		<section class="landing__section" id="methodology">
+			<h2>How the review was conducted</h2>
+			<p>
+				We performed a systematic literature review based on the PRISMA guidelines. We identified{' '}
+				<strong>53 relevant publications</strong> and structured them according to the following taxonomy. A
+				detailed description of the different categories in the taxonomy can be found in the paper.
+			</p>
+			<p>
+				Each reviewed study was classified along two panels: the <strong>Uncertainty Quantification</strong> panel
+				(uncertainty type, UQ method, and uncertainty estimate) and the <strong>Explanations of Uncertainty</strong>
+				panel (integration type, locality, portability, and explanation output type).
+			</p>
+		</section>
+
+		<!-- Navigation buttons -->
+		<section class="landing__section landing__nav" id="explore">
+			<h2>Explore the data</h2>
+			<p>Browse the 53 reviewed papers and the taxonomy categories behind them.</p>
+			<div class="landing__buttons">
+				<a class="btn btn--primary" href="/category-explorer">
+					<span class="btn__label">Category Explorer</span>
+					<span class="btn__hint">Explore the taxonomy categories</span>
+				</a>
+				<a class="btn btn--secondary" href="/paper-explorer">
+					<span class="btn__label">Paper Explorer</span>
+					<span class="btn__hint">Browse the reviewed papers</span>
+				</a>
+			</div>
+		</section>
+	</article>
+</BaseLayout>
+
+<style>
+	.landing__header {
+		margin-bottom: var(--space-8);
+		padding-bottom: var(--space-6);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.landing__kicker {
+		margin: 0 0 var(--space-2);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-teal-600);
+	}
+
+	.landing__title {
+		margin: 0 0 var(--space-3);
+		font-size: var(--text-5xl);
+		line-height: 1.1;
+		color: var(--color-navy-800);
+	}
+
+	.landing__section {
+		margin-bottom: var(--space-8);
+	}
+
+	.landing__definition {
+		margin: 0 0 var(--space-4);
+		padding: var(--space-5) var(--space-6);
+		border-left: 4px solid var(--color-teal-500);
+		border-radius: 0 var(--radius-md) var(--radius-md) 0;
+		background: var(--color-teal-50);
+		font-size: var(--text-xl);
+		line-height: 1.5;
+		color: var(--color-navy-800);
+	}
+	.landing__definition p {
+		margin: 0;
+	}
+
+	.landing__nav {
+		padding: var(--space-6);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border);
+	}
+
+	.landing__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+
+	.btn {
+		display: inline-flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		padding: var(--space-4) var(--space-6);
+		border-radius: var(--radius-md);
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+	.btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-md);
+	}
+	.btn__label {
+		font-size: var(--text-lg);
+	}
+	.btn__hint {
+		font-size: var(--text-sm);
+		font-weight: 400;
+		opacity: 0.85;
+	}
+
+	.btn--primary {
+		background: var(--gradient-header);
+		color: var(--color-text-inverse);
+	}
+	.btn--primary:hover {
+		color: var(--color-text-inverse);
+	}
+
+	.btn--secondary {
+		background: var(--color-surface);
+		color: var(--color-teal-700);
+		border: 1px solid var(--color-teal-300);
+	}
+	.btn--secondary:hover {
+		color: var(--color-teal-800);
+	}
+
+	@media (max-width: 48rem) {
+		.landing__title {
+			font-size: var(--text-4xl);
+		}
+		.landing__buttons {
+			flex-direction: column;
+		}
+		.btn {
+			width: 100%;
+		}
+	}
+</style>

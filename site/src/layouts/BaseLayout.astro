@@ -1,0 +1,129 @@
+---
+// BaseLayout.astro — shared shell: fixed top bar, collapsible side menu, main content, footer.
+import TopBar from '../components/TopBar.astro';
+import SideMenu from '../components/SideMenu.astro';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	/** Current page path for active nav highlighting. */
+	currentPath?: string;
+}
+
+const {
+	title = 'XUQ Explorer',
+	description = 'Explainable Uncertainty Quantification — companion site to the systematic literature review.',
+	currentPath = '/',
+} = Astro.props;
+
+const pageTitle = title === 'XUQ Explorer' ? title : `${title} · XUQ Explorer`;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{pageTitle}</title>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+	</head>
+	<body>
+		<div class="site-shell">
+			<TopBar />
+			<SideMenu currentPath={currentPath} />
+
+			<!-- Mobile overlay backdrop (closes the sidebar when clicked). -->
+			<div class="sidebar-backdrop" data-sidebar-backdrop hidden></div>
+
+			<main class="site-main" id="main">
+				<slot />
+			</main>
+
+			<footer class="site-footer">
+				<div class="container">
+					<p class="site-footer__legal">
+						© {new Date().getFullYear()}. Companion site to the paper “Explainable Uncertainty
+						Quantification: A Systematic Literature Review, Novel Definition, and Future Directions”.
+						For academic use.
+					</p>
+				</div>
+			</footer>
+		</div>
+
+		<script>
+			// Sidebar state is shared via the `sidebar-open` class on <body>.
+			// Desktop: open by default (fixed rail). Mobile: closed by default (overlay).
+			const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+			const menu = document.getElementById('side-menu');
+			const backdrop = document.querySelector<HTMLElement>('[data-sidebar-backdrop]');
+			const DESKTOP = 64 * 16; // matches the 64rem breakpoint
+			const mq = window.matchMedia(`(min-width: ${DESKTOP}px)`);
+
+			function setOpen(next: boolean) {
+				document.body.classList.toggle('sidebar-open', next);
+				toggle?.setAttribute('aria-expanded', String(next));
+				// Backdrop only shows on mobile (overlay mode).
+				if (backdrop) backdrop.hidden = !next || mq.matches;
+			}
+
+			// Initial state: open on desktop, closed on mobile.
+			setOpen(mq.matches);
+
+			// When crossing the desktop/mobile breakpoint, reset to the default
+			// state for the new viewport (open on desktop, closed on mobile).
+			mq.addEventListener('change', (e) => setOpen(e.matches));
+
+			toggle?.addEventListener('click', () => {
+				setOpen(!document.body.classList.contains('sidebar-open'));
+			});
+
+			// Close the menu when clicking a nav link (mobile).
+			menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+			// Close when clicking the backdrop (mobile).
+			backdrop?.addEventListener('click', () => setOpen(false));
+
+			// Close on Escape.
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') setOpen(false);
+			});
+		</script>
+	</body>
+</html>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--color-border);
+		background: var(--color-bg-alt);
+		padding: var(--space-6) var(--space-4);
+	}
+	.site-footer__legal {
+		margin: 0;
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+
+	/* Mobile overlay backdrop behind the sidebar. */
+	.sidebar-backdrop {
+		position: fixed;
+		inset: var(--header-height) 0 0 0;
+		z-index: 35;
+		background: rgba(12, 20, 34, 0.45);
+		opacity: 0;
+		transition: opacity var(--transition-base);
+	}
+	.sidebar-backdrop:not([hidden]) {
+		opacity: 1;
+	}
+	@media (min-width: 64rem) {
+		.sidebar-backdrop {
+			display: none;
+		}
+	}
+</style>

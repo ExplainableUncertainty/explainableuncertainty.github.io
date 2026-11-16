@@ -1,0 +1,219 @@
+{
+  "$comment": "Category explorer data. Edit this file to add/change taxonomy dimensions, their descriptions, and value summaries. Paper references for each value are computed automatically from papers.json (do not edit those).",
+  "intro": "This page explains how the 53 reviewed papers were classified across the taxonomy of the systematic literature review. Each dimension below groups related categories; every category lists the papers that were classified with it. Click the arrow on a category to see its references.",
+  "dimensions": [
+    {
+      "id": "research_type",
+      "label": "Research Type",
+      "group": "ml_task",
+      "description": "Whether a study's primary objective is to develop or evaluate XUQ methods (method-oriented) or to apply XUQ to a specific domain problem (application-oriented).",
+      "values": [
+        { "value": "application_oriented", "summary": "XUQ is applied to address a specific problem within an application domain." },
+        { "value": "method_oriented", "summary": "The study develops, extends, or evaluates XUQ methods." }
+      ]
+    },
+    {
+      "id": "application_domain",
+      "label": "Application Domain",
+      "group": "ml_task",
+      "description": "The real-world application domain in which XUQ is employed (for application-oriented studies).",
+      "values": [
+        { "value": "Medical", "summary": "XUQ applied to medical and clinical decision support." },
+        { "value": "Environmental Science", "summary": "XUQ applied to environmental modelling and monitoring." },
+        { "value": "Industrial Engineering", "summary": "XUQ applied to industrial processes and engineering." },
+        { "value": "Autonomous Driving", "summary": "XUQ applied to autonomous driving perception and control." },
+        { "value": "Remote Sensing", "summary": "XUQ applied to remote sensing and earth observation." },
+        { "value": "Chemistry", "summary": "XUQ applied to chemical and molecular property prediction." },
+        { "value": "Energy", "summary": "XUQ applied to energy systems and forecasting." },
+        { "value": "Civil Engineering", "summary": "XUQ applied to civil engineering and infrastructure." },
+        { "value": "Aviation", "summary": "XUQ applied to aviation and aerospace." },
+        { "value": "Cybersecurity", "summary": "XUQ applied to cybersecurity and side-channel analysis." }
+      ]
+    },
+    {
+      "id": "data_modality",
+      "label": "Data Modality",
+      "group": "ml_task",
+      "description": "The type of data the XUQ method operates on.",
+      "values": [
+        { "value": "image", "summary": "XUQ applied to image data." },
+        { "value": "tabular", "summary": "XUQ applied to tabular / structured data." },
+        { "value": "time series", "summary": "XUQ applied to time series data." },
+        { "value": "text", "summary": "XUQ applied to text data." },
+        { "value": "graph", "summary": "XUQ applied to graph-structured data." },
+        { "value": "structured spatiotemporal data", "summary": "XUQ applied to structured spatiotemporal data." },
+        { "value": "multimodal", "summary": "XUQ applied to multimodal data." },
+        { "value": "event data", "summary": "XUQ applied to event data." }
+      ]
+    },
+    {
+      "id": "ml_task",
+      "label": "ML Task",
+      "group": "ml_task",
+      "description": "The machine learning problem class addressed by the study.",
+      "values": [
+        { "value": "classification", "summary": "XUQ applied to classification tasks." },
+        { "value": "regression", "summary": "XUQ applied to regression tasks." },
+        { "value": "time series forecasting", "summary": "XUQ applied to time series forecasting." },
+        { "value": "trajectory prediction", "summary": "XUQ applied to trajectory prediction." },
+        { "value": "segmentation", "summary": "XUQ applied to segmentation tasks." },
+        { "value": "object detection", "summary": "XUQ applied to object detection." }
+      ]
+    },
+    {
+      "id": "audience",
+      "label": "Audience",
+      "group": "ml_task",
+      "description": "The intended target audience of the explanations, if mentioned.",
+      "values": [
+        { "value": "Domain Experts", "summary": "Explanations intended for domain experts." },
+        { "value": "ML Researchers", "summary": "Explanations intended for ML researchers and engineers." },
+        { "value": "Lay / End Users", "summary": "Explanations intended for lay or end users." },
+        { "value": "Labelers", "summary": "Explanations intended for data labelers." },
+        { "value": "None / Not specified", "summary": "No target audience specified." }
+      ]
+    },
+    {
+      "id": "uncertainty_type",
+      "label": "Uncertainty Type",
+      "group": "xuq_method",
+      "description": "The type of uncertainty that is explained.",
+      "values": [
+        { "value": "predictive", "summary": "Overall predictive uncertainty (aleatoric + epistemic)." },
+        { "value": "epistemic", "summary": "Uncertainty due to the model's lack of knowledge." },
+        { "value": "aleatoric", "summary": "Irreducible uncertainty inherent in the data." },
+        { "value": "other", "summary": "Other or composite uncertainty types." },
+        { "value": "Not specified", "summary": "The uncertainty type is not specified." }
+      ]
+    },
+    {
+      "id": "uq_method",
+      "label": "UQ Method",
+      "group": "xuq_method",
+      "description": "The method used to generate the uncertainty estimate, grouped into the paper's taxonomy categories.",
+      "values": [
+        { "value": "Ensemble / Stochastic Methods", "summary": "Uncertainty from disagreement across multiple model instances or stochastic inference runs (e.g. MC dropout, deep ensembles, tree-based ensembles)." },
+        { "value": "Probabilistic / Bayesian Methods", "summary": "Uncertainty from explicitly modelling probability distributions over parameters or predictions (e.g. BNNs, Gaussian processes, evidential deep learning)." },
+        { "value": "Softmax-based Methods", "summary": "Uncertainty derived directly from the model's deterministic outputs, typically the softmax confidence or entropy." },
+        { "value": "Distribution-free Methods", "summary": "Uncertainty quantified without parametric assumptions about the predictive distribution (e.g. conformal prediction, quantile regression)." },
+        { "value": "Representation / Distance-based Methods", "summary": "Uncertainty based on the position or similarity of a sample within a learned representation space (e.g. prototypes, VAEs)." },
+        { "value": "Other", "summary": "Other or unspecified UQ methods (e.g. fuzzy logic systems)." }
+      ]
+    },
+    {
+      "id": "uncertainty_estimate",
+      "label": "Uncertainty Estimate",
+      "group": "xuq_method",
+      "description": "The specific uncertainty estimate that is explained.",
+      "values": [
+        { "value": "Entropy", "summary": "Uncertainty quantified as entropy of predictions." },
+        { "value": "Variance_Standard_Deviation", "summary": "Uncertainty quantified as variance or standard deviation." },
+        { "value": "Prediction_Interval_Quantile", "summary": "Uncertainty quantified via prediction intervals or quantiles." },
+        { "value": "Distribution_Parameter", "summary": "Uncertainty quantified as a parameter of a predicted distribution." },
+        { "value": "Probability_Confidence_Score", "summary": "Uncertainty quantified as a probability or confidence score." },
+        { "value": "Distance_based", "summary": "Uncertainty quantified via distance-based measures." },
+        { "value": "Not_Specified_Unclear", "summary": "The uncertainty estimate is not specified or unclear." }
+      ]
+    },
+    {
+      "id": "integration_type",
+      "label": "Integration Type",
+      "group": "xuq_method",
+      "description": "How the explanation is integrated with the model and UQ mechanism.",
+      "values": [
+        { "value": "Post-hoc", "summary": "Explanation applied after training, without changing the model." },
+        { "value": "Intrinsic", "summary": "Explanation retrieved directly from the model or UQ mechanism." },
+        { "value": "Hybrid", "summary": "Combination of post-hoc and intrinsic elements." }
+      ]
+    },
+    {
+      "id": "portability",
+      "label": "Portability",
+      "group": "xuq_method",
+      "description": "Whether the XUQ method applies to any model or only specific ones.",
+      "values": [
+        { "value": "model_agnostic", "summary": "Applicable to any black-box model." },
+        { "value": "model_specific", "summary": "Restricted to a specific model class or architecture." }
+      ]
+    },
+    {
+      "id": "locality",
+      "label": "Locality",
+      "group": "xuq_method",
+      "description": "Whether the explanation is specific to an instance or global to the model.",
+      "values": [
+        { "value": "local", "summary": "Explanation specific to a single prediction." },
+        { "value": "global", "summary": "Explanation of overall model behaviour." },
+        { "value": "both", "summary": "Provides both local and global explanations." }
+      ]
+    },
+    {
+      "id": "explanation_output_type",
+      "label": "Explanation Output Type",
+      "group": "xuq_method",
+      "description": "The form the explanation takes.",
+      "values": [
+        { "value": "Attribution", "summary": "Uncertainty attributed to input features." },
+        { "value": "Counterfactual", "summary": "Minimal input changes that alter the uncertainty." },
+        { "value": "Concept-based", "summary": "Explanation in terms of higher-level concepts." },
+        { "value": "Rule-based", "summary": "Explanation as explicit human-readable rules." },
+        { "value": "Example-based", "summary": "Explanation via similar or influential examples." },
+        { "value": "Other/Unspecified", "summary": "Other or unspecified explanation output types." }
+      ]
+    },
+    {
+      "id": "evaluated",
+      "label": "Evaluated",
+      "group": "xuq_evaluation",
+      "description": "Whether the study evaluated its explanations of uncertainty.",
+      "values": [
+        { "value": "Yes", "summary": "The explanations were evaluated in some form." },
+        { "value": "No", "summary": "The explanations were not evaluated." }
+      ]
+    },
+    {
+      "id": "evaluation_type",
+      "label": "Evaluation Type",
+      "group": "xuq_evaluation",
+      "description": "The type of evaluation performed.",
+      "values": [
+        { "value": "Functionally-grounded", "summary": "Evaluation using quantitative proxy metrics." },
+        { "value": "Human-grounded", "summary": "Evaluation via user studies with humans." },
+        { "value": "Visual inspection", "summary": "Evaluation via anecdotal visual inspection." }
+      ]
+    },
+    {
+      "id": "co12",
+      "label": "Co-12 Properties",
+      "group": "xuq_evaluation",
+      "description": "The Co-12 explanation-quality properties evaluated.",
+      "values": [
+        { "value": "Correctness", "summary": "How faithful the explanation is to the model." },
+        { "value": "Coherence", "summary": "How plausible the explanation is to users." },
+        { "value": "Context", "summary": "How relevant the explanation is to the user's needs." },
+        { "value": "Continuity", "summary": "How continuous / robust the explanation function is." },
+        { "value": "Compactness", "summary": "How sparse and concise the explanation is." },
+        { "value": "Consistency", "summary": "How deterministic the explanation is." }
+      ]
+    },
+    {
+      "id": "benchmarked",
+      "label": "Benchmarked",
+      "group": "xuq_evaluation",
+      "description": "Whether the XUQ method was compared against other methods.",
+      "values": [
+        { "value": "Yes", "summary": "The method was benchmarked against other approaches." },
+        { "value": "No", "summary": "The method was not benchmarked." }
+      ]
+    },
+    {
+      "id": "shap",
+      "label": "SHAP",
+      "group": "xuq_evaluation",
+      "description": "Whether SHAP was used as the attribution method.",
+      "values": [
+        { "value": "Yes", "summary": "SHAP was used to explain the uncertainty." }
+      ]
+    }
+  ]
+}

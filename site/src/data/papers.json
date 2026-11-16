@@ -1,0 +1,3669 @@
+[
+  {
+    "id": "43",
+    "year": 2017,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "ML Researchers",
+        "Labelers"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Probability_Confidence_Score"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Context"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Interpretable Active Learning",
+    "authors": [
+      "Richard Phillips",
+      "Kyu Hyun Chang",
+      "Sorelle A. Friedler"
+    ],
+    "doi": "",
+    "url": "https://proceedings.mlr.press/v81/phillips18a.html",
+    "venue": "Proceedings of the 1st Conference on Fairness, Accountability and Transparency",
+    "abstract": "Active learning has long been a topic of study in machine learning. However, as increasingly complex and opaque models have become standard practice, the process of active learning, too, has become more opaque. There has been little investigation into interpreting what specific trends and patterns an active learning strategy may be exploring. This work expands on the Local Interpretable Model-agnostic Explanations framework (LIME) to provide explanations for active learning recommendations. We demonstrate how LIME can be used to generate locally faithful explanations for an active learning strategy, and how these explanations can be used to understand how different models and datasets explore a problem space over time. These explanations can also be used to generate batches based on common sources of uncertainty. These regions of common uncertainty can be useful for understanding a model’s current weaknesses. In order to quantify the per-subgroup differences in how an active learning strategy queries spatial regions, we introduce a notion of uncertainty bias (based on disparate impact) to measure the discrepancy in the confidence for a model’s predictions between one subgroup and another. Using the uncertainty bias measure, we show that our query explanations accurately reflect the subgroup focus of the active learning queries, allowing for an interpretable explanation of what is being learned as points with similar sources of uncertainty have their uncertainty bias resolved. We demonstrate that this technique can be applied to track uncertainty bias over user-defined clusters or automatically generated clusters based on the source of uncertainty. We also measure how the choice of initial labeled examples effects groups over time."
+  },
+  {
+    "id": "42",
+    "year": 2018,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Sensitivity analysis for predictive uncertainty in Bayesian neural networks",
+    "authors": [
+      "Stefan Depeweg",
+      "José Miguel Hernández-Lobato",
+      "Steffen Udluft",
+      "Thomas Runkler"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "26th European Symposium on Artificial Neural Networks, Computational Intelligence and Machine Learning: ESANN 2018",
+    "abstract": ""
+  },
+  {
+    "id": "19",
+    "year": 2021,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Softmax-based Methods",
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Distance_based"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Uncertainty interpretation of the machine learning survival model predictions",
+    "authors": [
+      "Lev V Utkin",
+      "Vladimir S Zaborovsky",
+      "Maxim S Kovalev",
+      "Andrei V Konstantinov",
+      "Natalia A Politaeva",
+      "Alexey A Lukashin"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "IEEE Access",
+    "abstract": ""
+  },
+  {
+    "id": "2",
+    "year": 2021,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation",
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution",
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Human-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Getting a CLUE: A  Method for Explaining Uncertainty Estimates",
+    "authors": [
+      "Javier Antoran",
+      "Umang Bhatt",
+      "Tameem Adel",
+      "Adrian Weller",
+      "José Miguel Hernández-Lobato"
+    ],
+    "doi": "",
+    "url": "https://openreview.net/forum?id=XSLF1XFq5h",
+    "venue": "International Conference on Learning Representations",
+    "abstract": ""
+  },
+  {
+    "id": "21",
+    "year": 2021,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Autonomous Driving"
+      ],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "Not specified"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Probability_Confidence_Score"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Rule-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Could We Relieve AI/ML Models of the Responsibility of Providing Dependable Uncertainty Estimates? A Study on Outside-Model Uncertainty Estimates",
+    "authors": [
+      "L. Jöckel",
+      "M. Kläs"
+    ],
+    "doi": "10.1007/978-3-030-83903-1_2",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85115167618&doi=10.1007%2F978-3-030-83903-1_2&partnerID=40&md5=fe95fe886bd50199b7f1c9c0771cb1f2",
+    "venue": "Lect. Notes Comput. Sci.",
+    "abstract": "Improvements in Artificial Intelligence (AI), especially in the area of neural networks, have led to calls to use them also in the context of safety-critical systems. However, current AI-based models are data-driven, so we cannot assure that they will provide the intended outcome for any input. To obtain information about the uncertainty remaining in their outcome, uncertainty estimation capabilities can be integrated during model building. However, the approach of providing accurate outcomes and dependable uncertainty estimates using the same model has limitations. Among others, estimates of such ‘in-model’ approaches are provided without statistical confidence, tend to be overconfident if not calibrated, and are hard to interpret and review by domain experts. An alternative ‘outside-model’ approach is the use of model-agnostic uncertainty wrappers (UWs). To investigate how well they perform in comparison to in-model approaches, we benchmarked them against deep ensembles, which can be considered the gold standard for in-model uncertainty estimation, as well as to the softmax outputs of a deep neural network as a baseline. Despite a slightly higher Brier score, the UW provides other benefits that are important in a safety-critical context, like considering a statistical confidence level and providing explainable uncertainty estimates through a decision tree considering human-interpretable semantic factors. Furthermore, in-model uncertainty estimates can be forwarded into an UW, combining advantages of both approaches. © 2021, Springer Nature Switzerland AG."
+  },
+  {
+    "id": "22",
+    "year": 2021,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Medical"
+      ],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic",
+        "predictive"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Visual inspection"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Interpreting uncertainty in model predictions for COVID-19 diagnosis",
+    "authors": [
+      "Gayathiri Murugamoorthy",
+      "Naimul Khan"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "2021 43rd Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC)",
+    "abstract": ""
+  },
+  {
+    "id": "53",
+    "year": 2021,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Context"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Diverse, global and amortised counterfactual explanations for uncertainty estimates",
+    "authors": [
+      "Dan Ley",
+      "Umang Bhatt",
+      "Adrian Weller"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "abstract": ""
+  },
+  {
+    "id": "12",
+    "year": 2022,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Not_Specified_Unclear"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific",
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Using Explainable AI to Measure Feature Contribution to Uncertainty",
+    "authors": [
+      "Katherine Elizabeth Brown",
+      "Douglas A. Talbert"
+    ],
+    "doi": "10.32473/flairs.v35i.130662",
+    "url": "https://journals.flvc.org/FLAIRS/article/view/130662",
+    "venue": "The International FLAIRS Conference Proceedings",
+    "abstract": ""
+  },
+  {
+    "id": "17",
+    "year": 2022,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic",
+        "predictive"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Attribution of predictive uncertainties in classification models",
+    "authors": [
+      "Iker Perez",
+      "Piotr Skalski",
+      "Alec Barns-Graham",
+      "Jason Wong",
+      "David Sutton"
+    ],
+    "doi": "",
+    "url": "https://proceedings.mlr.press/v180/perez22a.html",
+    "venue": "Proceedings of the Thirty-Eighth Conference on Uncertainty in Artificial Intelligence",
+    "abstract": "Predictive uncertainties in classification tasks are often a consequence of model inadequacy or insufficient training data. In popular applications, such as image processing, we are often required to scrutinise these uncertainties by meaningfully attributing them to input features. This helps to improve interpretability assessments. However, there exist few effective frameworks for this purpose. Vanilla forms of popular methods for the provision of saliency masks, such as SHAP or integrated gradients, adapt poorly to target measures of uncertainty. Thus, state-of-the-art tools instead proceed by creating counterfactual or adversarial feature vectors, and assign attributions by direct comparison to original images. In this paper, we present a novel framework that combines path integrals, counterfactual explanations and generative models, in order to procure attributions that contain few observable artefacts or noise. We evidence that this outperforms existing alternatives through quantitative evaluations with popular benchmarking methods and data sets of varying complexity."
+  },
+  {
+    "id": "37",
+    "year": 2022,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Remote Sensing"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "other"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Not_Specified_Unclear"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Characterising retrieval uncertainty of chlorophyll-a algorithms in oligotrophic and mesotrophic lakes and reservoirs",
+    "authors": [
+      "M. Werther",
+      "D. Odermatt",
+      "S.G.H. Simis",
+      "D. Gurlin",
+      "D.S.F. Jorge",
+      "H. Loisel",
+      "P.D. Hunter",
+      "A.N. Tyler",
+      "E. Spyrakos"
+    ],
+    "doi": "10.1016/j.isprsjprs.2022.06.015",
+    "url": "https://www.scopus.com/pages/publications/85134572435?origin=resultslist",
+    "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+    "abstract": "Remote sensing product uncertainties for phytoplankton chlorophyll-a (chla) concentration in oligotrophic and mesotrophic lakes and reservoirs were characterised across 13 existing algorithms using an in situ dataset of water constituent concentrations, inherent optical properties (IOPs) and remote-sensing reflectance spectra Rrsλ collected from 53 lakes and reservoirs (346 observations; chla concentration s 10 mg m-3, dataset median 2.5 mg m-3). Substantial shortcomings in retrieval accuracy were evident with median absolute percentage differences (MAPD) r 37% and mean absolute differences (MAD) r 1.82 mg m-3. Using the Hyperspectral Imager for the Coastal Ocean (HICO) band configuration improved the accuracies by 10–20% compared to the Ocean and Land Colour Instrument (OLCI) configuration. Retrieval uncertainties were attributed to optical and biogeochemical properties using machine learning models through SHapley Additive exPlanations (SHAP). The chla retrieval uncertainty of most semi-analytical algorithms was primarily determined by phytoplankton absorption and composition. Machine learning chla algorithms showed relatively high sensitivity to light absorption by coloured dissolved organic matter (CDOM) and non-algal pigment particulates (NAP). In contrast, the uncertainties of red/near-infrared algorithms, which aim for lower uncertainty in the presence of CDOM and NAP, were primarily explained through the total absorption by phytoplankton at 673 nm (aÏ•(673)) and variables related to backscatter. Based on these uncertainty characterisations we discuss the suitability of the evaluated algorithm formulations, and we make recommendations for chla estimation improvements in oligo- and mesotrophic lakes and reservoirs. © 2022"
+  },
+  {
+    "id": "1",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Chemistry"
+      ],
+      "data_modality": [
+        "graph"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explainable uncertainty quantifications for deep learning-based molecular property prediction",
+    "authors": [
+      "Chu-I Yang",
+      "Yi-Pei Li"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Journal of Cheminformatics",
+    "abstract": ""
+  },
+  {
+    "id": "10",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Autonomous Driving"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "regression",
+        "trajectory prediction"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "How does traffic environment quantitatively affect the autonomous driving prediction?",
+    "authors": [
+      "Wenbo Shao",
+      "Yanchao Xu",
+      "Jun Li",
+      "Chen Lv",
+      "Weida Wang",
+      "Hong Wang"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "IEEE Transactions on Intelligent Transportation Systems",
+    "abstract": ""
+  },
+  {
+    "id": "11",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Industrial Engineering"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "Not specified"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Monitoring Model Deterioration with Explainable Uncertainty Estimation via Non-parametric Bootstrap",
+    "authors": [
+      "Carlos Mougan",
+      "Dan Saattrup Nielsen"
+    ],
+    "doi": "10.1609/aaai.v37i12.26755",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/view/26755",
+    "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "abstract": ""
+  },
+  {
+    "id": "16",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "ML Researchers"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic"
+      ],
+      "uq_method": [
+        "Representation / Distance-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distance_based"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Example-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Visual inspection"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "ScatterUQ: Interactive Uncertainty Visualizations for Multiclass Deep Learning Problems",
+    "authors": [
+      "H.X. Li",
+      "S. Jorgensen",
+      "J. Holodnak",
+      "A.B. Wollaber"
+    ],
+    "doi": "10.1109/VIS54172.2023.00058",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85182608797&doi=10.1109%2FVIS54172.2023.00058&partnerID=40&md5=4ef0cd92fae20e24dcb92ac1cebc40c8",
+    "venue": "Proc. - IEEE Vis. Conf. - Short Pap., VIS",
+    "abstract": "Recently, uncertainty-aware deep learning methods for multiclass labeling problems have been developed that provide calibrated class prediction probabilities and out-of-distribution (OOD) indicators, letting machine learning (ML) consumers and engineers gauge a model's confidence in its predictions. However, this extra neural network prediction information is challenging to scalably convey visually for arbitrary data sources under multiple uncertainty contexts. To address these challenges, we present ScatterUQ, an interactive system that provides targeted visualizations to allow users to better understand model performance in context-driven uncertainty settings. ScatterUQ leverages recent advances in distance-aware neural networks, together with dimensionality reduction techniques, to construct robust, 2-D scatter plots explaining why a model predicts a test example to be (1) in-distribution and of a particular class, (2) in-distribution but unsure of the class, and (3) out-of-distribution. ML consumers and engineers can visually compare the salient features of test samples with training examples through the use of a 'hover callback' to understand model uncertainty performance and decide follow up courses of action. We demonstrate the effectiveness of ScatterUQ to explain model uncertainty for a multiclass image classification on a distance-aware neural network trained on Fashion-MNIST and tested on Fashion-MNIST (in distribution) and MNIST digits (out of distribution), as well as a deep learning model for a cyber dataset. We quantitatively evaluate dimensionality reduction techniques to optimize our contextually driven UQ visualizations. Our results indicate that the ScatterUQ system should scale to arbitrary, multiclass datasets. Our code is available at https://github.com/mit-ll-responsible-ai/equine-webapp.  © 2023 IEEE."
+  },
+  {
+    "id": "3",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Remote Sensing"
+      ],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification",
+        "object detection"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Uncertainty Exploration: Toward Explainable SAR Target Detection",
+    "authors": [
+      "Z. Huang",
+      "Y. Liu",
+      "X. Yao",
+      "J. Ren",
+      "J. Han"
+    ],
+    "doi": "10.1109/TGRS.2023.3247898",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85149391461&doi=10.1109%2FTGRS.2023.3247898&partnerID=40&md5=9127508ac3203ed08df54915184df56d",
+    "venue": "IEEE Transactions on Geoscience and Remote Sensing",
+    "abstract": "Deep learning-based synthetic aperture radar (SAR) target detection has been developed for years, with many advanced methods proposed to achieve higher indicators of accuracy and speed. In spite of this, the current deep detectors cannot express the reliability and interpretation in trusting the predictions, which are crucial especially for those ordinary users without much expertise in understanding SAR images. To achieve explainable SAR target detection, it is necessary to answer the following questions: how much should we trust and why cannot we trust the results. With this purpose, we explore the uncertainty for SAR target detection in this article by quantifying the model uncertainty and explaining the ignorance of the detector. First, the Bayesian deep detectors (BDDs) are constructed for uncertainty quantification, answering how much to trust the classification and localization result. Second, an occlusion-based explanation method (U-RISE) for BDD is proposed to account for the SAR scattering features that cause uncertainty or promote trustworthiness. We introduce the probability-based detection quality (PDQ) and multielement decision space for evaluation besides the traditional metrics. The experimental results show that the proposed BDD outperforms the counterpart frequentist object detector, and the output probabilistic results successfully convey the model uncertainty and contribute to more comprehensive decision-making. Furthermore, the proposed U-RISE generates an attribution map with intuitive explanations to reveal the complex scattering phenomena about which BDD is uncertain. We deem our work will facilitate explainable and trustworthy modeling in the field of SAR image understanding and increase user comprehension of model decisions.  © 1980-2012 IEEE."
+  },
+  {
+    "id": "35",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Representation / Distance-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distance_based"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Concept-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "A Simple and Explainable Method for Uncertainty Estimation using Attribute Prototype Networks",
+    "authors": [
+      "Claudius Zelenka",
+      "Andrea Göhring",
+      "Daniyal Kazempour",
+      "Maximilian Hünemörder",
+      "Lars Schmarje",
+      "Peer Kröger"
+    ],
+    "doi": "10.1109/ICCVW60793.2023.00491",
+    "url": "https://ieeexplore.ieee.org/abstract/document/10350670",
+    "venue": "2023 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)",
+    "abstract": "Deep learning’s utility in applications like medical diagnosis, autonomous driving, and natural language processing often hinges on the accurate estimation of uncertainty. Yet, conventional methods for uncertainty estimation face challenges, including high computational cost, difficulties with scalability, or poor interpretability. This paper presents a novel approach to uncertainty estimation using Attribute Prototype Networks (APNs), a method designed for learning robust and interpretable data representations. By leveraging prototype similarity scores, we propose a straightforward way to quantify the uncertainty of predictions, providing explainability and introducing a new technique for detecting out-of-distribution samples based on the distance to the nearest prototype. Our experiments demonstrate that this method offers valuable uncertainty information across several datasets. Our research opens up a new avenue for uncertainty estimation in deep learning, providing a simpler and more explainable solution."
+  },
+  {
+    "id": "36",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "text"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "ML Researchers"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Human-grounded"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explaining Prediction Uncertainty in Text Classification: The DUX Approach",
+    "authors": [
+      "Jakob Smedegaard Andersen",
+      "Olaf Zukunft"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Proceedings of the 2023 7th International Conference on Natural Language Processing and Information Retrieval",
+    "abstract": ""
+  },
+  {
+    "id": "38",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "Lay / End Users"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Probability_Confidence_Score"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Human-grounded"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explaining Model Confidence Using Counterfactuals",
+    "authors": [
+      "Thao Le",
+      "Tim Miller",
+      "Ronal Singh",
+      "Liz Sonenberg"
+    ],
+    "doi": "10.1609/aaai.v37i10.26399",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/view/26399",
+    "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "abstract": ""
+  },
+  {
+    "id": "4",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular",
+        "text"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "other"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Context",
+        "Coherence"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Explaining predictive uncertainty with information theoretic shapley values",
+    "authors": [
+      "David Watson",
+      "Joshua O'Hara",
+      "Niek Tax",
+      "Richard Mudd",
+      "Ido Guy"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Advances in Neural Information Processing Systems",
+    "abstract": ""
+  },
+  {
+    "id": "48",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "text"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Representation / Distance-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "CUE: An Uncertainty Interpretation Framework for Text Classifiers Built on Pre-Trained Language Models",
+    "authors": [
+      "Jiazheng Li",
+      "Zhaoyue Sun",
+      "Bin Liang",
+      "Lin Gui",
+      "Yulan He"
+    ],
+    "doi": "",
+    "url": "https://proceedings.mlr.press/v216/li23d.html",
+    "venue": "Proceedings of the Thirty-Ninth Conference on Uncertainty in Artificial Intelligence",
+    "abstract": "Text classifiers built on Pre-trained Language Models (PLMs) have achieved remarkable progress in various tasks including sentiment analysis, natural language inference, and question-answering. However, the occurrence of uncertain predictions by these classifiers poses a challenge to their reliability when deployed in practical applications. Much effort has been devoted to designing various probes in order to understand what PLMs capture. But few studies have delved into factors influencing PLM-based classifiers’ predictive uncertainty. In this paper, we propose a novel framework, called CUE, which aims to interpret uncertainties inherent in the predictions of PLM-based models. In particular, we first map PLM-encoded representations to a latent space via a variational auto-encoder. We then generate text representations by perturbing the latent space which causes fluctuation in predictive uncertainty. By comparing the difference in predictive uncertainty between the perturbed and the original text representations, we are able to identify the latent dimensions responsible for uncertainty and subsequently trace back to the input features that contribute to such uncertainty. Our extensive experiments on four benchmark datasets encompassing linguistic acceptability classification, emotion classification, and natural language inference show the feasibility of our proposed framework. Our source code is available at https://github.com/lijiazheng99/CUE."
+  },
+  {
+    "id": "6",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Autonomous Driving"
+      ],
+      "data_modality": [
+        "structured spatiotemporal data"
+      ],
+      "ml_task": [
+        "trajectory prediction"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Concept-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Interpretable Self-Aware Neural Networks for Robust Trajectory Prediction",
+    "authors": [
+      "M. Itkina",
+      "M.J. Kochenderfer"
+    ],
+    "doi": "",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85164941703&partnerID=40&md5=0c9a636d6f13da2108c20f5d88923ebc",
+    "venue": "Proc. Mach. Learn. Res.",
+    "abstract": "Although neural networks have seen tremendous success as predictive models in a variety of domains, they can be overly confident in their predictions on out-of-distribution (OOD) data. To be viable for safety-critical applications, like autonomous vehicles, neural networks must accurately estimate their epistemic or model uncertainty, achieving a level of system self-awareness. Techniques for epistemic uncertainty quantification often require OOD data during training or multiple neural network forward passes during inference. These approaches may not be suitable for real-time performance on high-dimensional inputs. Furthermore, existing methods lack interpretability of the estimated uncertainty, which limits their usefulness both to engineers for further system development and to downstream modules in the autonomy stack. We propose the use of evidential deep learning to estimate the epistemic uncertainty over a low-dimensional, interpretable latent space in a trajectory prediction setting. We introduce an interpretable paradigm for trajectory prediction that distributes the uncertainty among the semantic concepts: past agent behavior, road structure, and social context. We validate our approach on real-world autonomous driving data, demonstrating superior performance over state-of-the-art baselines. Our code is available at: https://github.com/sisl/InterpretableSelfAwarePrediction. © 2023 Proceedings of Machine Learning Research. All rights reserved."
+  },
+  {
+    "id": "9",
+    "year": 2023,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic",
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation",
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Correctness",
+        "Context"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Gradient-Based Uncertainty Attribution for Explainable Bayesian Deep Learning",
+    "authors": [
+      "Hanjing Wang",
+      "Dhiraj Joshi",
+      "Shiqiang Wang",
+      "Qiang Ji"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "abstract": ""
+  },
+  {
+    "id": "13",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Finding the input features that reduce the entropy of a neural network's prediction",
+    "authors": [
+      "Narbota Amanova",
+      "Jörg Martin",
+      "Clemens Elster"
+    ],
+    "doi": "",
+    "url": "https://api.semanticscholar.org/CorpusID:267288824",
+    "venue": "Appl. Intell.",
+    "abstract": ""
+  },
+  {
+    "id": "28",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Hybrid"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Concept-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Semantic Attribution for Explainable Uncertainty Quantification",
+    "authors": [
+      "Hanjing Wang",
+      "Shiqiang Wang",
+      "Qiang Ji"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "International Workshop on Epistemic Uncertainty in Artificial Intelligence",
+    "abstract": ""
+  },
+  {
+    "id": "44",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Attribution",
+        "Other/Unspecified"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Model-agnostic variable importance for predictive uncertainty: an entropy-based approach",
+    "authors": [
+      "Danny Wood",
+      "Theodore Papamarkou",
+      "Matt Benatan",
+      "Richard Allmendinger"
+    ],
+    "doi": "10.1007/s10618-024-01070-7",
+    "url": "https://doi.org/10.1007/s10618-024-01070-7",
+    "venue": "Data Mining and Knowledge Discovery",
+    "abstract": "In order to trust the predictions of a machine learning algorithm, it is necessary to understand the factors that contribute to those predictions. In the case of probabilistic and uncertainty-aware models, it is necessary to understand not only the reasons for the predictions themselves, but also the reasons for the model’s level of confidence in those predictions. In this paper, we show how existing methods in explainability can be extended to uncertainty-aware models and how such extensions can be used to understand the sources of uncertainty in a model’s predictive distribution. In particular, by adapting permutation feature importance, partial dependence plots, and individual conditional expectation plots, we demonstrate that novel insights into model behaviour may be obtained and that these methods can be used to measure the impact of features on both the entropy of the predictive distribution and the log-likelihood of the ground truth labels under that distribution. With experiments using both synthetic and real-world data, we demonstrate the utility of these approaches to understand both the sources of uncertainty and their impact on model performance."
+  },
+  {
+    "id": "47",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "text",
+        "multimodal"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "ML Researchers",
+        "Lay / End Users"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation",
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution",
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "A Framework for Counterfactual Explanation of Predictive Uncertainty in Multimodal Models",
+    "authors": [
+      "Tian Qiu",
+      "Qianmu Li"
+    ],
+    "doi": "10.1109/TNNLS.2024.3476080",
+    "url": "https://ieeexplore.ieee.org/abstract/document/10752826",
+    "venue": "IEEE Transactions on Neural Networks and Learning Systems",
+    "abstract": "Both predictive uncertainty estimation and visual explanation are crucial elements in helping humans understand the artificial intelligence (AI) decision-making process and in building trustworthy AI. However, there has been comparatively limited investigation into the intersection of these two domains in multimodal scenarios. In this article, we propose a universal explanation framework to evaluate counterfactual samples of predictive uncertainty in multimodal models. Inspired by multimodal representation learning, our framework leverages a shared latent space of multimodal variational autoencoders (MVAEs) to generate counterfactual explanations (CEs) of predictive uncertainty, enabling us to identify the input features contributing to high predictive uncertainty. To further evaluate the quality of counterfactual samples, we propose a Bayesian local linear approximation (BLLA) method. This method models the overall linear space as an inverse chi-square distribution while representing feature importance and the error term as normal distributions. By doing so, it captures the uncertainty and feature importance of each modality. Through a comprehensive suite of experiments conducted on multimodal classification and regression tasks, we demonstrate that our framework successfully generates accurate CEs of predictive uncertainty, establishes the consistency of feature importance, and comprehensively facilitates users’ comprehension of multimodal model behavior."
+  },
+  {
+    "id": "49",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Environmental Science"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Insights into the prediction uncertainty of machine-learning-based digital soil mapping through a local attribution approach",
+    "authors": [
+      "Jeremy Rohmer",
+      "Stephane Belbeze",
+      "Dominique Guyonnet"
+    ],
+    "doi": "10.5194/soil-10-679-2024",
+    "url": "https://soil.copernicus.org/articles/10/679/2024/",
+    "venue": "SOIL",
+    "abstract": "Machine learning (ML) models have become key ingredients for digital soil mapping. To improve the interpretability of their predictions, diagnostic tools such as the widely used local attribution approach known as SHapley Additive exPlanations (SHAP) have been developed. However, the analysis of ML model predictions is only one part of the problem, and there is an interest in obtaining deeper insights into the drivers of the prediction uncertainty as well, i.e. explaining why an ML model is confident given the set of chosen covariate values in addition to why the ML model delivered some particular results. In this study, we show how to apply SHAP to local prediction uncertainty estimates for a case of urban soil pollution – namely, the presence of petroleum hydrocarbons in soil in Toulouse (France), which pose a health risk via vapour intrusion into buildings, direct soil ingestion, and groundwater contamination. Our results show that the drivers of the prediction best estimates are not necessarily the drivers of confidence in these predictions, and we identify those leading to a reduction in uncertainty. Our study suggests that decisions regarding data collection and covariate characterisation as well as communication of the results should be made accordingly."
+  },
+  {
+    "id": "5",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Civil Engineering"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific",
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "An interpretable probabilistic machine learning model for forecasting compressive strength of oil palm shell-based lightweight aggregate concrete containing fly ash or silica fume",
+    "authors": [
+      "Y. Sun",
+      "H.S. Lee"
+    ],
+    "doi": "10.1016/j.conbuildmat.2024.136176",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85189753173&doi=10.1016%2Fj.conbuildmat.2024.136176&partnerID=40&md5=198989a9b5b3438c0b25e1cf6fb8eb12",
+    "venue": "Construction and Building Materials",
+    "abstract": "Forecasting the compressive strength (CS) of oil palm shell (OPS)-based lightweight aggregate concrete (LWAC) heavily relies on machine learning (ML) models. However, these models were primarily trained on limited data, and did not provide any uncertainties or explanations for CS predictions. To overcome these limitations, we compile a dataset of 813 experimental records with 9 input variables for OPS-based LWAC containing fly ash or silica fume. Natural Gradient Boosting (NGBoost), a notable probabilistic machine learning model, is utilized in this study to predict the CS value of OPS-based LWAC. The model is fine-tuned using the collected dataset, and normal distribution-based prediction intervals (PIs) are simultaneously determined to quantify the uncertainties of CS estimates. The results indicate that NGBoost has superb generalization capabilities within cross-validation (average R2/NLL: 0.943/6.111) and satisfactory probabilistic prediction performance on the testing dataset (R2/NLL: 0.969/6.790). To further enhance model transparency, both the mean estimate and its uncertainty are innovatively interpreted using Shapley additive explanation (SHAP). Analyses show that incorporating a reasonable amount of fly ash (s75 kg/m3) does not significantly affect the CS value. However, the addition of silica fume (s150 kg/m3) and superplasticizer (s7 kg/m3) can improve it. Despite its relatively low feature importance for mean predictions, OPS is the most influential factor positively correlated with PIs, primarily due to variations in its size, surface characteristic, and gradation. Additionally, an online graphical user interface based on NGBoost has been created to aid in the probabilistic estimation of CS value and mixture design for OPS-based LWAC. © 2024 Elsevier Ltd"
+  },
+  {
+    "id": "54",
+    "year": 2024,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "other"
+      ],
+      "uq_method": [
+        "Representation / Distance-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Probability_Confidence_Score"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Understanding the Dependence of Perception Model Competency on Regions in an Image",
+    "authors": [
+      "Sara Pohland",
+      "Claire Tomlin"
+    ],
+    "doi": "10.1007/978-3-031-63797-1_8",
+    "url": "",
+    "venue": "Explainable Artificial Intelligence",
+    "abstract": "While deep neural network (DNN)-based perception models are useful for many applications, these models are black boxes and their outputs are not yet well understood. To confidently enable a real-world, decision-making system to utilize such a perception model without human intervention, we must enable the system to reason about the perception model’s level of competency and respond appropriately when the model is incompetent. In order for the system to make an intelligent decision about the appropriate action when the model is incompetent, it would be useful for the system to understand why the model is incompetent. We explore five novel methods for identifying regions in the input image contributing to low model competency, which we refer to as image cropping, segment masking, pixel perturbation, competency gradients, and reconstruction loss. We assess the ability of these five methods to identify unfamiliar objects, recognize regions associated with unseen classes, and identify unexplored areas in an environment. We find that the competency gradients and reconstruction loss methods show great promise in identifying regions associated with low model competency, particularly when aspects of the image that are unfamiliar to the perception model are causing this reduction in competency. Both of these methods boast low computation times and high levels of accuracy in detecting image regions that are unfamiliar to the model, allowing them to provide potential utility in decision-making pipelines. The code for reproducing our methods and results is available on GitHub: https://github.com/sarapohland/explainable-competency."
+  },
+  {
+    "id": "14",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular",
+        "time series"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Context"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explaining predictive uncertainty by exposing second-order effects",
+    "authors": [
+      "Florian Bley",
+      "Sebastian Lapuschkin",
+      "Wojciech Samek",
+      "Grégoire Montavon"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Pattern Recognition",
+    "abstract": ""
+  },
+  {
+    "id": "15",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Medical"
+      ],
+      "data_modality": [
+        "text"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Not_Specified_Unclear"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Other/Unspecified"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Human-grounded"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Uncertainty-aware large language models for explainable disease diagnosis",
+    "authors": [
+      "S. Zhou",
+      "J. Wang",
+      "Z. Xu",
+      "S. Wang",
+      "D. Brauer",
+      "L. Welton",
+      "J. Cogan",
+      "Y.-H. Chung",
+      "L. Tian",
+      "Z. Zhan",
+      "Y. Hou",
+      "M. Lin",
+      "G.B. Melton",
+      "R. Zhang"
+    ],
+    "doi": "10.1038/s41746-025-02071-6",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-105022434751&doi=10.1038%2Fs41746-025-02071-6&partnerID=40&md5=cf54a6a64c8be8d194009e40ba53656f",
+    "venue": "npj Digital Medicine",
+    "abstract": "Explainable disease diagnosis, which leverages patient information (e.g., symptoms) and computational models to generate probable diagnoses and reasoning, holds strong clinical promise. Yet, when clinical notes lack sufficient evidence for a definitive diagnosis, such as the absence of definitive symptoms, diagnostic uncertainty commonly arises, increasing the risk of misdiagnosis. Despite its importance, the explicit identification and explanation of diagnostic uncertainty remain under-explored in artificial intelligence-driven systems. To fill this gap, we introduce ConfiDx, an uncertainty-aware large language model fine-tuned with diagnostic criteria. We formalized the task of uncertainty-aware diagnosis and curated richly annotated datasets that reflect varying degrees of diagnostic ambiguity. Evaluating on real-world datasets demonstrated that ConfiDx excelled in identifying diagnostic uncertainties, achieving superior diagnostic performance, and generating trustworthy explanations for diagnoses and uncertainties. Moreover, ConfiDx-assisted experts outperformed standalone experts by 10.7% in uncertainty recognition and 26% in uncertainty explanation, underscoring its substantial potential to improve clinical decision-making. © The Author(s) 2025."
+  },
+  {
+    "id": "18",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Interpret Gaussian process models by using integrated gradients",
+    "authors": [
+      "Fan Zhang",
+      "Naoaki Ono",
+      "Shigehiko Kanaya"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Molecular Informatics",
+    "abstract": ""
+  },
+  {
+    "id": "20",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Not_Specified_Unclear"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Concept-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Neuron explanations for conformal prediction (student abstract)",
+    "authors": [
+      "Divya Lidder",
+      "Kathryn Morse",
+      "Bridget Sullivan",
+      "Wei Qian",
+      "Chenglin Miao",
+      "Mengdi Huai"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "abstract": ""
+  },
+  {
+    "id": "24",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Medical"
+      ],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "segmentation"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distance_based"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded",
+        "Visual inspection"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Interpretability of uncertainty: Exploring cortical lesion segmentation in multiple sclerosis",
+    "authors": [
+      "Nataliia Molchanova",
+      "Alessandro Cagol",
+      "Pedro M Gordaliza",
+      "Mario Ocampo-Pineda",
+      "Po-Jui Lu",
+      "Matthias Weigel",
+      "Xinjie Chen",
+      "Adrien Depeursinge",
+      "Cristina Granziera",
+      "Henning Müller",
+      "others"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "International Conference on Medical Image Computing and Computer-Assisted Intervention",
+    "abstract": ""
+  },
+  {
+    "id": "25",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric",
+        "epistemic",
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Optimization-Based Uncertainty Attribution Via Learning Informative Perturbations",
+    "authors": [
+      "H. Wang",
+      "B.A. Biswas",
+      "Q. Ji"
+    ],
+    "doi": "10.1007/978-3-031-73229-4_14",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-105018191293&doi=10.1007%2F978-3-031-73229-4_14&partnerID=40&md5=8945795a710bdff162236aa51a4f6056",
+    "venue": "Lect. Notes Comput. Sci.",
+    "abstract": "Uncertainty attribution (UA) aims to identify key contributors to predictive uncertainty in deep learning models. To improve the faithfulness of existing UA methods, we formulate UA as an optimization problem to learn a binary mask on the input. The learned mask identifies regions that significantly contribute to output uncertainty and allows uncertainty reduction through learning informative perturbations on the masked input. Our method enhances UA interpretability and maintains high efficiency by integrating three key improvements: Segment Anything Model (SAM)-guided mask parameterization for efficient and interpretable mask learning; learnable perturbations that adaptively target and refine problematic regions specific to each input without manually tuning the perturbation parameters; and a novel application of Gumbel-sigmoid reparameterization for efficiently learning Bernoulli-distributed binary masks under continuous optimization. Our experiments on problematic region detection and faithfulness tests demonstrate our method’s superiority over state-of-the-art UA methods. © The Author(s), under exclusive license to Springer Nature Switzerland AG 2025."
+  },
+  {
+    "id": "26",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Energy"
+      ],
+      "data_modality": [
+        "tabular",
+        "time series"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Probabilistic and explainable machine learning for tabular power grid data",
+    "authors": [
+      "Alexandra Nikoltchovska",
+      "Sebastian Pütz",
+      "Xiao Li",
+      "Veit Hagenmeyer",
+      "Benjamin Schäfer"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Proceedings of the 16th ACM International Conference on Future and Sustainable Energy Systems",
+    "abstract": ""
+  },
+  {
+    "id": "27",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Chemistry"
+      ],
+      "data_modality": [
+        "graph"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation",
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Explainable graph neural networks in chemistry: Combining attribution and uncertainty quantification",
+    "authors": [
+      "Leonid Komissarov",
+      "Nenad Manevski",
+      "Katrin Groebke Zbinden",
+      "Lisa Sach-Peltason"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Journal of Chemical Information and Modeling",
+    "abstract": ""
+  },
+  {
+    "id": "29",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific",
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Continuity",
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Identifying Drivers of Predictive Aleatoric Uncertainty",
+    "authors": [
+      "Pascal Iversen",
+      "Simon Witzke",
+      "Katharina Baum",
+      "Bernhard Y. Renard"
+    ],
+    "doi": "10.24963/ijcai.2025/607",
+    "url": "https://www.ijcai.org/proceedings/2025/607",
+    "venue": "",
+    "abstract": "Electronic proceedings of IJCAI 2025"
+  },
+  {
+    "id": "30",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Probability_Confidence_Score"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explaining an Image Classifier with a Generative Model Conditioned by Uncertainty",
+    "authors": [
+      "A. Le Coz",
+      "S. Herbin",
+      "F. Adjed"
+    ],
+    "doi": "10.1007/978-3-031-74627-7_28",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85215557618&doi=10.1007%2F978-3-031-74627-7_28&partnerID=40&md5=aaa248cdfcaeeb20ec107f6ca0d62b73",
+    "venue": "Commun. Comput. Info. Sci.",
+    "abstract": "Identifying sources of uncertainty in an image classifier is a crucial challenge. Indeed, the decision process of those models is opaque and does not necessarily correspond to what we might expect. To help characterize classifiers, generative models can be used as they allow the control of visual attributes. Here we use a generative adversarial network to generate images corresponding to how a classifier sees the image. More specifically, we consider the classifier maximum softmax probability as an uncertainty estimation and use it as an additional input to condition the generative model. This allows us to generate images that result in uncertain predictions, giving us a global view of which images are harder to classify. We can also increase the uncertainty of a given image and observe the impact of an attribute, providing a more local understanding of the decision process. We perform experiments on the MNIST dataset, augmented with corruptions. We believe that generative models are a helpful tool to explain the behavior and uncertainties of image classifiers.  © The Author(s), under exclusive license to Springer Nature Switzerland AG 2025."
+  },
+  {
+    "id": "32",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Coherence"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": []
+    },
+    "title": "Input Uncertainty Attribution by Uncertainty Propagation",
+    "authors": [
+      "Benedikt Kantz",
+      "Sophie Steger",
+      "Clemens Staudinger",
+      "Christoph Feilmayr",
+      "Johann Wachlmayr",
+      "Alexander Haberl",
+      "Stefan Schuster",
+      "Franz Pernkopf"
+    ],
+    "doi": "10.1109/ICASSP49660.2025.10890257",
+    "url": "https://ieeexplore.ieee.org/abstract/document/10890257",
+    "venue": "ICASSP 2025 - 2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)",
+    "abstract": "Attributing uncertainties to the input space elevates the trustworthiness and explainability of machine learning applications. This paper proposes a novel method called Smoothness Constrained Attribution (SCA), which uses the uncertainty propagation mechanism to propagate the output uncertainty back to the input space. This input uncertainty attribution relies solely on test-time data, the trained uncertainty-aware Machine Learning (ML) model, and assumes a smooth input space, resulting in an efficient and simple system. SCA is compared to existing input Uncertainty Attribution Mechanisms (iUCAMs) based on eXplainable Artificial Intelligence (XAI) and an oracle reference using heteroscedastic noise in different synthetic datasets. These evaluations demonstrate the robustness and improvements of SCA compared to existing methods."
+  },
+  {
+    "id": "33",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Medical"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "Not specified"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Visual inspection"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explaining Uncertainty in AI for Clinical Decision Support Systems",
+    "authors": [
+      "Elisabeth RM Heremans",
+      "Maarten De Vos"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Joint European Conference on Machine Learning and Knowledge Discovery in Databases",
+    "abstract": ""
+  },
+  {
+    "id": "34",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Medical"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "global"
+      ],
+      "explanation_output_type": [
+        "Rule-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "A Layered Entropy Model for Transparent Uncertainty Quantification in Medical AI: Advancing Trustworthy Decision Support in Small-Data Clinical Settings",
+    "authors": [
+      "Sandeep Bhattacharjee",
+      "Sanjib Biswas"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Information",
+    "abstract": ""
+  },
+  {
+    "id": "41",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "Lay / End Users"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "aleatoric"
+      ],
+      "uq_method": [
+        "Representation / Distance-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Distance_based"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Example-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "L2loRe: a method for explaining the reject option",
+    "authors": [
+      "Clara Punzi",
+      "Roberto Pellungrini",
+      "Fosca Giannotti",
+      "others"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "CEUR WORKSHOP PROCEEDINGS",
+    "abstract": ""
+  },
+  {
+    "id": "7",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Industrial Engineering"
+      ],
+      "data_modality": [
+        "event data"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "Domain Experts"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods",
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Quantifying and explaining machine learning uncertainty in predictive process monitoring: an operations research perspective",
+    "authors": [
+      "Nijat Mehdiyev",
+      "Maxim Majlatow",
+      "Peter Fettke"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Annals of Operations Research",
+    "abstract": ""
+  },
+  {
+    "id": "8",
+    "year": 2025,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Aviation"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "ML Researchers"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "Not specified"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods"
+      ],
+      "uncertainty_estimate": [
+        "Not_Specified_Unclear"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Counterfactual"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Context"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Counterfactual explanations for remaining useful life estimation within a Bayesian framework",
+    "authors": [
+      "J. Andringa",
+      "M.L. Baptista",
+      "B.F. Santos"
+    ],
+    "doi": "10.1016/j.inffus.2025.102972",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-85216710188&doi=10.1016%2Fj.inffus.2025.102972&partnerID=40&md5=a9d215fea0c9a27008fc53a0f887be45",
+    "venue": "Information Fusion",
+    "abstract": "Machine learning has contributed to the advancement of maintenance in many industries, including aviation. In recent years, many neural network models have been proposed to address the problems of failure identification and estimating the remaining useful life (RUL). Nevertheless, the black-box nature of neural networks often limits their transparency and interpretability. Interpretability (or explainability) in maintenance refers to the ability of a predictive model to provide insights into its decision-making process for predicting failures or estimating metrics like RUL. Counterfactual Explanations (CFEs) from Explainable AI (XAI) addresses this problem by explaining model decisions through hypothetical scenarios leading to alternative outcomes. A kind of neural network that could benefit from increased interpretability is Bayesian networks. In general, Bayesian models improve interpretability by quantifying uncertainty. However, incorporating Bayesian uncertainty into neural networks adds complexity because we often need a statistical distribution for each network parameter. This study investigates the use of CFEs within a Bayesian framework to achieve two key objectives simultaneously: (1) enhance the interpretability of RUL estimations and (2) improve model accuracy. We generate two types of CFEs: (1) RUL CFEs that increase/decrease the RUL estimation and (2) uncertainty CFEs with reduced estimation uncertainty, which we use to augment the dataset and increase model accuracy. We apply this method to a classical case study, the C-MAPSS dataset, using a Bayesian Long Short-Term Memory (B-LSTM) model. We demonstrate that CFEs can help identify critical features and fine-tune corrective actions to achieve specific outcomes. For example, following a maintenance action that increased the temperature by 1°F, CFEs can reveal that this adjustment extended the equipment's useful life by 30 cycles. This ability to correlate specific actions with effects enhances both decision-making and maintenance efficiency. Additionally, our data augmentation approach results in a 5% improvement in α−λ accuracy for a strict α of 20%. The root mean square error (RMSE) of the B-LSTM model decreases from 9.56 to 8.47 cycles, demonstrating the potential of Uncertainty CFEs to improve accuracy in aircraft maintenance. The code is publicly available at Github. © 2025 The Author(s)"
+  },
+  {
+    "id": "23",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular",
+        "time series"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness"
+      ],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Uncertainty explanation of artificial intelligence models by SHAP",
+    "authors": [
+      "X. Cheng",
+      "T. Wang",
+      "D. Zhu",
+      "J. Ma"
+    ],
+    "doi": "10.1016/j.knosys.2026.115437",
+    "url": "https://www.scopus.com/inward/record.uri?eid=2-s2.0-105029509260&doi=10.1016%2Fj.knosys.2026.115437&partnerID=40&md5=7b24834f1f682282a06059c020344997",
+    "venue": "Knowledge-Based Systems",
+    "abstract": "The “black box” characteristic of AI models has received widespread attention from scientists. This has promoted the development of explainable artificial intelligence (XAI) methods aimed at explaining AI model decisions, e.g., evaluating the importance of input features for the model output. In addition to XAI, another way to open the “black box” is uncertainty estimation of AI models (e.g., output ranges for regression tasks), which provides users with confidence in model decisions. However, little attention has been paid to the explanation of model uncertainty, e.g., which input features contribute to model uncertainty? This study takes SHapley Additive exPlanations (SHAP) as an example of perturbation-based XAI methods and utilizes it to explain AI model uncertainty by changing the model input to observe the variation of the estimated uncertainty. The experimental results in three cases (i.e., housing price prediction, remote sensing image classification, and electrocardiogram classification) show that SHAP can effectively explain the uncertainty of AI models. Moreover, further analysis reveals that the uncertainty of AI models is affected by the frequency of occurrence of input features in the training data. Specifically, if a certain feature of the sample rarely appears in the training data, it will lead to greater uncertainty. This conclusion aligns with common sense and supports the validity of the uncertainty explanation. © 2026 The Authors"
+  },
+  {
+    "id": "39",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Environmental Science"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "time series forecasting"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods",
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile",
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Physics-guided networks for probabilistic hydrodynamic forecasting in canal systems",
+    "authors": [
+      "Wangjiayi Liu",
+      "Guanghua Guan",
+      "Xiaonan Chen",
+      "Liangsheng Shi",
+      "Guangtao Fu",
+      "Dragan Savic"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Environmental Science and Ecotechnology",
+    "abstract": ""
+  },
+  {
+    "id": "40",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Environmental Science"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Bayesian deep learning framework for pesticide transport modeling with uncertainty quantification",
+    "authors": [
+      "Lang Xiang",
+      "Pengfei Qu"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "Reliability Engineering & System Safety",
+    "abstract": ""
+  },
+  {
+    "id": "45",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Cybersecurity"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "classification"
+      ],
+      "audience": [
+        "Domain Experts",
+        "ML Researchers"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Softmax-based Methods"
+      ],
+      "uncertainty_estimate": [
+        "Entropy"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Visual inspection"
+      ],
+      "co12": [],
+      "benchmarked": [
+        "Yes"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Uncertainty Estimation in Neural Network-enabled Side-channel Analysis and Links to Explainability",
+    "authors": [
+      "Seyedmohammad Nouraniboosjin",
+      "Fatemeh Ganji"
+    ],
+    "doi": "10.46586/tches.v2026.i2.764-807",
+    "url": "https://tches.iacr.org/index.php/TCHES/article/view/12908",
+    "venue": "IACR Transactions on Cryptographic Hardware and Embedded Systems",
+    "abstract": "Side-channel analysis (SCA) has emerged as a critical field in securing hardware implementations against potential vulnerabilities. With the advent of artificial intelligence (AI), neural network-based approaches have proven to be among the most useful techniques for profiled SCA. Despite the success of NN-assisted SCA, a critical challenge remains, namely understanding how confident NNs are in their predictions. NNs often exhibit uncertainty in their predictions, leading to incorrect key guesses with high probabilities, corresponding to a higher rank associated with the correct key. This uncertainty stems from multiple factors, including measurement errors, randomness in physical quantities, and variability in NN training. Understanding whether this uncertainty arises from inherent data characteristics or can be mitigated through better training is crucial. Additionally, if data uncertainty dominates, identifying specific trace features responsible for misclassification becomes essential.We propose a novel approach to estimating uncertainty in NN-based SCA by leveraging Rényi entropy, which offers a generalized framework for capturing various forms of uncertainty. This metric allows us to quantify uncertainty in NN predictions and explain its impact on key recovery. We decompose uncertainty into epistemic (modelrelated) and aleatoric (data-related) components. Given the challenge of estimating probability distributions in high-dimensional spaces, we use matrix-based Rényi α-entropy and α-divergence to better approximate leakage distributions, addressing the limitations of KL divergence in SCA. We also explore the sources of uncertainty, e.g., desynchronization, randomized keys, as well as hyperparameters related to NN training. To identify which time instances (features in traces) contribute most to uncertainty, we also integrate Shapley value-based explanations with our framework, overcoming the limitations of conventional sensitivity analysis. Lastly, we show that predictive uncertainty strongly correlates with standard SCA metrics like rank, offering a complementary measure for evaluating attack complexity. Our theoretical findings are backed by extensive experiments on available datasets and NN models."
+  },
+  {
+    "id": "46",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "method_oriented"
+      ],
+      "application_domain": [],
+      "data_modality": [
+        "image",
+        "tabular"
+      ],
+      "ml_task": [
+        "classification",
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "Yes"
+      ],
+      "evaluation_type": [
+        "Functionally-grounded"
+      ],
+      "co12": [
+        "Correctness",
+        "Consistency",
+        "Continuity",
+        "Compactness",
+        "Coherence"
+      ],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "No Single Metric Tells the Whole Story: A Multi-Dimensional Evaluation Framework for Uncertainty Attributions",
+    "authors": [
+      "Emily Schiller",
+      "Teodor Chiaburu",
+      "Marco Zullich",
+      "Luca Longo"
+    ],
+    "doi": "",
+    "url": "",
+    "venue": "World conference on explainable AI 2026",
+    "abstract": ""
+  },
+  {
+    "id": "50",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Energy"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "time series forecasting"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Probabilistic / Bayesian Methods",
+        "Distribution-free Methods"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile",
+        "Distribution_Parameter"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "local"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explainable uncertainty quantification in probabilistic wind power forecasting",
+    "authors": [
+      "Ege Kandemir",
+      "Trond Kvamsdal",
+      "Agus Hasan",
+      "Saleh Abdel-Afou Alaliyat"
+    ],
+    "doi": "10.1016/j.mlwa.2026.100957",
+    "url": "https://www.sciencedirect.com/science/article/pii/S2666827026001222",
+    "venue": "Machine Learning with Applications",
+    "abstract": "Accurate wind power forecasting and reliable confidence intervals are essential for renewable energy integration and risk-aware grid operation. Forecast uncertainty arises from complex environmental conditions and turbine dynamics. However, conventional data-driven approaches often treat uncertainty as a black box, which limits operational transparency and fails to identify the physical sources of forecast variance. This study presents an explainable uncertainty quantification framework that combines physics-informed modeling, probabilistic deep learning, and sensitivity-based interpretability analysis. An operation-based turbine dynamics model derived from real-world offshore supervisory control and data acquisition (SCADA) measurements is embedded within a residual learning architecture to incorporate turbine operational characteristics into the forecasting process. Heteroscedastic Gaussian neural networks and quantile regression are employed to characterize both symmetric uncertainty and asymmetric operational limits. Unlike conventional probabilistic forecasting approaches, the hybrid framework explicitly associates uncertainty behavior with turbine operating states through sensitivity-driven analysis. The best performing hybrid framework achieves a relative root mean square error (rRMSE) of 3.3386% and a coefficient of determination of 0.9505 in deterministic forecasting. For probabilistic forecasting, the framework attains a normalized continuous ranked probability score (nCRPS) of 0.0057±0.0098. A perturbation-based sensitivity analysis further identifies how forecast uncertainty varies across different power production regimes and turbine control states. The results demonstrate that the hybrid framework improves forecast interpretability while maintaining high predictive accuracy, which supports real-time operational decision-making, dynamic turbine control, and intra-hour grid balancing in modern wind farms."
+  },
+  {
+    "id": "51",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Industrial Engineering"
+      ],
+      "data_modality": [
+        "tabular"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "predictive"
+      ],
+      "uq_method": [
+        "Ensemble / Stochastic Methods"
+      ],
+      "uncertainty_estimate": [
+        "Variance_Standard_Deviation"
+      ],
+      "integration_type": [
+        "Post-hoc"
+      ],
+      "portability": [
+        "model_agnostic"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Attribution"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": [
+        "Yes"
+      ]
+    },
+    "title": "Explainable Machine Learning for Predicting Time-to-Failure of Horizontal Pressurized Storage Tanks in Fire Scenarios",
+    "authors": [
+      "Yubin Mu",
+      "Mingshu Bi",
+      "Zilong Deng",
+      "Di Yu",
+      "Jingjing Yang",
+      "Jingjie Ren"
+    ],
+    "doi": "https://doi.org/10.1002/sst3.70041",
+    "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/sst3.70041",
+    "venue": "Safety Science and Technology",
+    "abstract": "ABSTRACT Fire-induced failure of pressurized hazardous chemical storage tanks under elevated temperature and pressure may trigger severe domino accidents, making accurate time-to-failure (TTF) prediction essential for preventing accident escalation and assessing tank vulnerability. However, interpretable machine learning (ML) models for predicting the TTF of horizontal pressurized storage tanks remain underexplored. This study proposes a data-driven framework for predicting the TTF of horizontal pressurized tanks exposed to pool fires. Using typical tank geometries specified in Chinese standards and representative fire parameters from the literature, a comprehensive TTF dataset was generated via a lumped-parameter method and used to train and validate three ML models: fully connected feedforward neural network (FNN), random forest (RF), and XGBoost. Results indicate that the FNN significantly outperforms the other two ML models and a probit-based simplified correlation in terms of accuracy, robustness, and normality of error distribution. SHapley Additive exPlanations (SHAP) is further introduced to quantify and rank feature contributions to both model output and predictive uncertainty, with dependence analysis additionally revealing nonlinear behaviors and threshold effects of key features. In addition, a simplified explicit correlation was fitted to the data generated by RADMOD, enabling rapid estimation of TTF in industrial applications where a full neural network cannot be deployed. The proposed framework provides an accurate and physically interpretable tool for the quantitative risk assessment of fire-induced failure in horizontal pressurized storage tanks."
+  },
+  {
+    "id": "52",
+    "year": 2026,
+    "general": {
+      "research_type": [
+        "application_oriented"
+      ],
+      "application_domain": [
+        "Environmental Science"
+      ],
+      "data_modality": [
+        "time series"
+      ],
+      "ml_task": [
+        "regression"
+      ],
+      "audience": [
+        "None / Not specified"
+      ]
+    },
+    "xuq_method": {
+      "uncertainty_type": [
+        "epistemic"
+      ],
+      "uq_method": [
+        "Other"
+      ],
+      "uncertainty_estimate": [
+        "Prediction_Interval_Quantile"
+      ],
+      "integration_type": [
+        "Intrinsic"
+      ],
+      "portability": [
+        "model_specific"
+      ],
+      "locality": [
+        "both"
+      ],
+      "explanation_output_type": [
+        "Rule-based"
+      ]
+    },
+    "xuq_evaluation": {
+      "evaluated": [
+        "No"
+      ],
+      "evaluation_type": [],
+      "co12": [],
+      "benchmarked": [
+        "No"
+      ],
+      "shap": []
+    },
+    "title": "Explainable Uncertainty Quantification for Wastewater Treatment Energy Prediction via Interval Type-2 Neuro-Fuzzy System",
+    "authors": [
+      "Qusai Khaled",
+      "Bahjat Mallak",
+      "Uzay Kaymak",
+      "Laura Genga"
+    ],
+    "doi": "10.1007/978-3-032-28997-1_28",
+    "url": "",
+    "venue": "Information Processing and Management of Uncertainty in Knowledge-Based Systems",
+    "abstract": "Wastewater treatment plants consume 1–3% of global electricity, making accurate energy forecasting critical for operational optimization and sustainability. While machine learning models provide point predictions, they lack explainable uncertainty quantification essential for risk-aware decision-making in safety-critical infrastructure. This study develops an Interval Type-2 Adaptive Neuro-Fuzzy Inference System (IT2-ANFIS) that generates interpretable prediction intervals through fuzzy rule structures. Unlike black-box probabilistic methods, the proposed framework decomposes uncertainty across three levels: at the feature-level, the footprint of uncertainty identifies which variables introduce ambiguity, at the rule-level analysis reveals confidence in local models, and at the instance-level intervals quantify overall prediction uncertainty. Validated on Melbourne Water’s Eastern Treatment Plant dataset, IT2-ANFIS achieves comparable predictive performance to first-order ANFIS with substantially reduced variance across training runs, while providing explainable uncertainty estimates that link prediction confidence directly to operational conditions and input variables."
+  }
+]

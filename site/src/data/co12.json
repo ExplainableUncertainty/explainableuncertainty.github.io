@@ -1,0 +1,93 @@
+{
+  "$comment": "Co-12 properties data for the Co-12 page. Edit this file to add/change the three dimensions (Content, Presentation, User), their properties, and descriptions.",
+  "intro": "The Co-12 framework is an established set of twelve quality properties for evaluating explanations in Explainable AI. The properties are organised into three dimensions — Content, Presentation, and User. Each property below has a short description and a key idea. Click a property to reveal its description.",
+  "dimensions": [
+    {
+      "id": "content",
+      "label": "Content",
+      "description": "Properties that describe what the explanation contains and how faithful it is to the model.",
+      "color": "var(--color-teal-700)",
+      "bg": "var(--color-teal-100)",
+      "values": [
+        {
+          "value": "Correctness",
+          "description": "Describes how faithful the explanation is with respect to the black box.",
+          "keyIdea": "Nothing but the truth"
+        },
+        {
+          "value": "Completeness",
+          "description": "Describes how much of the black box behaviour is described in the explanation.",
+          "keyIdea": "The whole truth"
+        },
+        {
+          "value": "Consistency",
+          "description": "Describes how deterministic and implementation-invariant the explanation method is.",
+          "keyIdea": "Identical inputs should have identical explanations"
+        },
+        {
+          "value": "Continuity",
+          "description": "Describes how continuous and generalizable the explanation function is.",
+          "keyIdea": "Similar inputs should have similar explanations"
+        },
+        {
+          "value": "Contrastivity",
+          "description": "Describes how discriminative the explanation is with respect to other events or targets.",
+          "keyIdea": "Answers \u201cwhy not?\u201d or \u201cwhat if?\u201d questions"
+        },
+        {
+          "value": "Covariate Complexity",
+          "description": "Describes how complex the (interactions of) features in the explanation are.",
+          "keyIdea": "Human-understandable concepts in the explanation"
+        }
+      ]
+    },
+    {
+      "id": "presentation",
+      "label": "Presentation",
+      "description": "Properties that describe how the explanation is presented and formatted.",
+      "color": "var(--color-navy-600)",
+      "bg": "var(--color-navy-100)",
+      "values": [
+        {
+          "value": "Compactness",
+          "description": "Describes the size of the explanation.",
+          "keyIdea": "Less is more"
+        },
+        {
+          "value": "Composition",
+          "description": "Describes the presentation format and organization of the explanation.",
+          "keyIdea": "How something is explained"
+        },
+        {
+          "value": "Confidence",
+          "description": "Describes the presence and accuracy of probability information in the explanation.",
+          "keyIdea": "Confidence measure of the explanation or model output"
+        }
+      ]
+    },
+    {
+      "id": "user",
+      "label": "User",
+      "description": "Properties that describe how the explanation relates to the user and their needs.",
+      "color": "var(--color-teal-600)",
+      "bg": "var(--color-teal-50)",
+      "values": [
+        {
+          "value": "Context",
+          "description": "Describes how relevant the explanation is to the user and their needs.",
+          "keyIdea": "How much does the explanation matter in practice?"
+        },
+        {
+          "value": "Coherence",
+          "description": "Describes how accordant the explanation is with prior knowledge and beliefs.",
+          "keyIdea": "Plausibility or reasonableness to users"
+        },
+        {
+          "value": "Controllability",
+          "description": "Describes how interactive or controllable an explanation is for a user.",
+          "keyIdea": "Can the user influence the explanation?"
+        }
+      ]
+    }
+  ]
+}

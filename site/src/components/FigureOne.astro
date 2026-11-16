@@ -1,0 +1,622 @@
+---
+// FigureOne.astro — interactive recreation of the paper's Figure 1:
+// "Two ways of combining Explainable AI and Uncertainty Quantification".
+//
+// Layout mirrors the paper figure: a Black box feeds a Prediction, which is
+// analysed by two paradigms — Explainable Uncertainty Quantification (top,
+// teal; the focus of the review) and Uncertainty-Aware XAI (bottom, amber).
+// The connectors between the nodes are measured and drawn by
+// `../scripts/figure-one.ts` onto an SVG overlay, so the wires stay attached
+// to their nodes at any viewport size. The cloud badges act as toggle
+// buttons that keep one paradigm highlighted.
+---
+
+<figure class="fig1" data-fig1>
+	<div class="fig1__frame">
+		<p class="fig1__frame-title">Intersection of Explainable AI and Uncertainty Quantification</p>
+
+		<div class="fig1__canvas" data-fig1-canvas>
+			<!-- Connector overlay — path geometry is computed in scripts/figure-one.ts -->
+			<svg class="fig1__wires" data-fig1-wires preserveAspectRatio="none" aria-hidden="true">
+				<defs>
+					<marker id="fig1-head-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--color-navy-400)"></path>
+					</marker>
+					<marker id="fig1-head-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--color-teal-500)"></path>
+					</marker>
+					<marker id="fig1-head-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--f1-amber-600)"></path>
+					</marker>
+				</defs>
+				<path class="fig1__wire fig1__wire--source" data-wire="source" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
+				<path class="fig1__wire fig1__wire--dashed" data-wire="xuq" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
+				<path class="fig1__wire fig1__wire--dashed" data-wire="uaxai" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
+				<text class="fig1__wire-label" data-wire-label="xuq" text-anchor="middle" dominant-baseline="middle">quantifies uncertainty of</text>
+				<text class="fig1__wire-label" data-wire-label="uaxai" text-anchor="middle" dominant-baseline="middle">explains</text>
+			</svg>
+
+			<!-- Shared source: the black-box model -->
+			<div class="fig1__rail">
+				<svg class="fig1__cube" viewBox="0 0 96 104" data-fig1-node="blackbox" role="img" aria-label="Black box model">
+					<polygon points="48,4 90,24 48,44 6,24" fill="#33456b" stroke="#0c1422" stroke-width="1"></polygon>
+					<polygon points="6,24 48,44 48,98 6,74" fill="#131e30" stroke="#0c1422" stroke-width="1"></polygon>
+					<polygon points="90,24 48,44 48,98 90,74" fill="#1b2940" stroke="#0c1422" stroke-width="1"></polygon>
+					<text class="fig1__cube-text" x="48" y="68" text-anchor="middle">Black box</text>
+				</svg>
+			</div>
+
+			<!-- The prediction both paradigms analyse -->
+			<div class="fig1__mid">
+				<div class="fig1__prediction" data-fig1-node="prediction">Prediction</div>
+			</div>
+
+			<!-- Paradigm 1: Explainable Uncertainty Quantification (focus of the review) -->
+			<section class="fig1__panel fig1__panel--xuq" data-fig1-panel="xuq" aria-label="Paradigm: Explainable Uncertainty Quantification">
+				<div class="fig1__flow">
+					<div class="fig1__node fig1__node--uq fig1__node--first" data-fig1-node="xuq-estimate">Uncertainty estimate</div>
+					<div class="fig1__harrow" aria-hidden="true">
+						<span class="fig1__harrow-label">explains</span>
+						<svg viewBox="0 0 64 12" class="fig1__harrow-svg">
+							<line x1="62" y1="6" x2="13" y2="6" class="fig1__harrow-line"></line>
+							<polygon points="2,6 13,1.5 13,10.5" class="fig1__harrow-head"></polygon>
+						</svg>
+					</div>
+					<div class="fig1__node">Explanation</div>
+				</div>
+
+				<div class="fig1__text">
+					<p class="fig1__question">Why is my prediction uncertain?</p>
+					<p class="fig1__target"><strong>Target of analysis:</strong> uncertainty related to the prediction</p>
+					<div class="fig1__info">
+						<svg class="fig1__dart" viewBox="0 0 48 48" aria-hidden="true">
+							<circle class="fig1__dart-ring" cx="21" cy="27" r="15.5"></circle>
+							<circle class="fig1__dart-ring" cx="21" cy="27" r="9"></circle>
+							<circle class="fig1__dart-center" cx="21" cy="27" r="3.6"></circle>
+							<line class="fig1__dart-shaft" x1="43" y1="5" x2="26.5" y2="21.5"></line>
+							<polygon class="fig1__dart-head" points="23.5,24.5 29,22.9 25,19"></polygon>
+							<path class="fig1__dart-fletch" d="M 43 5 L 36.5 6.5 M 43 5 L 41.5 11.5"></path>
+						</svg>
+						<ul class="fig1__benefits">
+							<li>Identify sources of uncertainty</li>
+							<li>Enhance user understanding and interpretation of uncertainty estimates</li>
+							<li>Improve model development</li>
+							<li>Prevent misjudgment in critical predictions</li>
+						</ul>
+					</div>
+				</div>
+
+				<button class="fig1__cloud fig1__cloud--xuq" type="button" data-fig1-focus="xuq" aria-pressed="false" title="Highlight this paradigm">
+					<svg viewBox="0 0 200 96" role="img" aria-label="Explainable Uncertainty Quantification">
+						<g class="fig1__cloud-outline">
+							<circle cx="44" cy="60" r="26"></circle>
+							<circle cx="86" cy="38" r="32"></circle>
+							<circle cx="126" cy="46" r="29"></circle>
+							<circle cx="158" cy="62" r="23"></circle>
+							<rect x="38" y="56" width="132" height="28" rx="14"></rect>
+						</g>
+						<g class="fig1__cloud-body">
+							<circle cx="44" cy="60" r="23.5"></circle>
+							<circle cx="86" cy="38" r="29.5"></circle>
+							<circle cx="126" cy="46" r="26.5"></circle>
+							<circle cx="158" cy="62" r="20.5"></circle>
+							<rect x="40.5" y="58.5" width="127" height="23" rx="11.5"></rect>
+						</g>
+						<text class="fig1__cloud-text" x="100" y="43" text-anchor="middle">Explainable</text>
+						<text class="fig1__cloud-text fig1__cloud-text--sm" x="100" y="61" text-anchor="middle">Uncertainty Quantification</text>
+					</svg>
+				</button>
+			</section>
+
+			<!-- Paradigm 2: Uncertainty-Aware XAI -->
+			<section class="fig1__panel fig1__panel--uaxai" data-fig1-panel="uaxai" aria-label="Paradigm: Uncertainty-Aware XAI">
+				<div class="fig1__flow">
+					<div class="fig1__node fig1__node--first" data-fig1-node="uaxai-explanation">Explanation</div>
+					<div class="fig1__harrow" aria-hidden="true">
+						<span class="fig1__harrow-label">quantifies uncertainty of</span>
+						<svg viewBox="0 0 64 12" class="fig1__harrow-svg">
+							<line x1="62" y1="6" x2="13" y2="6" class="fig1__harrow-line"></line>
+							<polygon points="2,6 13,1.5 13,10.5" class="fig1__harrow-head"></polygon>
+						</svg>
+					</div>
+					<div class="fig1__node fig1__node--uq">Uncertainty estimate</div>
+				</div>
+
+				<div class="fig1__text">
+					<p class="fig1__question">How certain and reliable are my explanations?</p>
+					<p class="fig1__target"><strong>Target of analysis:</strong> explanation of the prediction</p>
+					<div class="fig1__info">
+						<svg class="fig1__dart" viewBox="0 0 48 48" aria-hidden="true">
+							<circle class="fig1__dart-ring" cx="21" cy="27" r="15.5"></circle>
+							<circle class="fig1__dart-ring" cx="21" cy="27" r="9"></circle>
+							<circle class="fig1__dart-center" cx="21" cy="27" r="3.6"></circle>
+							<line class="fig1__dart-shaft" x1="43" y1="5" x2="26.5" y2="21.5"></line>
+							<polygon class="fig1__dart-head" points="23.5,24.5 29,22.9 25,19"></polygon>
+							<path class="fig1__dart-fletch" d="M 43 5 L 36.5 6.5 M 43 5 L 41.5 11.5"></path>
+						</svg>
+						<ul class="fig1__benefits">
+							<li>Prevent misleading explanations</li>
+							<li>Avoid overtrust in explanations</li>
+							<li>Improve robustness of explanations</li>
+						</ul>
+					</div>
+				</div>
+
+				<button class="fig1__cloud fig1__cloud--uaxai" type="button" data-fig1-focus="uaxai" aria-pressed="false" title="Highlight this paradigm">
+					<svg viewBox="0 0 200 96" role="img" aria-label="Uncertainty-Aware XAI">
+						<g class="fig1__cloud-outline">
+							<circle cx="44" cy="60" r="26"></circle>
+							<circle cx="86" cy="38" r="32"></circle>
+							<circle cx="126" cy="46" r="29"></circle>
+							<circle cx="158" cy="62" r="23"></circle>
+							<rect x="38" y="56" width="132" height="28" rx="14"></rect>
+						</g>
+						<g class="fig1__cloud-body">
+							<circle cx="44" cy="60" r="23.5"></circle>
+							<circle cx="86" cy="38" r="29.5"></circle>
+							<circle cx="126" cy="46" r="26.5"></circle>
+							<circle cx="158" cy="62" r="20.5"></circle>
+							<rect x="40.5" y="58.5" width="127" height="23" rx="11.5"></rect>
+						</g>
+						<text class="fig1__cloud-text" x="100" y="43" text-anchor="middle">Uncertainty-</text>
+						<text class="fig1__cloud-text" x="100" y="61" text-anchor="middle">Aware XAI</text>
+					</svg>
+				</button>
+			</section>
+		</div>
+	</div>
+
+	<p class="fig1__hint">
+		Hover a paradigm — or select its cloud badge — to trace how it relates prediction, explanation and uncertainty.
+	</p>
+	<figcaption class="fig1__caption">
+		Fig. 1. Two ways of combining Explainable AI and Uncertainty Quantification, based on [74]. This literature
+		review focuses on Explainable Uncertainty Quantification.
+	</figcaption>
+</figure>
+
+<style>
+	.fig1 {
+		/* Local amber scale for the Uncertainty-Aware XAI panel (site palette is teal/navy). */
+		--f1-amber-50: #fdf8ec;
+		--f1-amber-100: #f9ecc9;
+		--f1-amber-300: #e9c96e;
+		--f1-amber-600: #a87d1f;
+		--f1-amber-900: #52400c;
+
+		margin: 0;
+		padding-top: 1.1rem; /* room for the frame title chip */
+	}
+
+	/* ---- Dashed frame with centred title chip ---- */
+	.fig1__frame {
+		position: relative;
+		padding: var(--space-6) var(--space-5) var(--space-5);
+		border: 1.5px dashed var(--color-navy-300);
+		border-radius: var(--radius-lg);
+		background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
+	}
+	.fig1__frame-title {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0;
+		padding: 0.3rem var(--space-4);
+		background: var(--color-bg);
+		border: 1.5px dashed var(--color-navy-300);
+		border-radius: 999px;
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--color-navy-800);
+		text-align: center;
+		max-width: min(94%, 36rem);
+	}
+
+	/* ---- Canvas grid: rail (black box) | panels + prediction band ---- */
+	.fig1__canvas {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-areas:
+			'rail xuq'
+			'rail mid'
+			'rail uaxai';
+		row-gap: 2.75rem;
+		column-gap: 2.5rem;
+	}
+
+	.fig1__wires {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 2;
+		pointer-events: none;
+		overflow: visible;
+	}
+
+	.fig1__rail {
+		grid-area: rail;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.fig1__cube {
+		width: clamp(4.25rem, 7vw, 5.5rem);
+		height: auto;
+		filter: drop-shadow(0 3px 6px rgba(12, 20, 34, 0.25));
+	}
+	.fig1__cube-text {
+		font-family: var(--font-sans);
+		font-size: 13px;
+		font-weight: 600;
+		fill: #ffffff;
+	}
+
+	/* Prediction band — left padding matches the panels so the Prediction node
+   stays aligned with the first node of each flow (straight vertical wires). */
+	.fig1__mid {
+		grid-area: mid;
+		display: flex;
+		align-items: center;
+		/* Panel padding + its 1.5px border → exact column alignment. */
+		padding-left: calc(var(--space-5) + 1.5px);
+	}
+	.fig1__prediction {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		/* Fixed width, shared with .fig1__node--first, keeps the vertical
+		   paradigm wires perfectly straight. */
+		width: 9.5rem;
+		min-height: 3.25rem;
+		padding: var(--space-2) var(--space-4);
+		border: 1.5px solid var(--color-navy-400);
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
+		box-shadow: var(--shadow-md);
+		font-size: var(--text-base);
+		font-weight: 700;
+		color: var(--color-navy-800);
+		text-align: center;
+	}
+
+	/* ---- Paradigm panels ---- */
+	.fig1__panel {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		align-items: center;
+		gap: var(--space-5);
+		padding: var(--space-5);
+		border-radius: var(--radius-lg);
+		border: 1.5px solid transparent;
+		transition:
+			opacity var(--transition-base),
+			filter var(--transition-base),
+			box-shadow var(--transition-base);
+	}
+	.fig1__panel--xuq {
+		grid-area: xuq;
+		background: var(--color-teal-50);
+		border-color: var(--color-teal-300);
+	}
+	.fig1__panel--uaxai {
+		grid-area: uaxai;
+		background: var(--f1-amber-50);
+		border-color: var(--f1-amber-300);
+	}
+	.fig1__panel:hover {
+		box-shadow: var(--shadow-md);
+	}
+
+	/* Dim the paradigm that is not being inspected */
+	.fig1[data-hot='xuq'] .fig1__panel--uaxai,
+	.fig1[data-focus='xuq'] .fig1__panel--uaxai,
+	.fig1[data-hot='uaxai'] .fig1__panel--xuq,
+	.fig1[data-focus='uaxai'] .fig1__panel--xuq {
+		opacity: 0.4;
+		filter: saturate(0.55);
+	}
+
+	/* ---- Flow rows (nodes + labelled dashed arrows) ---- */
+	.fig1__flow {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+	}
+	.fig1__node {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.9rem;
+		padding: var(--space-2) var(--space-3);
+		border: 1.5px solid var(--color-navy-300);
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
+		box-shadow: var(--shadow-sm);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		color: var(--color-navy-800);
+		text-align: center;
+		text-wrap: balance;
+	}
+	.fig1__node--first {
+		/* Same fixed width as the Prediction node → aligned columns for the
+		   wires ("Uncertainty estimate" wraps, as in the paper figure). */
+		width: 9.5rem;
+	}
+	.fig1__node--uq {
+		background: var(--color-teal-50);
+		border-color: var(--color-teal-400);
+		color: var(--color-teal-800);
+	}
+
+	.fig1__harrow {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.15rem;
+		max-width: 7rem;
+	}
+	.fig1__harrow-label {
+		font-size: var(--text-xs);
+		font-style: italic;
+		line-height: 1.2;
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+	.fig1__harrow-svg {
+		width: 4rem;
+		height: 0.75rem;
+		overflow: visible;
+	}
+	.fig1__harrow-line {
+		stroke: var(--color-navy-400);
+		stroke-width: 2;
+		stroke-dasharray: 5 4;
+	}
+	.fig1__harrow-head {
+		fill: var(--color-navy-400);
+	}
+
+	/* ---- Panel text ---- */
+	.fig1__question {
+		margin: 0 0 var(--space-1);
+		font-size: var(--text-lg);
+		font-weight: 700;
+		font-style: italic;
+	}
+	.fig1__panel--xuq .fig1__question {
+		color: var(--color-teal-800);
+	}
+	.fig1__panel--uaxai .fig1__question {
+		color: var(--f1-amber-900);
+	}
+	.fig1__target {
+		margin: 0 0 var(--space-3);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+	}
+	.fig1__info {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--space-3);
+	}
+	.fig1__dart {
+		width: 3rem;
+		height: auto;
+		flex: 0 0 auto;
+		margin-top: 0.1rem;
+	}
+	.fig1__dart-ring {
+		fill: none;
+		stroke-width: 2.4;
+	}
+	.fig1__panel--xuq .fig1__dart-ring {
+		stroke: var(--color-teal-600);
+	}
+	.fig1__panel--uaxai .fig1__dart-ring {
+		stroke: var(--f1-amber-600);
+	}
+	.fig1__panel--xuq .fig1__dart-center {
+		fill: var(--color-teal-500);
+	}
+	.fig1__panel--uaxai .fig1__dart-center {
+		fill: var(--f1-amber-600);
+	}
+	.fig1__dart-shaft,
+	.fig1__dart-fletch {
+		fill: none;
+		stroke: var(--color-navy-700);
+		stroke-width: 2.2;
+		stroke-linecap: round;
+	}
+	.fig1__dart-head {
+		fill: var(--color-navy-700);
+	}
+	.fig1__benefits {
+		margin: 0;
+		padding-left: var(--space-4);
+		display: grid;
+		gap: var(--space-1);
+		font-size: var(--text-sm);
+		color: var(--color-text);
+	}
+
+	/* ---- Cloud badges (toggle buttons) ---- */
+	.fig1__cloud {
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		font: inherit;
+		width: clamp(8.5rem, 13vw, 11.5rem);
+		transition: transform var(--transition-base);
+	}
+	.fig1__cloud:hover {
+		transform: translateY(-2px) scale(1.03);
+	}
+	.fig1__cloud:active {
+		transform: scale(0.98);
+	}
+	.fig1__cloud:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+		border-radius: 40%;
+	}
+	.fig1__cloud svg {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.fig1__cloud-outline {
+		fill: var(--color-teal-300);
+	}
+	.fig1__cloud-body {
+		fill: var(--color-teal-100);
+	}
+	.fig1__cloud--uaxai .fig1__cloud-outline {
+		fill: var(--f1-amber-300);
+	}
+	.fig1__cloud--uaxai .fig1__cloud-body {
+		fill: var(--f1-amber-100);
+	}
+	.fig1__cloud-text {
+		font-family: var(--font-sans);
+		font-size: 11.5px;
+		font-weight: 700;
+		fill: var(--color-teal-900);
+	}
+	.fig1__cloud-text--sm {
+		font-size: 10.5px;
+	}
+	.fig1__cloud--uaxai .fig1__cloud-text {
+		fill: var(--f1-amber-900);
+	}
+
+	/* Soft glow on the cloud of the persistently selected paradigm */
+	.fig1[data-focus='xuq'] .fig1__cloud--xuq svg,
+	.fig1[data-focus='uaxai'] .fig1__cloud--uaxai svg {
+		filter: drop-shadow(0 0 6px rgba(26, 156, 150, 0.55));
+	}
+
+	/* ---- Connector wires ---- */
+	.fig1__wire {
+		fill: none;
+		stroke: var(--color-navy-400);
+		stroke-width: 2;
+		transition:
+			opacity var(--transition-base),
+			stroke var(--transition-base);
+	}
+	.fig1__wire--source {
+		stroke: var(--color-navy-600);
+		stroke-width: 2.4;
+	}
+	.fig1__wire--dashed {
+		stroke-dasharray: 7 5;
+	}
+	.fig1__wire-label {
+		font-family: var(--font-sans);
+		font-size: 11px;
+		font-style: italic;
+		fill: var(--color-text-muted);
+	}
+
+	/* Highlight the wires of the inspected paradigm */
+	[data-wire='xuq'].is-hot {
+		stroke: var(--color-teal-500);
+		stroke-width: 2.5;
+		marker-end: url(#fig1-head-teal);
+	}
+	[data-wire='uaxai'].is-hot {
+		stroke: var(--f1-amber-600);
+		stroke-width: 2.5;
+		marker-end: url(#fig1-head-amber);
+	}
+	.fig1[data-hot='xuq'] [data-wire='uaxai'],
+	.fig1[data-focus='xuq'] [data-wire='uaxai'],
+	.fig1[data-hot='uaxai'] [data-wire='xuq'],
+	.fig1[data-focus='uaxai'] [data-wire='xuq'],
+	.fig1[data-hot='uaxai'] [data-wire='source'],
+	.fig1[data-focus='uaxai'] [data-wire='source'] {
+		opacity: 0.25;
+	}
+
+	/* Subtle "flow" on the dashed wires */
+	@media (prefers-reduced-motion: no-preference) {
+		.fig1__wire--dashed {
+			animation: fig1-march 1.6s linear infinite;
+		}
+		@keyframes fig1-march {
+			to {
+				stroke-dashoffset: -12;
+			}
+		}
+	}
+
+	/* ---- Hint & caption ---- */
+	.fig1__hint {
+		margin: var(--space-3) 0 0;
+		font-size: var(--text-xs);
+		font-style: italic;
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+	.fig1__caption {
+		margin-top: var(--space-2);
+		font-size: var(--text-sm);
+		color: var(--color-text-muted);
+	}
+
+	/* ---- Responsive ---- */
+	/* Below the wide layout the panels stack; the vertical paradigm wires would
+	   cross panel content, so the overlay is hidden (in-panel arrows remain). */
+	@media (max-width: 56rem) {
+		.fig1__wires {
+			display: none;
+		}
+		.fig1__panel {
+			grid-template-columns: 1fr;
+			gap: var(--space-4);
+		}
+		.fig1__cloud {
+			justify-self: center;
+		}
+	}
+	@media (max-width: 40rem) {
+		.fig1__canvas {
+			column-gap: 1.25rem;
+			row-gap: 2.25rem;
+		}
+		.fig1__frame {
+			padding: var(--space-6) var(--space-4) var(--space-4);
+		}
+		.fig1__mid {
+			padding-left: var(--space-4);
+		}
+		.fig1__panel {
+			padding: var(--space-4);
+		}
+		.fig1__flow {
+			flex-wrap: wrap;
+		}
+		.fig1__node--first,
+		.fig1__prediction {
+			min-width: 7.5rem;
+		}
+		.fig1__harrow-svg {
+			width: 3rem;
+		}
+	}
+</style>
+
+<script>
+	import { initFigureOne } from '../scripts/figure-one';
+
+	const figure = document.querySelector<HTMLElement>('[data-fig1]');
+	if (figure) initFigureOne(figure);
+</script>

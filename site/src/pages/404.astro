@@ -1,0 +1,77 @@
+---
+// 404.astro — not-found page with recovery links (home + both explorers).
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Page not found" description="Page not found — XUQ Explorer." currentPath="/404">
+	<article class="notfound">
+		<p class="notfound__code" aria-hidden="true">404</p>
+		<h1 class="notfound__title">Page not found</h1>
+		<p class="notfound__path">
+			The page <code>{Astro.url.pathname}</code> does not exist on this site.
+		</p>
+		<div class="notfound__links">
+			<a class="notfound__btn notfound__btn--primary" href="/">← Back to home</a>
+			<a class="notfound__btn" href="/paper-explorer">Paper Explorer</a>
+			<a class="notfound__btn" href="/category-explorer">Category Explorer</a>
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.notfound {
+		max-width: 36rem;
+		margin: var(--space-10) auto;
+		text-align: center;
+	}
+	.notfound__code {
+		margin: 0;
+		font-size: var(--text-5xl);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: var(--color-teal-200);
+		line-height: 1;
+	}
+	.notfound__title {
+		margin: var(--space-2) 0 var(--space-3);
+		color: var(--color-navy-800);
+	}
+	.notfound__path {
+		margin: 0 0 var(--space-6);
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+		overflow-wrap: anywhere;
+	}
+	.notfound__links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: var(--space-3);
+	}
+	.notfound__btn {
+		display: inline-flex;
+		align-items: center;
+		padding: var(--space-2) var(--space-5);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
+		color: var(--color-text);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		text-decoration: none;
+		transition: border-color var(--transition-fast), background var(--transition-fast);
+	}
+	.notfound__btn:hover {
+		border-color: var(--color-teal-400);
+		background: var(--color-teal-50);
+	}
+	.notfound__btn--primary {
+		background: var(--color-teal-600);
+		border-color: var(--color-teal-600);
+		color: var(--color-text-inverse);
+	}
+	.notfound__btn--primary:hover {
+		background: var(--color-teal-700);
+		border-color: var(--color-teal-700);
+	}
+</style>

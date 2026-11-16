@@ -1,0 +1,137 @@
+/* base.css — global resets, typography, layout scaffolding. */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	/* Prevent any horizontal scrolling — the page only scrolls vertically. */
+	overflow-x: hidden;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	font-size: var(--text-base);
+	line-height: 1.6;
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	-webkit-font-smoothing: antialiased;
+	/* `clip` (not `hidden`): hidden makes body a scroll container, which breaks
+	   position:sticky for descendants (e.g. the category pages' dimension nav). */
+	overflow-x: clip;
+}
+
+/* Anchors under the fixed header need a scroll offset. */
+:where([id]) {
+	scroll-margin-top: calc(var(--header-height) + var(--space-4));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 var(--space-4);
+	line-height: 1.25;
+	color: var(--color-navy-800);
+	font-weight: 700;
+}
+
+h1 {
+	font-size: var(--text-4xl);
+}
+h2 {
+	font-size: var(--text-3xl);
+}
+h3 {
+	font-size: var(--text-2xl);
+}
+h4 {
+	font-size: var(--text-xl);
+}
+
+p {
+	margin: 0 0 var(--space-4);
+}
+
+a {
+	color: var(--color-link);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+a:hover {
+	color: var(--color-link-hover);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* ---- Layout shell ---- */
+.site-shell {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	transition: padding-left var(--transition-base);
+}
+
+.site-main {
+	flex: 1;
+	width: 100%;
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+	/* Top padding clears the fixed header so no content sits beneath it. */
+	padding: calc(var(--header-height) + var(--space-5)) var(--space-5) var(--space-12);
+}
+
+/* ---- Sidebar-aware content offset ----
+   On desktop the sidebar is a fixed rail; the whole content column shifts
+   right by the sidebar width when it is open, and returns when it is hidden.
+   The content centers within the remaining space, so nothing overflows
+   horizontally (no side-to-side scrolling). On mobile the sidebar is an
+   overlay, so content stays full-width. */
+@media (min-width: 64rem) {
+	body.sidebar-open .site-shell {
+		padding-left: var(--sidebar-width);
+	}
+}
+
+/* ---- Utility ---- */
+.container {
+	width: 100%;
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+	padding-inline: var(--space-5);
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 48rem) {
+	.site-main {
+		padding-top: calc(var(--header-height) + var(--space-4));
+	}
+	h1 {
+		font-size: var(--text-3xl);
+	}
+	h2 {
+		font-size: var(--text-2xl);
+	}
+}

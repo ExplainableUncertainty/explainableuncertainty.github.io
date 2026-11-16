@@ -1,0 +1,67 @@
+# Deploy to GitHub Pages.
+# Repo must be named `explainable_uncertainty.github.io` so the site is served
+# at the domain root (no subpath). Set Pages source to "GitHub Actions".
+#
+# Security notes:
+#   - Minimal permissions: contents:read + pages:write only.
+#   - No secrets required; deployment uses the built-in GITHUB_TOKEN.
+#   - Dependency versions come from the committed package-lock.json (npm ci).
+
+name: Deploy to GitHub Pages
+
+on:
+  # Run on every push to main.
+  push:
+    branches: [main]
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time; don't cancel in-progress runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          # The lockfile lives in site/, not the repo root — without this
+          # path the cache step fails with 'Dependencies lock file is not found'.
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: site
+
+      - name: Build
+        run: npm run build
+        working-directory: site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

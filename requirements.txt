@@ -1,0 +1,5 @@
+# Python deps for the data pipeline (preprocess_papers.py).
+# Install with: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+pypdf==6.21.1
+pdfreader==0.1.15

@@ -1,0 +1,115 @@
+---
+// category-explorer.astro — landing page linking to the three category subpages.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import categories from '../data/categories.json';
+import { CATEGORY_GROUPS } from '../data/categoryTypes';
+import type { CategoryDimension } from '../data/categoryTypes';
+---
+
+<BaseLayout
+	title="Category Explorer"
+	description="Explore the XUQ taxonomy categories across ML tasks, XUQ methods, and XUQ evaluation."
+	currentPath="/category-explorer"
+>
+	<article class="categories">
+		<header class="categories__header">
+			<h1>Category Explorer</h1>
+			<p>
+				This page explains how the 53 reviewed papers were classified across the taxonomy of the systematic
+				literature review. The taxonomy is organised into three groups. Choose one to explore its dimensions
+				and the papers that fall into each category.
+			</p>
+		</header>
+
+		<section class="categories__groups">
+			{
+				CATEGORY_GROUPS.map((g) => {
+					const dims = categories.dimensions.filter((d) => d.group === g.id);
+					return (
+						<a
+							href={`/${g.id === 'ml_task' ? 'ml-tasks' : g.id === 'xuq_method' ? 'xuq-methods' : 'xuq-evaluation'}`}
+							class="group-card"
+							style={`--group-color:${g.color};--group-bg:${g.bg}`}
+						>
+							<h2 class="group-card__title">{g.label}</h2>
+							<p class="group-card__desc">{g.description}</p>
+							<div class="group-card__dims">
+								{
+									dims.map((dim: CategoryDimension) => (
+										<span class="group-card__dim" style={`--dim-color:${g.color};--dim-bg:${g.bg}`}>
+											{dim.label}
+										</span>
+									))
+								}
+							</div>
+							<span class="group-card__cta">Explore →</span>
+						</a>
+					);
+				})
+			}
+		</section>
+	</article>
+</BaseLayout>
+
+<style>
+	.categories__header {
+		margin-bottom: var(--space-6);
+	}
+	.categories__header p {
+		max-width: 60rem;
+		color: var(--color-text);
+	}
+
+	.categories__groups {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+		gap: var(--space-4);
+	}
+	.group-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		padding: var(--space-5);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		background: var(--color-surface);
+		box-shadow: var(--shadow-sm);
+		text-decoration: none;
+		color: var(--color-text);
+		transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+	}
+	.group-card:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-md);
+	}
+	.group-card__title {
+		margin: 0;
+		color: var(--group-color);
+	}
+	.group-card__desc {
+		margin: 0;
+		color: var(--color-text-muted);
+		font-size: var(--text-sm);
+	}
+	.group-card__dims {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-1);
+	}
+	.group-card__dim {
+		display: inline-flex;
+		align-items: center;
+		padding: 2px var(--space-2);
+		border: 1px solid var(--dim-color);
+		border-radius: 999px;
+		background: var(--dim-bg);
+		color: var(--dim-color);
+		font-size: var(--text-xs);
+		font-weight: 600;
+		white-space: nowrap;
+	}
+	.group-card__cta {
+		font-weight: 600;
+		color: var(--group-color);
+	}
+</style>
