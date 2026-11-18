@@ -2,9 +2,9 @@
 // FigureOne.astro — interactive recreation of the paper's Figure 1:
 // "Two ways of combining Explainable AI and Uncertainty Quantification".
 //
-// Layout mirrors the paper figure: a Black box feeds a Prediction, which is
-// analysed by two paradigms — Explainable Uncertainty Quantification (top,
-// teal; the focus of the review) and Uncertainty-Aware XAI (bottom, amber).
+// Layout mirrors the reference scheme: a Black box feeds a Prediction, which
+// is analysed by two paradigms — Explainable Uncertainty Quantification (top,
+// pink; the focus of the review) and Uncertainty-Aware XAI (bottom, slate).
 // The connectors between the nodes are measured and drawn by
 // `../scripts/figure-one.ts` onto an SVG overlay, so the wires stay attached
 // to their nodes at any viewport size. The cloud badges act as toggle
@@ -12,28 +12,25 @@
 ---
 
 <figure class="fig1" data-fig1>
-	<div class="fig1__frame">
-		<p class="fig1__frame-title">Intersection of Explainable AI and Uncertainty Quantification</p>
-
-		<div class="fig1__canvas" data-fig1-canvas>
+	<div class="fig1__canvas" data-fig1-canvas>
 			<!-- Connector overlay — path geometry is computed in scripts/figure-one.ts -->
 			<svg class="fig1__wires" data-fig1-wires preserveAspectRatio="none" aria-hidden="true">
 				<defs>
 					<marker id="fig1-head-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
 						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--color-navy-400)"></path>
 					</marker>
-					<marker id="fig1-head-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
-						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--color-teal-500)"></path>
+					<marker id="fig1-head-pink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--f1-pink-600)"></path>
 					</marker>
-					<marker id="fig1-head-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
-						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--f1-amber-600)"></path>
+					<marker id="fig1-head-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+						<path d="M 0.5 0.5 L 9.5 5 L 0.5 9.5 Z" fill="var(--f1-slate-600)"></path>
 					</marker>
 				</defs>
 				<path class="fig1__wire fig1__wire--source" data-wire="source" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
 				<path class="fig1__wire fig1__wire--dashed" data-wire="xuq" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
 				<path class="fig1__wire fig1__wire--dashed" data-wire="uaxai" d="M 0 0" marker-end="url(#fig1-head-navy)"></path>
-				<text class="fig1__wire-label" data-wire-label="xuq" text-anchor="middle" dominant-baseline="middle">quantifies uncertainty of</text>
-				<text class="fig1__wire-label" data-wire-label="uaxai" text-anchor="middle" dominant-baseline="middle">explains</text>
+				<text class="fig1__wire-label" data-wire-label="xuq" dominant-baseline="middle">quantifies uncertainty of</text>
+				<text class="fig1__wire-label" data-wire-label="uaxai" dominant-baseline="middle">explains</text>
 			</svg>
 
 			<!-- Shared source: the black-box model -->
@@ -54,7 +51,7 @@
 			<!-- Paradigm 1: Explainable Uncertainty Quantification (focus of the review) -->
 			<section class="fig1__panel fig1__panel--xuq" data-fig1-panel="xuq" aria-label="Paradigm: Explainable Uncertainty Quantification">
 				<div class="fig1__flow">
-					<div class="fig1__node fig1__node--uq fig1__node--first" data-fig1-node="xuq-estimate">Uncertainty estimate</div>
+					<div class="fig1__node fig1__node--first" data-fig1-node="xuq-estimate">Uncertainty estimate</div>
 					<div class="fig1__harrow" aria-hidden="true">
 						<span class="fig1__harrow-label">explains</span>
 						<svg viewBox="0 0 64 12" class="fig1__harrow-svg">
@@ -119,7 +116,7 @@
 							<polygon points="2,6 13,1.5 13,10.5" class="fig1__harrow-head"></polygon>
 						</svg>
 					</div>
-					<div class="fig1__node fig1__node--uq">Uncertainty estimate</div>
+					<div class="fig1__node">Uncertainty estimate</div>
 				</div>
 
 				<div class="fig1__text">
@@ -163,7 +160,6 @@
 					</svg>
 				</button>
 			</section>
-		</div>
 	</div>
 
 	<p class="fig1__hint">
@@ -177,40 +173,19 @@
 
 <style>
 	.fig1 {
-		/* Local amber scale for the Uncertainty-Aware XAI panel (site palette is teal/navy). */
-		--f1-amber-50: #fdf8ec;
-		--f1-amber-100: #f9ecc9;
-		--f1-amber-300: #e9c96e;
-		--f1-amber-600: #a87d1f;
-		--f1-amber-900: #52400c;
+		/* Local palette for the two paradigms (matches the reference scheme):
+		   pink for XUQ, slate for Uncertainty-Aware XAI. */
+		--f1-pink-50: #fdf0f2;
+		--f1-pink-100: #f8d3d9;
+		--f1-pink-300: #eeadb9;
+		--f1-pink-600: #c96b7d;
+		--f1-pink-900: #5c2733;
+		--f1-slate-50: #f0f1f3;
+		--f1-slate-300: #aab3bf;
+		--f1-slate-500: #64748b;
+		--f1-slate-600: #55657a;
 
 		margin: 0;
-		padding-top: 1.1rem; /* room for the frame title chip */
-	}
-
-	/* ---- Dashed frame with centred title chip ---- */
-	.fig1__frame {
-		position: relative;
-		padding: var(--space-6) var(--space-5) var(--space-5);
-		border: 1.5px dashed var(--color-navy-300);
-		border-radius: var(--radius-lg);
-		background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 100%);
-	}
-	.fig1__frame-title {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		margin: 0;
-		padding: 0.3rem var(--space-4);
-		background: var(--color-bg);
-		border: 1.5px dashed var(--color-navy-300);
-		border-radius: 999px;
-		font-size: var(--text-sm);
-		font-weight: 700;
-		color: var(--color-navy-800);
-		text-align: center;
-		max-width: min(94%, 36rem);
 	}
 
 	/* ---- Canvas grid: rail (black box) | panels + prediction band ---- */
@@ -272,10 +247,9 @@
 		width: 9.5rem;
 		min-height: 3.25rem;
 		padding: var(--space-2) var(--space-4);
-		border: 1.5px solid var(--color-navy-400);
+		border: 1.5px solid var(--color-navy-700);
 		border-radius: var(--radius-md);
 		background: var(--color-surface);
-		box-shadow: var(--shadow-md);
 		font-size: var(--text-base);
 		font-weight: 700;
 		color: var(--color-navy-800);
@@ -291,7 +265,7 @@
 		align-items: center;
 		gap: var(--space-5);
 		padding: var(--space-5);
-		border-radius: var(--radius-lg);
+		border-radius: 1.25rem;
 		border: 1.5px solid transparent;
 		transition:
 			opacity var(--transition-base),
@@ -300,13 +274,13 @@
 	}
 	.fig1__panel--xuq {
 		grid-area: xuq;
-		background: var(--color-teal-50);
-		border-color: var(--color-teal-300);
+		background: var(--f1-pink-50);
+		border-color: var(--f1-pink-300);
 	}
 	.fig1__panel--uaxai {
 		grid-area: uaxai;
-		background: var(--f1-amber-50);
-		border-color: var(--f1-amber-300);
+		background: var(--f1-slate-50);
+		border-color: var(--f1-slate-300);
 	}
 	.fig1__panel:hover {
 		box-shadow: var(--shadow-md);
@@ -333,10 +307,9 @@
 		justify-content: center;
 		min-height: 2.9rem;
 		padding: var(--space-2) var(--space-3);
-		border: 1.5px solid var(--color-navy-300);
+		border: 1.5px solid var(--color-navy-700);
 		border-radius: var(--radius-md);
 		background: var(--color-surface);
-		box-shadow: var(--shadow-sm);
 		font-size: var(--text-sm);
 		font-weight: 600;
 		color: var(--color-navy-800);
@@ -348,12 +321,6 @@
 		   wires ("Uncertainty estimate" wraps, as in the paper figure). */
 		width: 9.5rem;
 	}
-	.fig1__node--uq {
-		background: var(--color-teal-50);
-		border-color: var(--color-teal-400);
-		color: var(--color-teal-800);
-	}
-
 	.fig1__harrow {
 		display: flex;
 		flex-direction: column;
@@ -389,12 +356,6 @@
 		font-weight: 700;
 		font-style: italic;
 	}
-	.fig1__panel--xuq .fig1__question {
-		color: var(--color-teal-800);
-	}
-	.fig1__panel--uaxai .fig1__question {
-		color: var(--f1-amber-900);
-	}
 	.fig1__target {
 		margin: 0 0 var(--space-3);
 		font-size: var(--text-sm);
@@ -413,19 +374,11 @@
 	}
 	.fig1__dart-ring {
 		fill: none;
+		stroke: var(--color-navy-900);
 		stroke-width: 2.4;
 	}
-	.fig1__panel--xuq .fig1__dart-ring {
-		stroke: var(--color-teal-600);
-	}
-	.fig1__panel--uaxai .fig1__dart-ring {
-		stroke: var(--f1-amber-600);
-	}
-	.fig1__panel--xuq .fig1__dart-center {
-		fill: var(--color-teal-500);
-	}
-	.fig1__panel--uaxai .fig1__dart-center {
-		fill: var(--f1-amber-600);
+	.fig1__dart-center {
+		fill: var(--color-navy-900);
 	}
 	.fig1__dart-shaft,
 	.fig1__dart-fletch {
@@ -473,34 +426,34 @@
 		height: auto;
 	}
 	.fig1__cloud-outline {
-		fill: var(--color-teal-300);
+		fill: var(--f1-pink-300);
 	}
 	.fig1__cloud-body {
-		fill: var(--color-teal-100);
+		fill: var(--f1-pink-100);
 	}
 	.fig1__cloud--uaxai .fig1__cloud-outline {
-		fill: var(--f1-amber-300);
+		fill: var(--f1-slate-600);
 	}
 	.fig1__cloud--uaxai .fig1__cloud-body {
-		fill: var(--f1-amber-100);
+		fill: var(--f1-slate-500);
 	}
 	.fig1__cloud-text {
 		font-family: var(--font-sans);
 		font-size: 11.5px;
 		font-weight: 700;
-		fill: var(--color-teal-900);
+		fill: var(--f1-pink-900);
 	}
 	.fig1__cloud-text--sm {
 		font-size: 10.5px;
 	}
 	.fig1__cloud--uaxai .fig1__cloud-text {
-		fill: var(--f1-amber-900);
+		fill: #ffffff;
 	}
 
 	/* Soft glow on the cloud of the persistently selected paradigm */
 	.fig1[data-focus='xuq'] .fig1__cloud--xuq svg,
 	.fig1[data-focus='uaxai'] .fig1__cloud--uaxai svg {
-		filter: drop-shadow(0 0 6px rgba(26, 156, 150, 0.55));
+		filter: drop-shadow(0 0 6px rgba(201, 107, 125, 0.55));
 	}
 
 	/* ---- Connector wires ---- */
@@ -528,14 +481,14 @@
 
 	/* Highlight the wires of the inspected paradigm */
 	[data-wire='xuq'].is-hot {
-		stroke: var(--color-teal-500);
+		stroke: var(--f1-pink-600);
 		stroke-width: 2.5;
-		marker-end: url(#fig1-head-teal);
+		marker-end: url(#fig1-head-pink);
 	}
 	[data-wire='uaxai'].is-hot {
-		stroke: var(--f1-amber-600);
+		stroke: var(--f1-slate-600);
 		stroke-width: 2.5;
-		marker-end: url(#fig1-head-amber);
+		marker-end: url(#fig1-head-slate);
 	}
 	.fig1[data-hot='xuq'] [data-wire='uaxai'],
 	.fig1[data-focus='xuq'] [data-wire='uaxai'],
@@ -591,9 +544,6 @@
 		.fig1__canvas {
 			column-gap: 1.25rem;
 			row-gap: 2.25rem;
-		}
-		.fig1__frame {
-			padding: var(--space-6) var(--space-4) var(--space-4);
 		}
 		.fig1__mid {
 			padding-left: var(--space-4);

@@ -7,16 +7,19 @@
  * the actual DOM nodes and draw the connectors onto an SVG overlay:
  *
  *   Black box ──▶ Prediction
- *                 ▲ dashed  (label: "quantifies uncertainty of")
- *                 │         → Uncertainty estimate  [XUQ panel, above]
- *                 ▼ dashed  (label: "explains")
+ *                 ▲ dashed  (label: "explains")
  *                 │         ← Explanation  [UAXAI panel, below]
+ *                 │
+ *                 ▼ dashed  (label: "quantifies uncertainty of")
+ *                 │         ← Uncertainty estimate  [XUQ panel, above]
  *
  * The paradigm wires are vertical (top/bottom edge anchors), matching the
- * paper; the grid keeps the Prediction node column-aligned with the first
- * node of each panel flow so the wires stay straight. Below the wide-layout
- * breakpoint the overlay is hidden via CSS (panels stack and the vertical
- * wires would cross panel content); the in-panel arrows still show the flow.
+ * reference scheme: the XUQ arrow flows downward (Uncertainty estimate →
+ * Prediction), the UAXAI arrow upward (Explanation → Prediction). The grid
+ * keeps the Prediction node column-aligned with the first node of each panel
+ * flow so the wires stay straight. Below the wide-layout breakpoint the
+ * overlay is hidden via CSS (panels stack and the vertical wires would cross
+ * panel content); the in-panel arrows still show the flow.
  *
  * Also wires up the interactivity: hovering a paradigm (or toggling its cloud
  * badge) dims the other paradigm and recolors its wires.
@@ -28,8 +31,8 @@ type Paradigm = 'xuq' | 'uaxai';
 /** Named anchors in the diagram; each maps to an element with `data-fig1-node`. */
 type NodeKey = 'blackbox' | 'prediction' | 'xuq-estimate' | 'uaxai-explanation';
 
-/** Wire orientation: horizontal (right→left edges) or vertical (bottom→top edges). */
-type Orientation = 'horizontal' | 'vertical';
+/** Wire orientation: horizontal (right→left edges) or vertical (top↔bottom edges). */
+type Orientation = 'horizontal' | 'vertical-down' | 'vertical-up';
 
 /** Padding between a wire endpoint and the edge of its target node (px). */
 const ENDPOINT_GAP = 4;
@@ -50,8 +53,10 @@ const wireLabelSelector = (key: Paradigm): string => `[data-wire-label="${key}"]
  * Compute the anchor points and SVG path for a connector between two elements.
  *
  * - `horizontal`: leaves the source's right edge, enters the target's left edge.
- * - `vertical`: leaves the source's top edge, enters the target's bottom edge
- *   (upward arrow, as in the paper).
+ * - `vertical-down`: leaves the source's bottom edge, enters the target's top
+ *   edge (downward arrow, e.g. Uncertainty estimate → Prediction).
+ * - `vertical-up`: leaves the source's top edge, enters the target's bottom
+ *   edge (upward arrow, e.g. Explanation → Prediction).
  *
  * All coordinates are relative to the overlay's top-left corner.
  */
@@ -75,6 +80,14 @@ function computeWire(
 		return { d: `M ${x1} ${y1} L ${x2} ${y2}`, midX: (x1 + x2) / 2, midY: (y1 + y2) / 2 };
 	}
 
+	if (orientation === 'vertical-down') {
+		const x1 = fromBox.left + fromBox.width / 2 - overlayBox.left;
+		const y1 = fromBox.bottom - overlayBox.top + ENDPOINT_GAP;
+		const x2 = toBox.left + toBox.width / 2 - overlayBox.left;
+		const y2 = toBox.top - overlayBox.top;
+		return { d: `M ${x1} ${y1} L ${x2} ${y2}`, midX: (x1 + x2) / 2, midY: (y1 + y2) / 2 };
+	}
+
 	const x1 = fromBox.left + fromBox.width / 2 - overlayBox.left;
 	const y1 = fromBox.top - overlayBox.top - ENDPOINT_GAP;
 	const x2 = toBox.left + toBox.width / 2 - overlayBox.left;
@@ -83,15 +96,13 @@ function computeWire(
 }
 
 /**
- * Place a wire label alongside a vertical wire, rotated to read bottom-to-top
- * (as in the paper figure). `x`/`y` anchor the text just left of the wire.
+ * Place a wire label horizontally, just right of its vertical wire (as in the
+ * reference scheme). `x`/`y` anchor the text's left edge near the wire.
  */
 function placeVerticalLabel(label: SVGTextElement, midX: number, midY: number): void {
-	const x = midX - LABEL_OFFSET;
-	const y = midY;
-	label.setAttribute('x', String(x));
-	label.setAttribute('y', String(y));
-	label.setAttribute('transform', `rotate(-90 ${x} ${y})`);
+	label.setAttribute('x', String(midX + LABEL_OFFSET));
+	label.setAttribute('y', String(midY));
+	label.removeAttribute('transform');
 }
 
 /**
@@ -138,12 +149,13 @@ export function initFigureOne(figure: HTMLElement): void {
 			wires.source.setAttribute('d', source.d);
 		}
 
-		// XUQ wire: Prediction → Uncertainty estimate (panel above; upward arrow).
+		// XUQ wire: Uncertainty estimate → Prediction (downward arrow, as in the
+		// reference scheme: the estimate quantifies the uncertainty of the prediction).
 		const xuq =
-			nodes.prediction &&
 			nodes.xuqEstimate &&
+			nodes.prediction &&
 			wires.xuq &&
-			computeWire(nodes.prediction, nodes.xuqEstimate, overlay, 'vertical');
+			computeWire(nodes.xuqEstimate, nodes.prediction, overlay, 'vertical-down');
 		if (xuq && wires.xuq) {
 			wires.xuq.setAttribute('d', xuq.d);
 			if (labels.xuq) placeVerticalLabel(labels.xuq, xuq.midX, xuq.midY);
@@ -154,7 +166,7 @@ export function initFigureOne(figure: HTMLElement): void {
 			nodes.uaxaiExplanation &&
 			nodes.prediction &&
 			wires.uaxai &&
-			computeWire(nodes.uaxaiExplanation, nodes.prediction, overlay, 'vertical');
+			computeWire(nodes.uaxaiExplanation, nodes.prediction, overlay, 'vertical-up');
 		if (uaxai && wires.uaxai) {
 			wires.uaxai.setAttribute('d', uaxai.d);
 			if (labels.uaxai) placeVerticalLabel(labels.uaxai, uaxai.midX, uaxai.midY);
