@@ -154,8 +154,10 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 								</thead>
 								<tbody>
 									{
-										papers.map((paper: Paper) => (
-											<tr data-paper-row data-paper-id={paper.id}>
+										papers.map((paper: Paper, paperIndex: number) => {
+																																						const displayId = String(paperIndex + 1);
+																																						return (
+																																						<tr data-paper-row data-paper-id={paper.id}>
 												{
 													tableCols.map((col) => {
 														const value = getValue(paper, col.path);
@@ -176,7 +178,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 																		data-open-profile
 																		data-paper-id={paper.id}
 																	>
-																		{formatValue(value)}
+																		{col.key === 'id' ? displayId : formatValue(value)}
 																	</button>
 																) : isList ? (
 																	<div class="cell__labels">
@@ -202,7 +204,8 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 													})
 												}
 											</tr>
-										))
+										);
+										})
 									}
 								</tbody>
 							</table>
@@ -243,6 +246,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	import type { Paper } from '../data/paperTypes';
 	import type { ColumnGroup } from '../data/paperTypes';
 	import papers from '../data/papers.json';
+	import { valueLabel } from '../data/valueLabels';
 
 	const searchInput = document.querySelector<HTMLInputElement>('[data-search-input]');
 	const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
@@ -527,6 +531,12 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			return sortDir === 'asc' ? cmp : -cmp;
 		});
 		rows.forEach((row) => tbody.appendChild(row));
+		// Renumber the visible ID column 1..N in the new order (display-only;
+		// data-paper-id keeps the real ID for filters and the profile popup).
+		rows.forEach((row, i) => {
+			const idBtn = row.querySelector('td button');
+			if (idBtn) idBtn.textContent = String(i + 1);
+		});
 		document.querySelectorAll<HTMLElement>('[data-sort-arrow]').forEach((arrow) => {
 			const col = arrow.dataset.sortArrow;
 			if (col === sortCol) {
@@ -693,14 +703,8 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	}
 
 	function renderProfile(paper: Paper): string {
-		// --- Hero: identity + reference badges (plain text — no external links) ---
-		const links: string[] = [];
-		if (paper.doi) {
-			links.push(`<span class="profile__btn">DOI: ${escapeHtml(paper.doi)}</span>`);
-		}
-		if (paper.url) {
-			links.push('<span class="profile__btn">Publisher page available</span>');
-		}
+		// --- Hero: identity + DOI as plain text (no external links, no buttons) ---
+		const doiLine = paper.doi ? `<p class="profile__doi">DOI: ${escapeHtml(paper.doi)}</p>` : '';
 
 		// --- Abstract ---
 		const abstract = paper.abstract
@@ -786,7 +790,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 				<h2 class="profile__title" id="profile-title">${escapeHtml(paper.title || `Paper ${paper.id}`)}</h2>
 				${paper.authors.length ? `<p class="profile__meta">${escapeHtml(paper.authors.join(', '))}</p>` : ''}
 				${paper.venue ? `<p class="profile__venue">${escapeHtml(paper.venue)}</p>` : ''}
-				${links.length ? `<div class="profile__actions">${links.join('')}</div>` : ''}
+				${doiLine}
 			</header>
 			${abstract}
 			${sectionHtml}
@@ -1185,19 +1189,19 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		color: var(--color-gray-800);
 	}
 	.th--ml_task {
-		background: var(--color-teal-100);
-		color: var(--color-teal-800);
-	}
-	.th--xuq_method {
-		background: var(--color-navy-100);
-		color: var(--color-navy-800);
-	}
-	.th--xuq_evaluation {
-		background: var(--color-indigo-100);
-		color: var(--color-indigo-800);
-	}
+			background: var(--color-navy-100);
+			color: var(--color-navy-800);
+		}
+		.th--xuq_method {
+			background: var(--color-indigo-100);
+			color: var(--color-indigo-800);
+		}
+		.th--xuq_evaluation {
+			background: var(--color-teal-100);
+			color: var(--color-teal-800);
+		}
 
-	.th__label {
+		.th__label {
 		margin-right: var(--space-1);
 	}
 	.th__sort {

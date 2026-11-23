@@ -67,9 +67,9 @@ export interface GroupDef {
 /** The column groups and their colors. */
 export const GROUPS: GroupDef[] = [
 	{ id: 'general', label: 'General', color: 'var(--color-gray-600)', bg: 'var(--color-gray-100)' },
-	{ id: 'ml_task', label: 'Research Context', color: 'var(--color-teal-700)', bg: 'var(--color-teal-100)' },
-	{ id: 'xuq_method', label: 'XUQ Method', color: 'var(--color-navy-500)', bg: 'var(--color-navy-100)' },
-	{ id: 'xuq_evaluation', label: 'XUQ Evaluation', color: 'var(--color-indigo-700)', bg: 'var(--color-indigo-100)' },
+	{ id: 'ml_task', label: 'Research Context', color: 'var(--color-navy-500)', bg: 'var(--color-navy-100)' },
+	{ id: 'xuq_method', label: 'XUQ Method', color: 'var(--color-indigo-700)', bg: 'var(--color-indigo-100)' },
+	{ id: 'xuq_evaluation', label: 'XUQ Evaluation', color: 'var(--color-teal-700)', bg: 'var(--color-teal-100)' },
 ];
 
 /** The three category tables shown in the paper explorer (general is always shown). */
@@ -154,11 +154,11 @@ export function getGroup(groupId: ColumnGroup): GroupDef {
 export function labelColor(groupId: ColumnGroup): string {
 	switch (groupId) {
 		case 'ml_task':
-			return 'var(--color-teal-700)';
-		case 'xuq_method':
 			return 'var(--color-navy-600)';
+		case 'xuq_method':
+			return 'var(--color-indigo-700)';
 		case 'xuq_evaluation':
-			return 'var(--color-teal-600)';
+			return 'var(--color-teal-700)';
 		case 'general':
 		default:
 			return 'var(--color-gray-600)';
@@ -169,11 +169,11 @@ export function labelColor(groupId: ColumnGroup): string {
 export function labelBg(groupId: ColumnGroup): string {
 	switch (groupId) {
 		case 'ml_task':
-			return 'var(--color-teal-100)';
-		case 'xuq_method':
 			return 'var(--color-navy-100)';
+		case 'xuq_method':
+			return 'var(--color-indigo-100)';
 		case 'xuq_evaluation':
-			return 'var(--color-teal-50)';
+			return 'var(--color-teal-100)';
 		case 'general':
 		default:
 			return 'var(--color-gray-100)';

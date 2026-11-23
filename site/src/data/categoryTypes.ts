@@ -35,24 +35,24 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
 		label: 'Research Context',
 		description:
 			'The general properties of the machine learning task of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality and ML task it addresses, and the intended target audience of the explanations.',
-		color: 'var(--color-teal-700)',
-		bg: 'var(--color-teal-100)',
+		color: 'var(--color-navy-600)',
+		bg: 'var(--color-navy-100)',
 	},
 	{
 		id: 'xuq_method',
 		label: 'XUQ Methods',
 		description:
 			"Explore the methods used to generate explanations of uncertainty. This covers the type of uncertainty, the UQ method used to generate an uncertainty estimate, the specific uncertainty estimate, how the explanation is integrated with the model, the explanation's portability and locality, and the explanation output type",
-		color: 'var(--color-navy-600)',
-		bg: 'var(--color-navy-100)',
+		color: 'var(--color-indigo-700)',
+		bg: 'var(--color-indigo-100)',
 	},
 	{
 		id: 'xuq_evaluation',
 		label: 'XUQ Evaluation',
 		description:
 			'Browse how the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated in the first place, the type of evaluation performed (functionally-grounded, human-grounded, application-grounded, or anecdotal evidence), the Co-12 properties [1] addressed, and whether the applied XUQ method was benchmarked against other methods',
-		color: 'var(--color-indigo-700)',
-		bg: 'var(--color-indigo-100)',
+		color: 'var(--color-teal-700)',
+		bg: 'var(--color-teal-100)',
 	},
 ];
 
@@ -129,6 +129,37 @@ export function papersForValue(
  * Humanize a snake_case / spaced label. If a CategoryValue with a curated
  * `label` field is available, prefer passing that instead.
  */
+/** Curated display labels for raw taxonomy values. */
+const valueLabels: Record<string, string> = {
+	"application_oriented": "Application-oriented",
+	"method_oriented": "Method-oriented",
+	"image": "Image",
+	"tabular": "Tabular",
+	"time series": "Time series",
+	"text": "Text",
+	"graph": "Graph",
+	"structured spatiotemporal data": "Structured spatiotemporal data",
+	"multimodal": "Multimodal",
+	"event data": "Event data",
+	"classification": "Classification",
+	"regression": "Regression",
+	"time series forecasting": "Time series forecasting",
+	"trajectory prediction": "Trajectory prediction",
+	"segmentation": "Segmentation",
+	"object detection": "Object detection",
+	"predictive": "Predictive",
+	"epistemic": "Epistemic",
+	"aleatoric": "Aleatoric",
+	"other": "Other",
+	"Not specified": "Not specified",
+	"model_agnostic": "Model-agnostic",
+	"model_specific": "Model-specific",
+	"local": "Local",
+	"global": "Global",
+	"both": "Both",
+	"uncertainty attribution": "Uncertainty attribution",
+};
+
 export function humanizeLabel(s: string): string {
         return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
 }
@@ -136,4 +167,9 @@ export function humanizeLabel(s: string): string {
 /** Display label for a taxonomy value: curated `label` if present, else humanized. */
 export function displayLabel(v: CategoryValue): string {
         return v.label ?? humanizeLabel(v.value);
+}
+
+/** Display label for a raw value string (uses the curated label when available). */
+export function displayValueLabel(value: string): string {
+	return valueLabels[value] ?? humanizeLabel(value);
 }

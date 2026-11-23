@@ -140,6 +140,13 @@ global (class names are profile__/pcard-prefixed to avoid collisions). */
 		font-style: italic;
 		color: rgba(255, 255, 255, 0.7);
 	}
+	/* DOI as plain text (no button, no link) */
+	.profile__doi {
+		margin: var(--space-2) 0 0;
+		font-size: var(--text-xs);
+		color: rgba(255, 255, 255, 0.75);
+		overflow-wrap: anywhere;
+	}
 	.profile__actions {
 		display: flex;
 		flex-wrap: wrap;

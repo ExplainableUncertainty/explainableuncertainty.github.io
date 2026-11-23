@@ -208,6 +208,7 @@ function orderedValues(dim: CategoryDimension) {
 <script>
 	import papers from '../data/papers.json';
 	import { COLUMNS, GROUPS, getValue, labelColor, labelBg } from '../data/paperTypes';
+	import { displayValueLabel } from '../data/categoryTypes';
 	import type { Paper } from '../data/paperTypes';
 
 	// Collapsible paper references.
@@ -256,14 +257,8 @@ function orderedValues(dim: CategoryDimension) {
 	}
 
 	function renderProfile(paper: Paper): string {
-		// Reference badges (plain text — no external links).
-		const links: string[] = [];
-		if (paper.doi) {
-			links.push(`<span class="profile__btn">DOI: ${escapeHtml(paper.doi)}</span>`);
-		}
-		if (paper.url) {
-			links.push('<span class="profile__btn">Publisher page available</span>');
-		}
+		// DOI as plain text (no external links, no buttons).
+		const doiLine = paper.doi ? `<p class="profile__doi">DOI: ${escapeHtml(paper.doi)}</p>` : '';
 
 		const abstract = paper.abstract
 			? `
@@ -289,8 +284,8 @@ function orderedValues(dim: CategoryDimension) {
 						.map((v) => {
 							const href = page ? `${page}#dim-${col.key}-${slugify(v)}` : null;
 							return href
-								? `<a class="profile__tag profile__tag--link" style="--label-color:${color};--label-bg:${bg}" href="${href}">${escapeHtml(displayLabel(v))}</a>`
-								: `<span class="profile__tag" style="--label-color:${color};--label-bg:${bg}">${escapeHtml(displayLabel(v))}</span>`;
+								? `<a class="profile__tag profile__tag--link" style="--label-color:${color};--label-bg:${bg}" href="${href}">${escapeHtml(displayValueLabel(v))}</a>`
+								: `<span class="profile__tag" style="--label-color:${color};--label-bg:${bg}">${escapeHtml(displayValueLabel(v))}</span>`;
 						})
 						.join('');
 					return `
@@ -344,7 +339,7 @@ function orderedValues(dim: CategoryDimension) {
 				<h2 class="profile__title" id="profile-title">${escapeHtml(paper.title || `Paper ${paper.id}`)}</h2>
 				${paper.authors.length ? `<p class="profile__meta">${escapeHtml(paper.authors.join(', '))}</p>` : ''}
 				${paper.venue ? `<p class="profile__venue">${escapeHtml(paper.venue)}</p>` : ''}
-				${links.length ? `<div class="profile__actions">${links.join('')}</div>` : ''}
+				${doiLine}
 			</header>
 			${abstract}
 			${sectionHtml}
