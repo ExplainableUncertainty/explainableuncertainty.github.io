@@ -2,8 +2,11 @@
 // category-explorer.astro — landing page linking to the three category subpages.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import categories from '../data/categories.json';
+import papers from '../data/papers.json';
 import { CATEGORY_GROUPS } from '../data/categoryTypes';
 import type { CategoryDimension } from '../data/categoryTypes';
+
+const paperCount = papers.length;
 ---
 
 <BaseLayout
@@ -15,9 +18,9 @@ import type { CategoryDimension } from '../data/categoryTypes';
 		<header class="categories__header">
 			<h1>Category Explorer</h1>
 			<p>
-				This page explains how the 53 reviewed papers were classified across the taxonomy of the systematic
-				literature review. The taxonomy is organised into three groups. Choose one to explore its dimensions
-				and the papers that fall into each category.
+				The category explorer structures the {paperCount} reviewed papers by categories. We divided the categories into
+				three groups: the ML tasks a paper covers, the XUQ method a paper applies, and the evaluation approaches
+				it applies to XUQ.
 			</p>
 		</header>
 
@@ -48,6 +51,16 @@ import type { CategoryDimension } from '../data/categoryTypes';
 				})
 			}
 		</section>
+
+		<!-- References cited in the taxonomy descriptions ([2] PRISMA, linked from the home page). -->
+		<div class="categories__reference" id="references-prisma">
+			<p class="categories__reference-title">Reference</p>
+			<p class="categories__reference-text">
+				[2] Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D.,
+				Shamseer, L., Tetzlaff, J. M., Akl, E. A., Brennan, S. E., et al. (2021). The PRISMA 2020
+				statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>, 372, n71.
+			</p>
+		</div>
 	</article>
 </BaseLayout>
 
@@ -111,5 +124,30 @@ import type { CategoryDimension } from '../data/categoryTypes';
 	.group-card__cta {
 		font-weight: 600;
 		color: var(--group-color);
+	}
+
+	/* ---- Reference footer (PRISMA [2], cited from the home page) ---- */
+	.categories__reference {
+		margin-top: var(--space-6);
+		padding: var(--space-4) var(--space-5);
+		border: 1px solid var(--color-border);
+		border-left: 4px solid var(--color-teal-500);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		scroll-margin-top: calc(var(--header-height) + var(--space-4));
+	}
+	.categories__reference-title {
+		margin: 0 0 var(--space-1);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-teal-700);
+	}
+	.categories__reference-text {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: 1.6;
+		color: var(--color-text);
 	}
 </style>

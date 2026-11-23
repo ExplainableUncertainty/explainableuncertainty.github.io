@@ -1,7 +1,11 @@
 ---
-// index.astro — landing page: paper intro, XUQ definition, Figure 1, methodology, nav buttons.
+// index.astro — landing page: paper intro, XUQ definition, scheme figure, methodology, nav buttons.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FigureOne from '../components/FigureOne.astro';
+import papers from '../data/papers.json';
+// Interactive Figure 1 scheme is currently replaced by a static image (see below).
+// import FigureOne from '../components/FigureOne.astro';
+
+const paperCount = papers.length;
 ---
 
 <BaseLayout
@@ -23,8 +27,8 @@ import FigureOne from '../components/FigureOne.astro';
 			<h2>What is Explainable Uncertainty Quantification?</h2>
 			<blockquote class="landing__definition">
 				<p>
-					<strong>Explainable Uncertainty Quantification (XUQ)</strong> contains all the mechanisms that make
-					the estimates of uncertainty of AI-based models more understandable to humans.
+					<strong>Explainable Uncertainty Quantification (XUQ)</strong> contains all the mechanisms that make an
+					estimate of uncertainty of AI-based models more understandable to humans.
 				</p>
 			</blockquote>
 			<p>
@@ -37,42 +41,80 @@ import FigureOne from '../components/FigureOne.astro';
 
 		<!-- Figure 1 -->
 		<section class="landing__section" id="figure">
-			<h2>Two ways of combining XAI and Uncertainty Quantification</h2>
-			<FigureOne />
+			<h2>Overview of XUQ</h2>
+			<!-- Static scheme image (public/scheme.png). The interactive scheme can be
+			     restored by uncommenting the import above and the component below. -->
+			<figure class="landing__scheme">
+				<img
+					src="/scheme.png"
+					alt="Overview of XUQ: definition, motivation with stakeholders (clinician, patient, AI researcher), current state, and research gaps and future directions across scope, methods, and evaluation"
+				/>
+				<figcaption class="landing__scheme-caption">
+					Overview of XUQ: Definition, motivation, current state, and future research directions. The overview
+					illustrates the motivation for XUQ through a clinical prediction scenario and different
+					stakeholder-specific needs. Based on the results from the structured literature review, it summarizes
+					the current state of the field across scope, methods, and evaluation of XUQ. In addition, it
+					highlights the identified research gaps and directions for future research.
+				</figcaption>
+			</figure>
+			<!-- <FigureOne /> -->
 		</section>
 
 		<!-- Methodology -->
 		<section class="landing__section" id="methodology">
 			<h2>How the review was conducted</h2>
 			<p>
-				We performed a systematic literature review based on the PRISMA guidelines. We identified{' '}
-				<strong>53 relevant publications</strong> and structured them according to the following taxonomy. A
-				detailed description of the different categories in the taxonomy can be found in the paper.
+				We performed a systematic literature review based on the PRISMA guidelines{' '}
+				<a class="landing__ref-link" href="/category-explorer#references-prisma">[2]</a>. We identified{' '}
+				<strong>{paperCount} relevant publications</strong> on XUQ. Based on these publications, we answer the following
+				four research questions:
 			</p>
+			<ul class="landing__rq">
+				<li><strong>RQ1:</strong> What is the current scope of research on XUQ?</li>
+				<li><strong>RQ2:</strong> Which types of explanations of uncertainty are proposed and applied in the literature?</li>
+				<li><strong>RQ3:</strong> How are explanations of uncertainty evaluated in the literature?</li>
+				<li><strong>RQ4:</strong> What research gaps and future research directions are identified in the XUQ literature?</li>
+			</ul>
 			<p>
-				Each reviewed study was classified along two panels: the <strong>Uncertainty Quantification</strong> panel
-				(uncertainty type, UQ method, and uncertainty estimate) and the <strong>Explanations of Uncertainty</strong>{' '}
-				panel (integration type, locality, portability, and explanation output type).
+				To answer the research questions, we structured all papers according to different categories spanning
+				the addressed machine learning task, XUQ method, and evaluation of XUQ. More details on the categories
+				can be found in the <a href="/category-explorer">category explorer</a> and in the paper.
 			</p>
 		</section>
 
 		<!-- Navigation buttons -->
 		<section class="landing__section landing__nav" id="explore">
 			<h2>Explore the data</h2>
-			<p>Browse the 53 reviewed papers and the taxonomy categories behind them.</p>
+			<p>
+				Explore the {paperCount} reviewed studies through two complementary views: browse papers across different
+				categories and dimensions or search individual papers.
+			</p>
 			<div class="landing__buttons">
 				<a class="btn btn--primary" href="/category-explorer">
 					<span class="btn__label">Category Explorer</span>
-					<span class="btn__hint">Explore the taxonomy categories</span>
+					<span class="btn__hint">Explore the different dimensions and categories used in the review. Discover which papers fall into specific categories.</span>
 				</a>
-				<a class="btn btn--secondary" href="/paper-explorer">
+				<a class="btn btn--primary" href="/paper-explorer">
 					<span class="btn__label">Paper Explorer</span>
-					<span class="btn__hint">Browse the reviewed papers</span>
+					<span class="btn__hint">Search and browse the complete collection of reviewed papers.</span>
 				</a>
 			</div>
 		</section>
 	</article>
 </BaseLayout>
+
+<script>
+	// The [2] marker links to /category-explorer#references-prisma. Browsers jump to
+	// the anchor on navigation, but layout shifts (image loading) can land the scroll
+	// off-target — re-anchor once the page has settled.
+	if (window.location.hash === '#references-prisma') {
+		const scrollToRef = () => {
+			document.getElementById('references-prisma')?.scrollIntoView({ behavior: 'auto', block: 'start' });
+		};
+		scrollToRef();
+		window.addEventListener('load', scrollToRef, { once: true });
+	}
+</script>
 
 <style>
 	.landing__header {
@@ -122,6 +164,43 @@ import FigureOne from '../components/FigureOne.astro';
 		border: 1px solid var(--color-border);
 	}
 
+	/* Static scheme image — displayed bare (no frame/box behind it). */
+	.landing__scheme {
+		margin: 0;
+	}
+	.landing__scheme img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.landing__scheme-caption {
+		margin-top: var(--space-3);
+		font-size: var(--text-sm);
+		line-height: 1.6;
+		color: var(--color-text-muted);
+	}
+
+	/* Research questions list in the methodology section */
+	.landing__rq {
+		margin: 0 0 var(--space-4);
+		padding-left: var(--space-6);
+		display: grid;
+		gap: var(--space-1);
+		font-size: var(--text-base);
+		color: var(--color-text);
+	}
+
+	/* Clickable [2] reference marker → PRISMA reference on the category explorer */
+	.landing__ref-link {
+		font-weight: 700;
+		color: var(--color-teal-700);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+	.landing__ref-link:hover {
+		color: var(--color-teal-500);
+	}
+
 	.landing__buttons {
 		display: flex;
 		flex-wrap: wrap;
@@ -132,6 +211,8 @@ import FigureOne from '../components/FigureOne.astro';
 	.btn {
 		display: inline-flex;
 		flex-direction: column;
+		/* Equal-width buttons: both grow to fill the row equally. */
+		flex: 1 1 16rem;
 		gap: var(--space-1);
 		padding: var(--space-4) var(--space-6);
 		border-radius: var(--radius-md);

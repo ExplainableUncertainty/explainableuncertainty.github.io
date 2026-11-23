@@ -31,7 +31,7 @@ export interface Paper {
 		evaluation_type: string[];
 		co12: string[];
 		benchmarked: string[];
-		shap: string[];
+		attribution_detail: string[];
 	};
 }
 
@@ -67,9 +67,9 @@ export interface GroupDef {
 /** The column groups and their colors. */
 export const GROUPS: GroupDef[] = [
 	{ id: 'general', label: 'General', color: 'var(--color-gray-600)', bg: 'var(--color-gray-100)' },
-	{ id: 'ml_task', label: 'ML Task Properties', color: 'var(--color-teal-700)', bg: 'var(--color-teal-100)' },
+	{ id: 'ml_task', label: 'Research Context', color: 'var(--color-teal-700)', bg: 'var(--color-teal-100)' },
 	{ id: 'xuq_method', label: 'XUQ Method', color: 'var(--color-navy-500)', bg: 'var(--color-navy-100)' },
-	{ id: 'xuq_evaluation', label: 'XUQ Evaluation', color: 'var(--color-teal-600)', bg: 'var(--color-teal-100)' },
+	{ id: 'xuq_evaluation', label: 'XUQ Evaluation', color: 'var(--color-indigo-700)', bg: 'var(--color-indigo-100)' },
 ];
 
 /** The three category tables shown in the paper explorer (general is always shown). */
@@ -107,11 +107,11 @@ export const COLUMNS: ColumnDef[] = [
 	{ key: 'explanation_output_type', label: 'Explanation Output', group: 'xuq_method', path: 'xuq_method.explanation_output_type', isList: true },
 
 	// ---- XUQ Evaluation ----
-	{ key: 'evaluated', label: 'Evaluated', group: 'xuq_evaluation', path: 'xuq_evaluation.evaluated', isList: true },
+	{ key: 'evaluated', label: 'Evaluation conducted?', group: 'xuq_evaluation', path: 'xuq_evaluation.evaluated', isList: true },
 	{ key: 'evaluation_type', label: 'Evaluation Type', group: 'xuq_evaluation', path: 'xuq_evaluation.evaluation_type', isList: true },
 	{ key: 'co12', label: 'Co-12 Properties', group: 'xuq_evaluation', path: 'xuq_evaluation.co12', isList: true },
 	{ key: 'benchmarked', label: 'Benchmarked', group: 'xuq_evaluation', path: 'xuq_evaluation.benchmarked', isList: true },
-	{ key: 'shap', label: 'SHAP', group: 'xuq_evaluation', path: 'xuq_evaluation.shap', isList: true },
+	{ key: 'attribution_detail', label: 'Attribution Detail', group: 'xuq_evaluation', path: 'xuq_evaluation.attribution_detail', isList: true },
 ];
 
 /** Read a value from a Paper object by a dot-separated path. */

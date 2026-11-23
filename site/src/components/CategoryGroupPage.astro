@@ -3,8 +3,9 @@
 // Renders the intro, overview table, and dimension sections for one group.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import papers from '../data/papers.json';
+import '../styles/profile-popup.css';
 import categories from '../data/categories.json';
-import { papersForValue, humanizeLabel, getCategoryGroup } from '../data/categoryTypes';
+import { papersForValue, humanizeLabel, displayLabel, getCategoryGroup } from '../data/categoryTypes';
 import type { CategoryDimension } from '../data/categoryTypes';
 import type { Paper } from '../data/paperTypes';
 import type { ColumnGroup } from '../data/paperTypes';
@@ -50,7 +51,17 @@ function orderedValues(dim: CategoryDimension) {
 	<article class="categories">
 		<header class="categories__header">
 			<h1>{title}</h1>
-			<p>{groupDef.description}</p>
+			<p>
+				{
+					group === 'ml_task' ? (
+						<>The general properties of the machine learning (ML) task of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality and ML task it addresses, and the intended target audience of the explanations.</>
+					) : group === 'xuq_evaluation' ? (
+						<>Browse how the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated in the first place, the type of evaluation performed (functionally-grounded, human-grounded, application-grounded, or anecdotal evidence), the Co-12 properties{' '}<a class="ref-link" href="#references">[1]</a> addressed, and whether the applied XUQ method was benchmarked against other methods</>
+					) : (
+						groupDef.description
+					)
+				}
+			</p>
 		</header>
 
 		<!-- Overview table: one row per dimension -->
@@ -81,7 +92,7 @@ function orderedValues(dim: CategoryDimension) {
 													class="overview__label"
 													style={`--label-color:${groupDef.color};--label-bg:${groupDef.bg}`}
 												>
-													{humanizeLabel(v.value)}
+													{displayLabel(v)}
 												</a>
 											))
 										}
@@ -93,17 +104,6 @@ function orderedValues(dim: CategoryDimension) {
 				</table>
 			</div>
 		</section>
-
-		<!-- Sticky in-page nav: quick jumps between dimension sections while scrolling. -->
-		<nav class="dim-nav" aria-label="Jump to dimension">
-			{
-				dims.map((dim: CategoryDimension) => (
-					<a class="dim-nav__link" href={`#dim-${dim.id}`} style={`--dim-color:${groupDef.color}`}>
-						{dim.label}
-					</a>
-				))
-			}
-		</nav>
 
 		<!-- One section per dimension -->
 		{
@@ -122,7 +122,7 @@ function orderedValues(dim: CategoryDimension) {
 										<div class="value-block__head">
 											<div class="value-block__info">
 												<span class="value-block__name" style={`--label-color:${groupDef.color};--label-bg:${groupDef.bg}`}>
-													{humanizeLabel(v.value)}
+													{displayLabel(v)}
 												</span>
 												<span class="value-block__summary">{v.summary}</span>
 											</div>
@@ -172,9 +172,23 @@ function orderedValues(dim: CategoryDimension) {
 				</section>
 			))
 		}
+
+		{
+			group === 'xuq_evaluation' && (
+				<div class="categories__reference" id="references">
+					<p class="categories__reference-title">Reference</p>
+					<p class="categories__reference-text">
+						[1] Nauta, M., Trienes, J., Pathak, S., Nguyen, E., Peters, M., Schmitt, Y., Schlötterer, J.,
+						van Keulen, M., &amp; Seifert, C. (2023). From Anecdotal Evidence to Quantitative Evaluation
+						Methods: A Systematic Review on Evaluating Explainable AI. <em>ACM Computing Surveys</em>,
+						55(13s), 1–42.
+					</p>
+				</div>
+			)
+		}
 	</article>
 
-	<!-- Paper profile popup: reuses the Paper Explorer's deep-link (/?paper=<id>). -->
+	<!-- Paper profile popup: opens in place, no redirect to the Paper Explorer. -->
 	<div class="profile" data-profile hidden>
 		<div class="profile__backdrop" data-profile-close></div>
 		<div class="profile__dialog" role="dialog" aria-modal="true" aria-labelledby="profile-title">
@@ -192,6 +206,10 @@ function orderedValues(dim: CategoryDimension) {
 </BaseLayout>
 
 <script>
+	import papers from '../data/papers.json';
+	import { COLUMNS, GROUPS, getValue, labelColor, labelBg } from '../data/paperTypes';
+	import type { Paper } from '../data/paperTypes';
+
 	// Collapsible paper references.
 	document.querySelectorAll<HTMLElement>('[data-ref-toggle]').forEach((btn) => {		btn.addEventListener('click', () => {
 			const targetId = btn.getAttribute('aria-controls');
@@ -205,13 +223,209 @@ function orderedValues(dim: CategoryDimension) {
 		});
 	});
 
-	// Paper titles open the full profile popup on the Paper Explorer,
-	// deep-linked via /paper-explorer?paper=<id> (same tab, back-friendly).
-	document.querySelectorAll<HTMLElement>('[data-open-paper]').forEach((btn) => {
-		btn.addEventListener('click', () => {
-			const id = btn.getAttribute('data-open-paper');
-			if (id) window.location.href = `/paper-explorer?paper=${encodeURIComponent(id)}`;
+	// ---- In-place paper profile popup (same design as the Paper Explorer's) ----
+	const profile = document.querySelector<HTMLElement>('[data-profile]');
+	const profileBody = document.querySelector<HTMLElement>('[data-profile-body]');
+	let currentPaperId: string | null = null;
+	let lastFocused: HTMLElement | null = null;
+
+	function escapeHtml(s: string): string {
+		return s.replace(/[&<>"']/g, (c) => {
+			const map: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+			return map[c];
 		});
+	}
+
+	function humanizeLabel(s: string): string {
+		return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+	}
+
+	function truncate(s: string, n: number): string {
+		return s.length > n ? `${s.slice(0, n - 1)}…` : s;
+	}
+
+	/** Category page path for a column group (cross-links to the taxonomy). */
+	const GROUP_PAGE: Record<string, string> = {
+		ml_task: '/ml-tasks',
+		xuq_method: '/xuq-methods',
+		xuq_evaluation: '/xuq-evaluation',
+	};
+
+	function slugify(s: string): string {
+		return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+	}
+
+	function renderProfile(paper: Paper): string {
+		// Reference badges (plain text — no external links).
+		const links: string[] = [];
+		if (paper.doi) {
+			links.push(`<span class="profile__btn">DOI: ${escapeHtml(paper.doi)}</span>`);
+		}
+		if (paper.url) {
+			links.push('<span class="profile__btn">Publisher page available</span>');
+		}
+
+		const abstract = paper.abstract
+			? `
+				<section class="profile__abstract">
+					<h3 class="profile__abstract-title">Abstract</h3>
+					<p>${escapeHtml(paper.abstract)}</p>
+				</section>
+			`
+			: '';
+
+		// Dimension cards per group ('general' is covered by the hero header).
+		const sectionHtml = GROUPS.filter((g) => g.id !== 'general').map((g) => {
+			const groupCols = COLUMNS.filter((c) => c.group === g.id);
+			const cards = groupCols
+				.map((col) => {
+					const value = getValue(paper, col.path);
+					const vals = Array.isArray(value) ? value.map(String) : value ? [String(value)] : [];
+					if (vals.length === 0) return '';
+					const color = labelColor(col.group);
+					const bg = labelBg(col.group);
+					const page = GROUP_PAGE[col.group];
+					const tags = vals
+						.map((v) => {
+							const href = page ? `${page}#dim-${col.key}-${slugify(v)}` : null;
+							return href
+								? `<a class="profile__tag profile__tag--link" style="--label-color:${color};--label-bg:${bg}" href="${href}">${escapeHtml(displayLabel(v))}</a>`
+								: `<span class="profile__tag" style="--label-color:${color};--label-bg:${bg}">${escapeHtml(displayLabel(v))}</span>`;
+						})
+						.join('');
+					return `
+						<div class="pcard" style="--g-color:${color};--g-bg:${bg}">
+							<span class="pcard__label">${escapeHtml(col.label)}</span>
+							<div class="pcard__values">${tags}</div>
+						</div>
+					`;
+				})
+				.join('');
+			if (!cards) return '';
+			const filled = groupCols.filter((c) => {
+				const value = getValue(paper, c.path);
+				const vals = Array.isArray(value) ? value : value ? [value] : [];
+				return vals.length > 0;
+			}).length;
+			return `
+				<section class="profile__section" style="--g-color:${g.color};--g-bg:${g.bg}">
+					<h3 class="profile__section-title">
+						<span class="profile__section-swatch" aria-hidden="true"></span>
+						${escapeHtml(g.label)}
+						<span class="profile__section-count">${filled} of ${groupCols.length} dimensions</span>
+					</h3>
+					<div class="profile__cards">${cards}</div>
+				</section>
+			`;
+		}).join('');
+
+		const idx = papers.findIndex((p) => p.id === paper.id);
+		const prev = papers[(idx - 1 + papers.length) % papers.length];
+		const next = papers[(idx + 1) % papers.length];
+		const nav = `
+			<nav class="profile__nav" aria-label="Other papers">
+				<button class="profile__nav-btn" type="button" data-profile-step="-1" aria-label="Previous paper">
+					<span aria-hidden="true">←</span>
+					<span class="profile__nav-title">${escapeHtml(truncate(prev.title || `Paper ${prev.id}`, 42))}</span>
+				</button>
+				<button class="profile__nav-btn profile__nav-btn--next" type="button" data-profile-step="1" aria-label="Next paper">
+					<span aria-hidden="true">→</span>
+					<span class="profile__nav-title">${escapeHtml(truncate(next.title || `Paper ${next.id}`, 42))}</span>
+				</button>
+			</nav>
+		`;
+
+		return `
+			<header class="profile__hero">
+				<div class="profile__chips">
+					<span class="profile__chip profile__chip--id">Paper #${escapeHtml(paper.id)}</span>
+					${paper.year ? `<span class="profile__chip">${paper.year}</span>` : ''}
+				</div>
+				<h2 class="profile__title" id="profile-title">${escapeHtml(paper.title || `Paper ${paper.id}`)}</h2>
+				${paper.authors.length ? `<p class="profile__meta">${escapeHtml(paper.authors.join(', '))}</p>` : ''}
+				${paper.venue ? `<p class="profile__venue">${escapeHtml(paper.venue)}</p>` : ''}
+				${links.length ? `<div class="profile__actions">${links.join('')}</div>` : ''}
+			</header>
+			${abstract}
+			${sectionHtml}
+			${nav}
+		`;
+	}
+
+	function openProfile(id: string) {
+		const paper = papers.find((p) => p.id === id);
+		if (!paper || !profileBody) return;
+		currentPaperId = id;
+		lastFocused = document.activeElement as HTMLElement | null;
+		profileBody.innerHTML = renderProfile(paper);
+		profileBody.scrollTop = 0;
+		profileBody.querySelectorAll<HTMLButtonElement>('[data-profile-step]').forEach((btn) => {
+			btn.addEventListener('click', () => stepProfile(Number(btn.dataset.profileStep)));
+		});
+		if (profile) {
+			profile.hidden = false;
+			profile.querySelector<HTMLButtonElement>('.profile__close')?.focus();
+		}
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeProfile() {
+		if (profile) profile.hidden = true;
+		document.body.style.overflow = '';
+		currentPaperId = null;
+		lastFocused?.focus();
+		lastFocused = null;
+	}
+
+	function stepProfile(delta: number) {
+		if (currentPaperId === null) return;
+		const idx = papers.findIndex((p) => p.id === currentPaperId);
+		const next = papers[(idx + delta + papers.length) % papers.length];
+		if (next) openProfile(next.id);
+	}
+
+	// Paper titles open the profile popup in place (no redirect).
+	document.querySelectorAll<HTMLElement>('[data-open-paper]').forEach((btn) => {
+		btn.addEventListener('click', () => openProfile(btn.getAttribute('data-open-paper') ?? ''));
+	});
+	document.querySelectorAll<HTMLElement>('[data-profile-close]').forEach((el) => {
+		el.addEventListener('click', closeProfile);
+	});
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && profile && !profile.hidden) closeProfile();
+	});
+
+	// Reference links ([1]): scroll to the reference block. Smooth scrolling is
+	// unreliable here (layout shifts cancel the animation), so scroll instantly.
+	document.querySelectorAll<HTMLAnchorElement>('a.ref-link[href^="#"]').forEach((link) => {
+		link.addEventListener('click', (e) => {
+			const target = document.getElementById(link.getAttribute('href')?.slice(1) ?? '');
+			if (target) {
+				e.preventDefault();
+				target.scrollIntoView({ behavior: 'auto', block: 'start' });
+				history.replaceState(null, '', link.getAttribute('href') ?? '');
+			}
+		});
+	});
+
+	// Focus trap: keep Tab cycling inside the open dialog.
+	const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+	profile?.addEventListener('keydown', (e) => {
+		if (e.key !== 'Tab' || profile.hidden) return;
+		const focusable = Array.from(profile.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+			(el) => el.offsetParent !== null,
+		);
+		if (focusable.length === 0) return;
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
+		const active = document.activeElement;
+		if (e.shiftKey && (active === first || !profile.contains(active as Node))) {
+			e.preventDefault();
+			last.focus();
+		} else if (!e.shiftKey && active === last) {
+			e.preventDefault();
+			first.focus();
+		}
 	});
 </script>
 
@@ -228,37 +442,6 @@ function orderedValues(dim: CategoryDimension) {
 	.categories__overview {
 		margin-bottom: var(--space-4);
 		scroll-margin-top: calc(var(--header-height) + var(--space-4));
-	}
-
-	/* ---- Sticky in-page dimension nav ---- */
-	.dim-nav {
-		position: sticky;
-		top: var(--header-height);
-		z-index: 10;
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-1);
-		padding: var(--space-2) 0;
-		margin-bottom: var(--space-6);
-		background: var(--color-bg);
-		border-bottom: 1px solid var(--color-border);
-	}
-	.dim-nav__link {
-		padding: var(--space-1) var(--space-3);
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		background: var(--color-surface);
-		color: var(--dim-color);
-		font-size: var(--text-xs);
-		font-weight: 600;
-		text-decoration: none;
-		white-space: nowrap;
-		transition: background var(--transition-fast), border-color var(--transition-fast);
-	}
-	.dim-nav__link:hover {
-		background: var(--color-bg-alt);
-		border-color: var(--dim-color);
-		text-decoration: underline;
 	}
 	.overview__table-wrap {
 		overflow-x: auto;
@@ -349,6 +532,41 @@ function orderedValues(dim: CategoryDimension) {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
+	}
+
+	/* ---- Reference footer (Nauta et al. [1] / PRISMA [2]) ---- */
+	.categories__reference {
+		margin-top: var(--space-4);
+		padding: var(--space-4) var(--space-5);
+		border: 1px solid var(--color-border);
+		border-left: 4px solid var(--color-teal-500);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		scroll-margin-top: calc(var(--header-height) + var(--space-4));
+	}
+	/* Clickable [1]/[2] markers in the intro text. */
+	.ref-link {
+		font-weight: 700;
+		color: var(--color-teal-700);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+	.ref-link:hover {
+		color: var(--color-teal-500);
+	}
+	.categories__reference-title {
+		margin: 0 0 var(--space-1);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-teal-700);
+	}
+	.categories__reference-text {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: 1.6;
+		color: var(--color-text);
 	}
 
 	/* ---- Value blocks ---- */

@@ -88,9 +88,11 @@ const pageTitle = title === 'XUQ Explorer' ? title : `${title} · XUQ Explorer`;
 			// Close when clicking the backdrop (mobile).
 			backdrop?.addEventListener('click', () => setOpen(false));
 
-			// Close on Escape.
+			// Close on Escape — mobile only. On desktop the sidebar is a pinned
+			// rail, so closing it here would also fire when closing the paper
+			// profile popup with Escape.
 			document.addEventListener('keydown', (e) => {
-				if (e.key === 'Escape') setOpen(false);
+				if (e.key === 'Escape' && !mq.matches) setOpen(false);
 			});
 		</script>
 	</body>

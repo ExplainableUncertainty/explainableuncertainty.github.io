@@ -4,18 +4,20 @@
 // columns always shown. Cells render as colored, clickable labels.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import papers from '../data/papers.json';
+import '../styles/profile-popup.css';
 import { COLUMNS, GROUPS, TABLE_GROUPS, getTableColumns, getValue, formatValue, labelColor, labelBg } from '../data/paperTypes';
+import { valueLabel } from '../data/valueLabels';
 import type { Paper } from '../data/paperTypes';
 import type { ColumnGroup } from '../data/paperTypes';
 
-// Humanize a snake_case / spaced label for display.
+// Humanize a snake_case / spaced label for display, preferring curated labels.
 function humanizeLabel(s: string): string {
-	return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+	return valueLabel(s) !== s ? valueLabel(s) : s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
 // Table labels for the switcher.
 const TABLE_LABELS: Record<ColumnGroup, string> = {
-	ml_task: 'ML Tasks',
+	ml_task: 'Research Context',
 	xuq_method: 'XUQ Methods',
 	xuq_evaluation: 'XUQ Evaluation',
 	general: 'General',
@@ -32,9 +34,8 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			<h1>Paper Explorer</h1>
 			<p>
 				This page lists all <strong>{papers.length} papers</strong> included in the systematic literature
-				review, one per row. The general information is always shown, and you can switch between three tables —
-				ML Tasks, XUQ Methods, and XUQ Evaluation. Click a paper's ID or title to open its full profile, or
-				click any colored label to filter the table by that category.
+				review. You can switch between three tables: Research Context, XUQ Methods, and XUQ Evaluation.
+				Clicking on a paper's ID or title opens its full profile.
 			</p>
 		</header>
 
@@ -692,17 +693,13 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	}
 
 	function renderProfile(paper: Paper): string {
-		// --- Hero: identity + external links ---
+		// --- Hero: identity + reference badges (plain text — no external links) ---
 		const links: string[] = [];
 		if (paper.doi) {
-			links.push(
-				`<a class="profile__btn" href="https://doi.org/${escapeHtml(paper.doi)}" target="_blank" rel="noopener">DOI: ${escapeHtml(paper.doi)} ↗</a>`
-			);
+			links.push(`<span class="profile__btn">DOI: ${escapeHtml(paper.doi)}</span>`);
 		}
 		if (paper.url) {
-			links.push(
-				`<a class="profile__btn" href="${escapeHtml(paper.url)}" target="_blank" rel="noopener">Publisher page ↗</a>`
-			);
+			links.push('<span class="profile__btn">Publisher page available</span>');
 		}
 
 		// --- Abstract ---
@@ -798,7 +795,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	}
 
 	function humanizeLabel(s: string): string {
-		return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+		return valueLabel(s) !== s ? valueLabel(s) : s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
 	}
 
 	function escapeHtml(s: string): string {
@@ -1196,8 +1193,8 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		color: var(--color-navy-800);
 	}
 	.th--xuq_evaluation {
-		background: var(--color-teal-100);
-		color: var(--color-teal-800);
+		background: var(--color-indigo-100);
+		color: var(--color-indigo-800);
 	}
 
 	.th__label {
@@ -1336,340 +1333,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		width: 1rem;
 		text-align: center;
 		font-weight: 700;
-	}
-
-	/* ---- Profile popup ---- */
-	.profile {
-		position: fixed;
-		inset: 0;
-		z-index: 60;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: var(--space-5);
-	}
-	.profile[hidden] {
-		display: none;
-	}
-	.profile__backdrop {
-		position: absolute;
-		inset: 0;
-		background: rgba(12, 20, 34, 0.55);
-		backdrop-filter: blur(2px);
-		animation: profile-fade var(--transition-base);
-	}
-	.profile__dialog {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		max-width: 52rem;
-		max-height: min(85vh, 52rem);
-		background: var(--color-surface);
-		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-lg);
-		overflow: hidden;
-		animation: profile-pop var(--transition-base);
-	}
-	@keyframes profile-fade {
-		from {
-			opacity: 0;
-		}
-	}
-	@keyframes profile-pop {
-		from {
-			opacity: 0;
-			transform: translateY(14px) scale(0.98);
-		}
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.profile__backdrop,
-		.profile__dialog {
-			animation: none;
-		}
-	}
-
-	/* Sticky top bar with the close button */
-	.profile__bar {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: var(--space-2) var(--space-3) var(--space-2) var(--space-5);
-		border-bottom: 1px solid var(--color-border);
-		background: var(--color-bg-alt);
-	}
-	.profile__bar-label {
-		font-size: var(--text-xs);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--color-text-muted);
-	}
-	.profile__close {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		border: none;
-		border-radius: var(--radius-sm);
-		background: transparent;
-		color: var(--color-text-muted);
-		cursor: pointer;
-		transition: background var(--transition-fast), color var(--transition-fast);
-	}
-	.profile__close:hover {
-		background: var(--color-teal-100);
-		color: var(--color-teal-800);
-	}
-
-	/* Scrollable content */
-	.profile__body {
-		overflow-y: auto;
-		padding: var(--space-6);
-	}
-
-	/* Hero header */
-	.profile__hero {
-		position: relative;
-		margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) var(--space-5);
-		padding: var(--space-5) var(--space-6);
-		background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-teal-800) 60%, var(--color-teal-600) 100%);
-		color: var(--color-text-inverse);
-	}
-	.profile__chips {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2);
-		margin-bottom: var(--space-3);
-	}
-	.profile__chip {
-		display: inline-flex;
-		align-items: center;
-		padding: 2px var(--space-2);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.14);
-		border: 1px solid rgba(255, 255, 255, 0.25);
-		font-size: var(--text-xs);
-		font-weight: 600;
-	}
-	.profile__chip--id {
-		background: rgba(255, 255, 255, 0.92);
-		border-color: transparent;
-		color: var(--color-navy-800);
-	}
-	.profile__title {
-		margin: 0 0 var(--space-2);
-		font-size: var(--text-2xl);
-		line-height: 1.25;
-		color: inherit;
-	}
-	.profile__meta {
-		margin: 0 0 var(--space-1);
-		font-size: var(--text-sm);
-		color: rgba(255, 255, 255, 0.85);
-	}
-	.profile__venue {
-		margin: 0;
-		font-size: var(--text-sm);
-		font-style: italic;
-		color: rgba(255, 255, 255, 0.7);
-	}
-	.profile__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-2);
-		margin-top: var(--space-4);
-	}
-	.profile__btn {
-		display: inline-flex;
-		align-items: center;
-		padding: var(--space-1) var(--space-3);
-		border: 1px solid rgba(255, 255, 255, 0.35);
-		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.1);
-		color: var(--color-text-inverse);
-		font-size: var(--text-xs);
-		font-weight: 600;
-		text-decoration: none;
-		transition: background var(--transition-fast), border-color var(--transition-fast);
-	}
-	.profile__btn:hover {
-		background: rgba(255, 255, 255, 0.22);
-		border-color: rgba(255, 255, 255, 0.6);
-	}
-
-	/* Abstract panel */
-	.profile__abstract {
-		padding: var(--space-4);
-		border: 1px solid var(--color-border);
-		border-left: 4px solid var(--color-teal-500);
-		border-radius: var(--radius-md);
-		background: var(--color-bg-alt);
-		margin-bottom: var(--space-5);
-	}
-	.profile__abstract-title {
-		margin: 0 0 var(--space-2);
-		font-size: var(--text-xs);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--color-teal-700);
-	}
-	.profile__abstract p {
-		margin: 0;
-		font-size: var(--text-sm);
-		line-height: 1.6;
-		color: var(--color-text);
-	}
-
-	/* Category sections with colored dimension cards */
-	.profile__section {
-		margin-top: var(--space-5);
-		padding-top: var(--space-4);
-		border-top: 1px solid var(--color-border);
-	}
-	.profile__section-title {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		margin: 0 0 var(--space-3);
-		font-size: var(--text-base);
-		color: var(--g-color);
-	}
-	.profile__section-swatch {
-		display: inline-block;
-		width: 0.75rem;
-		height: 0.75rem;
-		border-radius: var(--radius-sm);
-		background: var(--g-bg);
-		border: 2px solid var(--g-color);
-	}
-	.profile__section-count {
-		margin-left: auto;
-		font-size: var(--text-xs);
-		font-weight: 600;
-		color: var(--color-text-muted);
-	}
-	.profile__cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-		gap: var(--space-3);
-	}
-
-	/* Dimension card: label + colored value chips, matching the table colors */
-	.pcard {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
-		padding: var(--space-3);
-		border: 1px solid var(--color-border);
-		border-top: 3px solid var(--g-color);
-		border-radius: var(--radius-md);
-		background: var(--color-surface);
-		transition: box-shadow var(--transition-fast), transform var(--transition-fast);
-	}
-	.pcard:hover {
-		box-shadow: var(--shadow-md);
-		transform: translateY(-1px);
-	}
-	.pcard__label {
-		font-size: var(--text-xs);
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.04em;
-		color: var(--color-text-muted);
-	}
-	.pcard__values {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-1);
-	}
-	.profile__tag {
-		display: inline-flex;
-		align-items: center;
-		padding: 2px var(--space-2);
-		border: 1px solid var(--label-color);
-		border-radius: 999px;
-		background: var(--label-bg);
-		color: var(--label-color);
-		font-size: var(--text-xs);
-		font-weight: 600;
-	}
-	/* Chips that link to the category explorer get a hover affordance. */
-	a.profile__tag--link {
-		text-decoration: none;
-		transition: filter var(--transition-fast), box-shadow var(--transition-fast);
-	}
-	a.profile__tag--link:hover {
-		filter: brightness(0.95);
-		box-shadow: var(--shadow-sm);
-		text-decoration: underline;
-	}
-
-	/* Prev / next paper navigation */
-	.profile__nav {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: var(--space-3);
-		margin-top: var(--space-6);
-		padding-top: var(--space-4);
-		border-top: 1px solid var(--color-border);
-	}
-	.profile__nav-btn {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		padding: var(--space-3);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-md);
-		background: var(--color-bg-alt);
-		color: var(--color-text);
-		font-size: var(--text-sm);
-		cursor: pointer;
-		text-align: left;
-		transition: border-color var(--transition-fast), background var(--transition-fast);
-	}
-	.profile__nav-btn:hover {
-		border-color: var(--color-teal-400);
-		background: var(--color-teal-50);
-	}
-	.profile__nav-btn--next {
-		justify-content: flex-end;
-		text-align: right;
-	}
-	.profile__nav-title {
-		font-weight: 600;
-		min-width: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	@media (max-width: 48rem) {
-		.profile {
-			padding: var(--space-2);
-		}
-		.profile__body {
-			padding: var(--space-4);
-		}
-		.profile__hero {
-			margin: calc(var(--space-4) * -1) calc(var(--space-4) * -1) var(--space-4);
-			padding: var(--space-4);
-		}
-		.profile__title {
-			font-size: var(--text-xl);
-		}
-		.profile__cards {
-			grid-template-columns: 1fr;
-		}
-		.profile__nav {
-			grid-template-columns: 1fr;
-		}
-		.profile__nav-btn--next {
-			justify-content: flex-start;
-			text-align: left;
-		}
 	}
 
 	@media (max-width: 48rem) {

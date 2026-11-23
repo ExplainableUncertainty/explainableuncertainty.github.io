@@ -3,7 +3,7 @@
 preprocess_papers.py — Transform the raw XUQ data into a clean JSON for the website.
 
 Reads:
-  - data/df_struc_copy.csv   (53 papers × 99 binary-flag columns)
+  - data/df_struc_1811.csv  (53 papers × binary-flag columns)
   - data/included_papers.bib (bibliographic metadata, keyed by paperID)
 
 Writes:
@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CSV_PATH = ROOT / "data" / "df_struc_copy.csv"
+CSV_PATH = ROOT / "data" / "df_struc_1811.csv"
 BIB_PATH = ROOT / "data" / "included_papers.bib"
 OUT_PATH = ROOT / "site" / "src" / "data" / "papers.json"
 
@@ -297,6 +297,37 @@ DICT_UQ_METHODS = {
 }
 
 
+# Display labels for the uncertainty estimates (matches the paper's wording).
+DICT_UNCERTAINTY_ESTIMATES = {
+    "Entropy": "Entropy",
+    "Variance_Standard_Deviation": "Variance / standard deviation",
+    "Prediction_Interval_Quantile": "Interval width / quantiles",
+    "Distribution_Parameter": "Distribution parameters",
+    "Distance_based": "Distance-based measures",
+    "Probability_Confidence_Score": "Probability-based measures",
+    "Not_Specified_Unclear": "Other",
+}
+
+
+# Display labels for the evaluation types (matches the paper's wording).
+# Display labels for the explanation output types (matches the taxonomy).
+DICT_OUTPUT_TYPES = {
+    "Attribution": "uncertainty attribution",
+}
+
+DICT_EVALUATION_TYPES = {
+    "Functionally-grounded": "Functionally-grounded",
+    "Human-grounded": "Human-grounded",
+    "Application-grounded": "Application-grounded",
+    "Visual inspection": "Anecdotal evidence",
+}
+
+
+def map_labels(values: list[str], mapping: dict[str, str]) -> list[str]:
+    """Map raw CSV labels to display labels, keeping order stable."""
+    return [mapping.get(v, v) for v in values]
+
+
 def map_uq_methods(fine_grained: list[str]) -> list[str]:
     """Map fine-grained CSV UQ methods to the paper's taxonomy categories."""
     mapped: list[str] = []
@@ -321,18 +352,24 @@ def build_paper(row: dict[str, str], groups: dict[str, list[tuple[str, str]]]) -
     # XUQ methods
     uncertainty_type = collect_true(groups.get("uncertainty_type", []), row)
     uq_method = map_uq_methods(collect_true(groups.get("uq_method_category", []), row))
-    uncertainty_estimate = collect_true(groups.get("uncertainty_estimate", []), row)
+    uncertainty_estimate = map_labels(
+        collect_true(groups.get("uncertainty_estimate", []), row), DICT_UNCERTAINTY_ESTIMATES
+    )
     integration_type = collect_true(groups.get("integration_type", []), row)
     portability = collect_true(groups.get("portability", []), row)
     locality = collect_true(groups.get("locality", []), row)
-    explanation_output_type = collect_true(groups.get("explanation_output_type", []), row)
+    explanation_output_type = map_labels(
+        collect_true(groups.get("explanation_output_type", []), row), DICT_OUTPUT_TYPES
+    )
 
     # XUQ evaluation
     evaluated = collect_true(groups.get("evaluated", []), row)
-    evaluation_type = collect_true(groups.get("evaluation_type", []), row)
+    evaluation_type = map_labels(
+        collect_true(groups.get("evaluation_type", []), row), DICT_EVALUATION_TYPES
+    )
     co12 = collect_true(groups.get("Co-12", []), row)
     benchmarked = collect_true(groups.get("benchmarked", []), row)
-    shap = collect_true(groups.get("SHAP", []), row)
+    attribution_detail = collect_true(groups.get("attribution_detail", []), row)
 
     return {
         "id": paper_id,
@@ -358,7 +395,7 @@ def build_paper(row: dict[str, str], groups: dict[str, list[tuple[str, str]]]) -
             "evaluation_type": evaluation_type,
             "co12": co12,
             "benchmarked": benchmarked,
-            "shap": shap,
+            "attribution_detail": attribution_detail,
         },
     }
 

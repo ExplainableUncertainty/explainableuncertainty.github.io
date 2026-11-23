@@ -7,9 +7,10 @@ import type { Paper } from './paperTypes';
 export interface CategoryValue {
 	value: string;
 	summary: string;
+	/** Optional curated display label (overrides humanizeLabel). */
+	label?: string;
 }
 
-/** A taxonomy dimension with its values. */
 export interface CategoryDimension {
 	id: string;
 	label: string;
@@ -31,9 +32,9 @@ export interface CategoryGroup {
 export const CATEGORY_GROUPS: CategoryGroup[] = [
 	{
 		id: 'ml_task',
-		label: 'ML Tasks',
+		label: 'Research Context',
 		description:
-			'The general machine-learning task properties of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality it operates on, the ML problem class it addresses, and the intended audience of the explanations.',
+			'The general properties of the machine learning task of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality and ML task it addresses, and the intended target audience of the explanations.',
 		color: 'var(--color-teal-700)',
 		bg: 'var(--color-teal-100)',
 	},
@@ -41,7 +42,7 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
 		id: 'xuq_method',
 		label: 'XUQ Methods',
 		description:
-			'The uncertainty-quantification and explanation methods used in the reviewed studies. This covers the type of uncertainty explained, the UQ method used to generate the uncertainty estimate, the specific uncertainty estimate, how the explanation is integrated with the model, its portability, its locality, and the form the explanation takes.',
+			"Explore the methods used to generate explanations of uncertainty. This covers the type of uncertainty, the UQ method used to generate an uncertainty estimate, the specific uncertainty estimate, how the explanation is integrated with the model, the explanation's portability and locality, and the explanation output type",
 		color: 'var(--color-navy-600)',
 		bg: 'var(--color-navy-100)',
 	},
@@ -49,9 +50,9 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
 		id: 'xuq_evaluation',
 		label: 'XUQ Evaluation',
 		description:
-			'How the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated, the type of evaluation performed (functionally-grounded, human-grounded, or visual inspection), the Co-12 quality properties addressed, whether the method was benchmarked against others, and whether SHAP was used.',
-		color: 'var(--color-teal-600)',
-		bg: 'var(--color-teal-50)',
+			'Browse how the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated in the first place, the type of evaluation performed (functionally-grounded, human-grounded, application-grounded, or anecdotal evidence), the Co-12 properties [1] addressed, and whether the applied XUQ method was benchmarked against other methods',
+		color: 'var(--color-indigo-700)',
+		bg: 'var(--color-indigo-100)',
 	},
 ];
 
@@ -124,7 +125,15 @@ export function papersForValue(
 		}));
 }
 
-/** Humanize a snake_case / spaced label. */
+/**
+ * Humanize a snake_case / spaced label. If a CategoryValue with a curated
+ * `label` field is available, prefer passing that instead.
+ */
 export function humanizeLabel(s: string): string {
-	return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+        return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/** Display label for a taxonomy value: curated `label` if present, else humanized. */
+export function displayLabel(v: CategoryValue): string {
+        return v.label ?? humanizeLabel(v.value);
 }

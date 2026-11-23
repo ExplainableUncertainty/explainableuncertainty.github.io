@@ -92,16 +92,16 @@ domain root (no `/repo-name` path). For that to work, the repository must be
 named exactly:
 
 ```
-explainable_uncertainty.github.io
+explainableuncertainty.github.io
 ```
 
 ### One-time setup
 
-1. Create a GitHub repository named `explainable_uncertainty.github.io`.
+1. Create a GitHub repository named `explainableuncertainty.github.io`.
 2. Push this project to it (default branch `main`).
 3. In the repo: **Settings → Pages → Build and deployment → Source: "GitHub Actions"**.
 4. Confirm `site/astro.config.mjs` has `site` set to
-   `https://explainable_uncertainty.github.io` and `base` set to `/`.
+   `https://explainableuncertainty.github.io` and `base` set to `/`.
 
 ### Deploying
 
@@ -109,7 +109,7 @@ Push to `main` (or run the workflow manually from the **Actions** tab). The
 `Deploy to GitHub Pages` workflow builds the site and publishes it to:
 
 ```
-https://explainable_uncertainty.github.io
+https://explainableuncertainty.github.io
 ```
 
 The `CI` workflow runs on pull requests: it installs dependencies, runs

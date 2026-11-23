@@ -11,10 +11,6 @@ dist/
 # Source data & paper (not committed)
 paper/
 
-# Internal planning docs (not committed)
-plan.md
-Project_context.md
-
 # OS / editor
 .DS_Store
 .idea/

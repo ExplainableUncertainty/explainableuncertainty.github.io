@@ -186,6 +186,9 @@
 		--f1-slate-600: #55657a;
 
 		margin: 0;
+		/* Container queries below respond to the FIGURE's width, not the window's
+		   — the desktop sidebar takes 256px, so window breakpoints fire too late. */
+		container-type: inline-size;
 	}
 
 	/* ---- Canvas grid: rail (black box) | panels + prediction band ---- */
@@ -525,10 +528,10 @@
 		color: var(--color-text-muted);
 	}
 
-	/* ---- Responsive ---- */
+	/* ---- Responsive (container queries: react to the figure's own width) ---- */
 	/* Below the wide layout the panels stack; the vertical paradigm wires would
 	   cross panel content, so the overlay is hidden (in-panel arrows remain). */
-	@media (max-width: 56rem) {
+	@container (max-width: 62rem) {
 		.fig1__wires {
 			display: none;
 		}
@@ -540,7 +543,7 @@
 			justify-self: center;
 		}
 	}
-	@media (max-width: 40rem) {
+	@container (max-width: 40rem) {
 		.fig1__canvas {
 			column-gap: 1.25rem;
 			row-gap: 2.25rem;

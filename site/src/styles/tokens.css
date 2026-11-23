@@ -26,6 +26,19 @@
 	--color-navy-900: #131e30;
 	--color-navy-950: #0c1422;
 
+	/* ---- Indigo (third group hue: XUQ Evaluation) ----
+	   Distinct from teal (Research Context) and navy (XUQ Methods). */
+	--color-indigo-50: #eef0fb;
+	--color-indigo-100: #d9ddf5;
+	--color-indigo-200: #b4bcea;
+	--color-indigo-300: #8b97dd;
+	--color-indigo-400: #6673cf;
+	--color-indigo-500: #4c56bd;
+	--color-indigo-600: #3d45a1;
+	--color-indigo-700: #30367f;
+	--color-indigo-800: #252a5e;
+	--color-indigo-900: #1a1e42;
+
 	/* ---- Neutral gray (used for general info) ---- */
 	--color-gray-50: #f5f6f7;
 	--color-gray-100: #e4e6e9;

@@ -26,7 +26,7 @@
         "Softmax-based Methods"
       ],
       "uncertainty_estimate": [
-        "Probability_Confidence_Score"
+        "Probability-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -38,7 +38,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -47,7 +47,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Context"
@@ -55,7 +55,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Interpretable Active Learning",
     "authors": [
@@ -95,7 +97,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -107,7 +109,7 @@
         "global"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -119,7 +121,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Sensitivity analysis for predictive uncertainty in Bayesian neural networks",
     "authors": [
@@ -160,7 +164,7 @@
         "Other"
       ],
       "uncertainty_estimate": [
-        "Distance_based"
+        "Distance-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -172,7 +176,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -188,7 +192,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other"
+      ]
     },
     "title": "Uncertainty interpretation of the machine learning survival model predictions",
     "authors": [
@@ -233,7 +239,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation",
+        "Variance / standard deviation",
         "Entropy"
       ],
       "integration_type": [
@@ -246,7 +252,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution",
+        "uncertainty attribution",
         "Counterfactual"
       ]
     },
@@ -265,7 +271,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Counterfactual-based"
+      ]
     },
     "title": "Getting a CLUE: A  Method for Explaining Uncertainty Estimates",
     "authors": [
@@ -308,7 +316,7 @@
         "Other"
       ],
       "uncertainty_estimate": [
-        "Probability_Confidence_Score"
+        "Probability-based measures"
       ],
       "integration_type": [
         "Intrinsic"
@@ -332,7 +340,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Could We Relieve AI/ML Models of the Responsibility of Providing Dependable Uncertainty Estimates? A Study on Outside-Model Uncertainty Estimates",
     "authors": [
@@ -386,7 +394,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -394,13 +402,15 @@
         "Yes"
       ],
       "evaluation_type": [
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [],
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Interpreting uncertainty in model predictions for COVID-19 diagnosis",
     "authors": [
@@ -467,7 +477,7 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Diverse, global and amortised counterfactual explanations for uncertainty estimates",
     "authors": [
@@ -507,7 +517,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Not_Specified_Unclear"
+        "Other"
       ],
       "integration_type": [
         "Post-hoc"
@@ -520,7 +530,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -536,7 +546,10 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other",
+        "Perturbation"
+      ]
     },
     "title": "Using Explainable AI to Measure Feature Contribution to Uncertainty",
     "authors": [
@@ -588,7 +601,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -597,7 +610,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Correctness"
@@ -605,7 +618,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Attribution of predictive uncertainties in classification models",
     "authors": [
@@ -648,7 +663,7 @@
         "Other"
       ],
       "uncertainty_estimate": [
-        "Not_Specified_Unclear"
+        "Other"
       ],
       "integration_type": [
         "Post-hoc"
@@ -660,7 +675,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -672,8 +687,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Characterising retrieval uncertainty of chlorophyll-a algorithms in oligotrophic and mesotrophic lakes and reservoirs",
@@ -723,7 +738,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Intrinsic"
@@ -735,7 +750,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -749,7 +764,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other"
+      ]
     },
     "title": "Explainable uncertainty quantifications for deep learning-based molecular property prediction",
     "authors": [
@@ -802,7 +819,7 @@
         "global"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -814,7 +831,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other"
+      ]
     },
     "title": "How does traffic environment quantitatively affect the autonomous driving prediction?",
     "authors": [
@@ -858,19 +877,19 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Post-hoc"
       ],
       "portability": [
-        "model_agnostic"
+        "model_specific"
       ],
       "locality": [
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -886,8 +905,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Monitoring Model Deterioration with Explainable Uncertainty Estimation via Non-parametric Bootstrap",
@@ -927,7 +946,7 @@
         "Representation / Distance-based Methods"
       ],
       "uncertainty_estimate": [
-        "Distance_based"
+        "Distance-based measures"
       ],
       "integration_type": [
         "Intrinsic"
@@ -947,13 +966,13 @@
         "Yes"
       ],
       "evaluation_type": [
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [],
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "ScatterUQ: Interactive Uncertainty Visualizations for Multiclass Deep Learning Problems",
     "authors": [
@@ -996,7 +1015,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1008,7 +1027,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1017,7 +1036,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Correctness"
@@ -1025,7 +1044,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Uncertainty Exploration: Toward Explainable SAR Target Detection",
     "authors": [
@@ -1066,7 +1087,7 @@
         "Representation / Distance-based Methods"
       ],
       "uncertainty_estimate": [
-        "Distance_based"
+        "Distance-based measures"
       ],
       "integration_type": [
         "Intrinsic"
@@ -1090,7 +1111,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "A Simple and Explainable Method for Uncertainty Estimation using Attribute Prototype Networks",
     "authors": [
@@ -1132,7 +1153,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1144,7 +1165,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1158,7 +1179,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other"
+      ]
     },
     "title": "Explaining Prediction Uncertainty in Text Classification: The DUX Approach",
     "authors": [
@@ -1196,7 +1219,7 @@
         "Softmax-based Methods"
       ],
       "uncertainty_estimate": [
-        "Probability_Confidence_Score"
+        "Probability-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1222,7 +1245,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Explaining Model Confidence Using Counterfactuals",
     "authors": [
@@ -1271,13 +1294,14 @@
         "Post-hoc"
       ],
       "portability": [
+        "model_specific",
         "model_agnostic"
       ],
       "locality": [
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1286,7 +1310,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Context",
@@ -1295,8 +1319,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Explaining predictive uncertainty with information theoretic shapley values",
@@ -1338,7 +1362,7 @@
         "Representation / Distance-based Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1350,7 +1374,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1359,7 +1383,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Correctness"
@@ -1367,7 +1391,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "CUE: An Uncertainty Interpretation Framework for Text Classifiers Built on Pre-Trained Language Models",
     "authors": [
@@ -1410,7 +1436,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Distribution_Parameter"
+        "Distribution parameters"
       ],
       "integration_type": [
         "Intrinsic"
@@ -1434,7 +1460,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Interpretable Self-Aware Neural Networks for Robust Trajectory Prediction",
     "authors": [
@@ -1474,7 +1500,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation",
+        "Variance / standard deviation",
         "Entropy"
       ],
       "integration_type": [
@@ -1487,7 +1513,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1496,7 +1522,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Correctness",
@@ -1505,7 +1531,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Gradient-Based Uncertainty Attribution for Explainable Bayesian Deep Learning",
     "authors": [
@@ -1557,7 +1585,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1566,7 +1594,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Correctness"
@@ -1574,7 +1602,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Finding the input features that reduce the entropy of a neural network's prediction",
     "authors": [
@@ -1642,7 +1672,7 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Semantic Attribution for Explainable Uncertainty Quantification",
     "authors": [
@@ -1695,7 +1725,7 @@
         "global"
       ],
       "explanation_output_type": [
-        "Attribution",
+        "uncertainty attribution",
         "Other/Unspecified"
       ]
     },
@@ -1705,7 +1735,7 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [
         "Coherence"
@@ -1713,7 +1743,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Model-agnostic variable importance for predictive uncertainty: an entropy-based approach",
     "authors": [
@@ -1758,7 +1790,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation",
+        "Variance / standard deviation",
         "Entropy"
       ],
       "integration_type": [
@@ -1771,7 +1803,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution",
+        "uncertainty attribution",
         "Counterfactual"
       ]
     },
@@ -1788,7 +1820,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Counterfactual-based"
+      ]
     },
     "title": "A Framework for Counterfactual Explanation of Predictive Uncertainty in Multimodal Models",
     "authors": [
@@ -1829,7 +1863,7 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1841,7 +1875,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1853,8 +1887,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Insights into the prediction uncertainty of machine-learning-based digital soil mapping through a local attribution approach",
@@ -1896,20 +1930,19 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Post-hoc"
       ],
       "portability": [
-        "model_specific",
         "model_agnostic"
       ],
       "locality": [
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1921,8 +1954,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "An interpretable probabilistic machine learning model for forecasting compressive strength of oil palm shell-based lightweight aggregate concrete containing fly ash or silica fume",
@@ -1961,7 +1994,7 @@
         "Representation / Distance-based Methods"
       ],
       "uncertainty_estimate": [
-        "Probability_Confidence_Score"
+        "Probability-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -1973,7 +2006,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -1989,7 +2022,10 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation",
+        "Gradient-based"
+      ]
     },
     "title": "Understanding the Dependence of Perception Model Competency on Regions in an Image",
     "authors": [
@@ -2029,7 +2065,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2041,7 +2077,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2058,7 +2094,12 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other",
+        "Perturbation",
+        "SHAP",
+        "Gradient-based"
+      ]
     },
     "title": "Explaining predictive uncertainty by exposing second-order effects",
     "authors": [
@@ -2100,7 +2141,7 @@
         "Other"
       ],
       "uncertainty_estimate": [
-        "Not_Specified_Unclear"
+        "Other"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2126,7 +2167,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Uncertainty-aware large language models for explainable disease diagnosis",
     "authors": [
@@ -2176,7 +2217,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2188,7 +2229,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2200,7 +2241,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Interpret Gaussian process models by using integrated gradients",
     "authors": [
@@ -2239,7 +2282,7 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Not_Specified_Unclear"
+        "Other"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2263,7 +2306,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Neuron explanations for conformal prediction (student abstract)",
     "authors": [
@@ -2307,7 +2350,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Distance_based"
+        "Distance-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2319,7 +2362,7 @@
         "global"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2328,13 +2371,15 @@
       ],
       "evaluation_type": [
         "Functionally-grounded",
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [],
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other"
+      ]
     },
     "title": "Interpretability of uncertainty: Exploring cortical lesion segmentation in multiple sclerosis",
     "authors": [
@@ -2395,7 +2440,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2412,7 +2457,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Optimization-Based Uncertainty Attribution Via Learning Informative Perturbations",
     "authors": [
@@ -2455,7 +2502,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Distribution_Parameter"
+        "Distribution parameters"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2467,7 +2514,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2479,8 +2526,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Probabilistic and explainable machine learning for tabular power grid data",
@@ -2525,20 +2572,21 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation",
-        "Distribution_Parameter"
+        "Variance / standard deviation",
+        "Distribution parameters"
       ],
       "integration_type": [
         "Post-hoc"
       ],
       "portability": [
-        "model_specific"
+        "model_specific",
+        "model_agnostic"
       ],
       "locality": [
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2554,8 +2602,10 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "Perturbation",
+        "SHAP",
+        "Gradient-based"
       ]
     },
     "title": "Explainable graph neural networks in chemistry: Combining attribution and uncertainty quantification",
@@ -2597,7 +2647,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Distribution_Parameter"
+        "Distribution parameters"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2610,7 +2660,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2628,8 +2678,10 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "Other",
+        "SHAP",
+        "Gradient-based"
       ]
     },
     "title": "Identifying Drivers of Predictive Aleatoric Uncertainty",
@@ -2670,7 +2722,7 @@
         "Softmax-based Methods"
       ],
       "uncertainty_estimate": [
-        "Probability_Confidence_Score"
+        "Probability-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2694,7 +2746,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Explaining an Image Classifier with a Generative Model Conditioned by Uncertainty",
     "authors": [
@@ -2731,7 +2783,7 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2743,7 +2795,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2759,7 +2811,9 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Gradient-based"
+      ]
     },
     "title": "Input Uncertainty Attribution by Uncertainty Propagation",
     "authors": [
@@ -2817,7 +2871,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -2825,13 +2879,15 @@
         "Yes"
       ],
       "evaluation_type": [
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [],
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Explaining Uncertainty in AI for Clinical Decision Support Systems",
     "authors": [
@@ -2895,7 +2951,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "A Layered Entropy Model for Transparent Uncertainty Quantification in Medical AI: Advancing Trustworthy Decision Support in Small-Data Clinical Settings",
     "authors": [
@@ -2933,7 +2989,7 @@
         "Representation / Distance-based Methods"
       ],
       "uncertainty_estimate": [
-        "Distance_based"
+        "Distance-based measures"
       ],
       "integration_type": [
         "Post-hoc"
@@ -2957,7 +3013,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "L2loRe: a method for explaining the reject option",
     "authors": [
@@ -3000,7 +3056,7 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3012,7 +3068,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3024,8 +3080,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Quantifying and explaining machine learning uncertainty in predictive process monitoring: an operations research perspective",
@@ -3067,7 +3123,7 @@
         "Probabilistic / Bayesian Methods"
       ],
       "uncertainty_estimate": [
-        "Not_Specified_Unclear"
+        "Other"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3095,7 +3151,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Counterfactual explanations for remaining useful life estimation within a Bayesian framework",
     "authors": [
@@ -3137,7 +3193,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3149,7 +3205,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3165,8 +3221,8 @@
       "benchmarked": [
         "Yes"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Uncertainty explanation of artificial intelligence models by SHAP",
@@ -3210,8 +3266,8 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile",
-        "Distribution_Parameter"
+        "Interval width / quantiles",
+        "Distribution parameters"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3223,7 +3279,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3235,8 +3291,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Physics-guided networks for probabilistic hydrodynamic forecasting in canal systems",
@@ -3281,7 +3337,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3293,7 +3349,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3305,8 +3361,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Bayesian deep learning framework for pesticide transport modeling with uncertainty quantification",
@@ -3360,7 +3416,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3368,14 +3424,14 @@
         "Yes"
       ],
       "evaluation_type": [
-        "Visual inspection"
+        "Anecdotal evidence"
       ],
       "co12": [],
       "benchmarked": [
         "Yes"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Uncertainty Estimation in Neural Network-enabled Side-channel Analysis and Links to Explainability",
@@ -3416,7 +3472,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3428,7 +3484,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3448,7 +3504,12 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Other",
+        "Perturbation",
+        "SHAP",
+        "Gradient-based"
+      ]
     },
     "title": "No Single Metric Tells the Whole Story: A Multi-Dimensional Evaluation Framework for Uncertainty Attributions",
     "authors": [
@@ -3491,8 +3552,8 @@
         "Distribution-free Methods"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile",
-        "Distribution_Parameter"
+        "Interval width / quantiles",
+        "Distribution parameters"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3504,7 +3565,7 @@
         "local"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3516,7 +3577,9 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": [
+        "Perturbation"
+      ]
     },
     "title": "Explainable uncertainty quantification in probabilistic wind power forecasting",
     "authors": [
@@ -3558,7 +3621,7 @@
         "Ensemble / Stochastic Methods"
       ],
       "uncertainty_estimate": [
-        "Variance_Standard_Deviation"
+        "Variance / standard deviation"
       ],
       "integration_type": [
         "Post-hoc"
@@ -3570,7 +3633,7 @@
         "both"
       ],
       "explanation_output_type": [
-        "Attribution"
+        "uncertainty attribution"
       ]
     },
     "xuq_evaluation": {
@@ -3582,8 +3645,8 @@
       "benchmarked": [
         "No"
       ],
-      "shap": [
-        "Yes"
+      "attribution_detail": [
+        "SHAP"
       ]
     },
     "title": "Explainable Machine Learning for Predicting Time-to-Failure of Horizontal Pressurized Storage Tanks in Fire Scenarios",
@@ -3628,7 +3691,7 @@
         "Other"
       ],
       "uncertainty_estimate": [
-        "Prediction_Interval_Quantile"
+        "Interval width / quantiles"
       ],
       "integration_type": [
         "Intrinsic"
@@ -3652,7 +3715,7 @@
       "benchmarked": [
         "No"
       ],
-      "shap": []
+      "attribution_detail": []
     },
     "title": "Explainable Uncertainty Quantification for Wastewater Treatment Energy Prediction via Interval Type-2 Neuro-Fuzzy System",
     "authors": [
