@@ -28,43 +28,53 @@
       "values": [
         {
           "value": "Medical",
-          "summary": ""
+          "summary": "",
+          "label": "Medical"
         },
         {
           "value": "Environmental Science",
-          "summary": ""
+          "summary": "",
+          "label": "Environmental science"
         },
         {
           "value": "Industrial Engineering",
-          "summary": ""
+          "summary": "",
+          "label": "Industrial engineering"
         },
         {
           "value": "Autonomous Driving",
-          "summary": ""
+          "summary": "",
+          "label": "Autonomous driving"
         },
         {
           "value": "Remote Sensing",
-          "summary": ""
+          "summary": "",
+          "label": "Remote sensing"
         },
         {
           "value": "Chemistry",
-          "summary": ""
+          "summary": "",
+          "label": "Chemistry"
         },
         {
           "value": "Energy",
-          "summary": ""
+          "summary": "",
+          "label": "Energy"
         },
         {
           "value": "Civil Engineering",
-          "summary": ""
+          "summary": "",
+          "label": "Civil engineering"
         },
         {
           "value": "Aviation",
-          "summary": ""
+          "summary": "",
+          "label": "Aviation"
         },
         {
           "value": "Cybersecurity",
-          "summary": ""
+          "summary": "",
+          "label": "Cybersecurity"
         }
       ]
     },
@@ -162,23 +172,28 @@
       "values": [
         {
           "value": "Domain Experts",
-          "summary": ""
+          "summary": "",
+          "label": "Domain experts"
         },
         {
           "value": "ML Researchers",
-          "summary": ""
+          "summary": "",
+          "label": "ML researchers"
         },
         {
           "value": "Lay / End Users",
-          "summary": ""
+          "summary": "",
+          "label": "Lay / end users"
         },
         {
           "value": "Labelers",
-          "summary": ""
+          "summary": "",
+          "label": "Labelers"
         },
         {
           "value": "None / Not specified",
-          "summary": "No target audience specified."
+          "summary": "No target audience specified.",
+          "label": "None / not specified"
         }
       ]
     },
@@ -223,27 +238,33 @@
       "values": [
         {
           "value": "Ensemble / Stochastic Methods",
-          "summary": "Uncertainty from disagreement across multiple model instances or stochastic inference runs (e.g., MC dropout, deep ensembles)."
+          "summary": "Uncertainty from disagreement across multiple model instances or stochastic inference runs (e.g., MC dropout, deep ensembles).",
+          "label": "Ensemble / stochastic methods"
         },
         {
           "value": "Probabilistic / Bayesian Methods",
-          "summary": "Uncertainty from explicitly modelling probability distributions over parameters or predictions (e.g., BNNs, Gaussian processes)."
+          "summary": "Uncertainty from explicitly modelling probability distributions over parameters or predictions (e.g., BNNs, Gaussian processes).",
+          "label": "Probabilistic / Bayesian methods"
         },
         {
           "value": "Softmax-based Methods",
-          "summary": "Uncertainty derived directly from the model's deterministic outputs, typically the softmax confidence or entropy."
+          "summary": "Uncertainty derived directly from the model's deterministic outputs, typically the softmax confidence or entropy.",
+          "label": "Softmax-based methods"
         },
         {
           "value": "Distribution-free Methods",
-          "summary": "Uncertainty quantified without parametric assumptions about the predictive distribution (e.g., conformal prediction, quantile regression)."
+          "summary": "Uncertainty quantified without parametric assumptions about the predictive distribution (e.g., conformal prediction, quantile regression).",
+          "label": "Distribution-free methods"
         },
         {
           "value": "Representation / Distance-based Methods",
-          "summary": "Uncertainty based on the position or similarity of a sample within a learned representation space (e.g., VAEs)."
+          "summary": "Uncertainty based on the position or similarity of a sample within a learned representation space (e.g., VAEs).",
+          "label": "Representation / distance-based methods"
         },
         {
           "value": "Other",
-          "summary": "Other or unspecified UQ methods."
+          "summary": "Other or unspecified UQ methods.",
+          "label": "Other"
         }
       ]
     },
@@ -255,31 +276,38 @@
       "values": [
         {
           "value": "Entropy",
-          "summary": "Uncertainty quantified as entropy of predictions."
+          "summary": "Uncertainty quantified as entropy of predictions.",
+          "label": "Entropy"
         },
         {
           "value": "Variance / standard deviation",
-          "summary": "Uncertainty quantified as variance or standard deviation."
+          "summary": "Uncertainty quantified as variance or standard deviation.",
+          "label": "Variance / standard deviation"
         },
         {
           "value": "Interval width / quantiles",
-          "summary": "Uncertainty quantified as prediction-interval widths or quantiles."
+          "summary": "Uncertainty quantified as prediction-interval widths or quantiles.",
+          "label": "Interval width / quantiles"
         },
         {
           "value": "Distribution parameters",
-          "summary": "Uncertainty quantified as parameters of a fitted distribution."
+          "summary": "Uncertainty quantified as parameters of a fitted distribution.",
+          "label": "Distribution parameters"
         },
         {
           "value": "Probability-based measures",
-          "summary": "Uncertainty quantified as probabilities or confidence scores."
+          "summary": "Uncertainty quantified as probabilities or confidence scores.",
+          "label": "Probability-based measures"
         },
         {
           "value": "Distance-based measures",
-          "summary": "Uncertainty quantified as distances in a representation or output space."
+          "summary": "Uncertainty quantified as distances in a representation or output space.",
+          "label": "Distance-based measures"
         },
         {
           "value": "Other",
-          "summary": "Other uncertainty estimates"
+          "summary": "Other uncertainty estimates",
+          "label": "Other"
         }
       ]
     },
@@ -291,15 +319,18 @@
       "values": [
         {
           "value": "Post-hoc",
-          "summary": "Explanation applied after training, without changing the model."
+          "summary": "Explanation applied after training, without changing the model.",
+          "label": "Post-hoc"
         },
         {
           "value": "Intrinsic",
-          "summary": "Explanation retrieved directly from the model or UQ mechanism."
+          "summary": "Explanation retrieved directly from the model or UQ mechanism.",
+          "label": "Intrinsic"
         },
         {
           "value": "Hybrid",
-          "summary": "Combination of post-hoc and intrinsic elements."
+          "summary": "Combination of post-hoc and intrinsic elements.",
+          "label": "Hybrid"
         }
       ]
     },
@@ -348,7 +379,7 @@
       "id": "explanation_output_type",
       "label": "Explanation Output Type",
       "group": "xuq_method",
-      "description": "The form the explanation takes.",
+      "description": "The form the explanation takes. For explanations that attribute uncertainty to individual input features, the specific attribution technique is listed as a subcategory.",
       "values": [
         {
           "value": "uncertainty attribution",
@@ -357,23 +388,63 @@
         },
         {
           "value": "Counterfactual",
-          "summary": "Explanations that describe which changes would alter the level of uncertainty."
+          "summary": "Explanations that describe which changes would alter the level of uncertainty.",
+          "label": "Counterfactual"
         },
         {
           "value": "Concept-based",
-          "summary": "Explanations that describe uncertainty in terms of higher-level concepts."
+          "summary": "Explanations that describe uncertainty in terms of higher-level concepts.",
+          "label": "Concept-based"
         },
         {
           "value": "Rule-based",
-          "summary": "Explanations that describe uncertainty by logical rules or decision conditions."
+          "summary": "Explanations that describe uncertainty by logical rules or decision conditions.",
+          "label": "Rule-based"
         },
         {
           "value": "Example-based",
-          "summary": "Explanations that use representative examples or similar instances."
+          "summary": "Explanations that use representative examples or similar instances.",
+          "label": "Example-based"
         },
         {
           "value": "Other/Unspecified",
-          "summary": "Other explanation output types."
+          "summary": "Other explanation output types.",
+          "label": "Other/Unspecified"
+        },
+        {
+          "value": "Perturbation",
+          "summary": "Attribution computed by perturbing inputs and observing changes in uncertainty.",
+          "label": "Perturbation-based attribution",
+          "subcategoryOf": "uncertainty attribution",
+          "dataPath": "xuq_method.attribution_detail"
+        },
+        {
+          "value": "Gradient-based",
+          "summary": "Attribution computed from gradients of the uncertainty estimate.",
+          "label": "Gradient-based attribution",
+          "subcategoryOf": "uncertainty attribution",
+          "dataPath": "xuq_method.attribution_detail"
+        },
+        {
+          "value": "Counterfactual-based",
+          "summary": "Attribution based on counterfactual variations of the input.",
+          "label": "Counterfactual-based attribution",
+          "subcategoryOf": "uncertainty attribution",
+          "dataPath": "xuq_method.attribution_detail"
+        },
+        {
+          "value": "SHAP",
+          "summary": "Attribution computed with SHAP.",
+          "label": "SHAP",
+          "subcategoryOf": "uncertainty attribution",
+          "dataPath": "xuq_method.attribution_detail"
+        },
+        {
+          "value": "Other",
+          "summary": "Other attribution techniques.",
+          "label": "Other attribution methods",
+          "subcategoryOf": "uncertainty attribution",
+          "dataPath": "xuq_method.attribution_detail"
         }
       ]
     },
@@ -385,11 +456,13 @@
       "values": [
         {
           "value": "Yes",
-          "summary": "The explanations were evaluated in some form."
+          "summary": "The explanations were evaluated in some form.",
+          "label": "Yes"
         },
         {
           "value": "No",
-          "summary": "The explanations were not evaluated."
+          "summary": "The explanations were not evaluated.",
+          "label": "No"
         }
       ]
     },
@@ -401,15 +474,18 @@
       "values": [
         {
           "value": "Functionally-grounded",
-          "summary": "Evaluation using quantitative proxy metrics."
+          "summary": "Evaluation using quantitative proxy metrics.",
+          "label": "Functionally-grounded"
         },
         {
           "value": "Human-grounded",
-          "summary": "Evaluation involving user studies with laypeople on simplified tasks."
+          "summary": "Evaluation involving user studies with laypeople on simplified tasks.",
+          "label": "Human-grounded"
         },
         {
           "value": "Anecdotal evidence",
-          "summary": "Evaluation via anecdotal evidence as defined by Nauta et al. [1] (\"showing individual, convincing examples that pass the first test of having face-validity\")."
+          "summary": "Evaluation via anecdotal evidence as defined by Nauta et al. [2] (\"showing individual, convincing examples that pass the first test of having face-validity\").",
+          "label": "Anecdotal evidence"
         }
       ]
     },
@@ -417,55 +493,67 @@
       "id": "co12",
       "label": "Co-12 Properties",
       "group": "xuq_evaluation",
-      "description": "The Co-12 properties evaluated in a study as defined by Nauta et al. [1].",
+      "description": "The Co-12 properties evaluated in a study as defined by Nauta et al. [2].",
       "values": [
         {
           "value": "Correctness",
-          "summary": "Describes how faithful the explanation is w.r.t. the black box."
+          "summary": "Describes how faithful the explanation is w.r.t. the black box.",
+          "label": "Correctness"
         },
         {
           "value": "Completeness",
-          "summary": "Describes how much of the black box behavior is described in the explanation."
+          "summary": "Describes how much of the black box behavior is described in the explanation.",
+          "label": "Completeness"
         },
         {
           "value": "Consistency",
-          "summary": "Describes how deterministic and implementation-invariant the explanation method is."
+          "summary": "Describes how deterministic and implementation-invariant the explanation method is.",
+          "label": "Consistency"
         },
         {
           "value": "Continuity",
-          "summary": "Describes how continuous and generalizable the explanation function is."
+          "summary": "Describes how continuous and generalizable the explanation function is.",
+          "label": "Continuity"
         },
         {
           "value": "Contrastivity",
-          "summary": "Describes how discriminative the explanation is w.r.t. other events or targets."
+          "summary": "Describes how discriminative the explanation is w.r.t. other events or targets.",
+          "label": "Contrastivity"
         },
         {
           "value": "Covariate complexity",
-          "summary": "Describes how complex the (interactions of) features in the explanation are."
+          "summary": "Describes how complex the (interactions of) features in the explanation are.",
+          "label": "Covariate complexity"
         },
         {
           "value": "Compactness",
-          "summary": "Describes the size of the explanation."
+          "summary": "Describes the size of the explanation.",
+          "label": "Compactness"
         },
         {
           "value": "Composition",
-          "summary": "Describes the presentation format and organization of the explanation."
+          "summary": "Describes the presentation format and organization of the explanation.",
+          "label": "Composition"
         },
         {
           "value": "Confidence",
-          "summary": "Describes the presence and accuracy of probability information in the explanation."
+          "summary": "Describes the presence and accuracy of probability information in the explanation.",
+          "label": "Confidence"
         },
         {
           "value": "Context",
-          "summary": "Describes how relevant the explanation is to the user and their needs."
+          "summary": "Describes how relevant the explanation is to the user and their needs.",
+          "label": "Context"
         },
         {
           "value": "Coherence",
-          "summary": "Describes how accordant the explanation is with prior knowledge and beliefs."
+          "summary": "Describes how accordant the explanation is with prior knowledge and beliefs.",
+          "label": "Coherence"
         },
         {
           "value": "Controllability",
-          "summary": "Describes how interactive or controllable an explanation is for a user."
+          "summary": "Describes how interactive or controllable an explanation is for a user.",
+          "label": "Controllability"
         }
       ]
     },
@@ -477,39 +565,13 @@
       "values": [
         {
           "value": "Yes",
-          "summary": "The method was benchmarked against other approaches."
+          "summary": "The method was benchmarked against other approaches.",
+          "label": "Yes"
         },
         {
           "value": "No",
-          "summary": "The method was not benchmarked."
-        }
-      ]
-    },
-    {
-      "id": "attribution_detail",
-      "label": "Attribution Detail",
-      "group": "xuq_evaluation",
-      "description": "For methods with uncertainty-attribution explanations, the specific attribution technique used.",
-      "values": [
-        {
-          "value": "Perturbation",
-          "summary": "Attribution computed by perturbing inputs and observing changes in uncertainty."
-        },
-        {
-          "value": "Gradient-based",
-          "summary": "Attribution computed from gradients of the uncertainty estimate."
-        },
-        {
-          "value": "Counterfactual-based",
-          "summary": "Attribution based on counterfactual variations of the input."
-        },
-        {
-          "value": "SHAP",
-          "summary": "Attribution computed with SHAP."
-        },
-        {
-          "value": "Other",
-          "summary": "Other attribution techniques."
+          "summary": "The method was not benchmarked.",
+          "label": "No"
         }
       ]
     }

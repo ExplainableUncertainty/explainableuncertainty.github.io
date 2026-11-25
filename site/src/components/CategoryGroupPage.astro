@@ -5,8 +5,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import papers from '../data/papers.json';
 import '../styles/profile-popup.css';
 import categories from '../data/categories.json';
-import { papersForValue, humanizeLabel, displayLabel, getCategoryGroup } from '../data/categoryTypes';
-import type { CategoryDimension } from '../data/categoryTypes';
+import { papersForValue, humanizeLabel, displayLabel, getCategoryGroup, splitSubcategories } from '../data/categoryTypes';
+import type { CategoryDimension, CategoryValue } from '../data/categoryTypes';
 import type { Paper } from '../data/paperTypes';
 import type { ColumnGroup } from '../data/paperTypes';
 
@@ -23,12 +23,23 @@ const { group, title, currentPath } = Astro.props;
 const groupDef = getCategoryGroup(group);
 const dims = categories.dimensions.filter((d) => d.group === group);
 
-// Precompute paper references for every dimension value.
+// Precompute paper references for every dimension value, and split each
+// dimension's values into top-level values and nested subcategories
+// (e.g. attribution techniques under 'uncertainty attribution').
 const refsByDim: Record<string, Record<string, ReturnType<typeof papersForValue>>> = {};
+const subsByDim: Record<string, Record<string, CategoryValue[]>> = {};
 dims.forEach((dim: CategoryDimension) => {
 	refsByDim[dim.id] = {};
-	dim.values.forEach((v) => {
-		refsByDim[dim.id][v.value] = papersForValue(papers as Paper[], dim.id, v.value);
+	subsByDim[dim.id] = {};
+	const { top, subsByParent } = splitSubcategories(dim.values);
+	top.forEach((v) => {
+		refsByDim[dim.id][v.value] = papersForValue(papers as Paper[], dim.id, v.value, v.dataPath);
+	});
+	Object.entries(subsByParent).forEach(([parent, subs]) => {
+		subsByDim[dim.id][parent] = subs;
+		subs.forEach((sub) => {
+			refsByDim[dim.id][sub.value] = papersForValue(papers as Paper[], dim.id, sub.value, sub.dataPath);
+		});
 	});
 });
 
@@ -37,13 +48,23 @@ function slugify(s: string): string {
 	return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
-// Order values by number of papers (descending).
-function orderedValues(dim: CategoryDimension) {
-	return [...dim.values].sort((a, b) => {
-		const na = refsByDim[dim.id][a.value]?.length ?? 0;
-		const nb = refsByDim[dim.id][b.value]?.length ?? 0;
-		return nb - na;
-	});
+// Number of papers for a value (subcategories read their dedicated dataPath).
+function refCount(dim: CategoryDimension, value: string): number {
+	return refsByDim[dim.id][value]?.length ?? 0;
+}
+
+// Top-level values of a dimension, ordered by paper count (descending).
+function orderedTopValues(dim: CategoryDimension): CategoryValue[] {
+	return [...dim.values]
+		.filter((v) => !v.subcategoryOf)
+		.sort((a, b) => refCount(dim, b.value) - refCount(dim, a.value));
+}
+
+// Subcategories of a parent value, ordered by paper count (descending).
+function orderedSubs(dim: CategoryDimension, parentValue: string): CategoryValue[] {
+	return [...(subsByDim[dim.id][parentValue] ?? [])].sort(
+		(a, b) => refCount(dim, b.value) - refCount(dim, a.value)
+	);
 }
 ---
 
@@ -54,9 +75,9 @@ function orderedValues(dim: CategoryDimension) {
 			<p>
 				{
 					group === 'ml_task' ? (
-						<>The general properties of the machine learning (ML) task of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality and ML task it addresses, and the intended target audience of the explanations.</>
+						<>The general properties of the research context of the reviewed studies. This covers whether a study is method- or application-oriented, the application domain it targets, the data modality and ML task it addresses, and the intended target audience of the explanations.</>
 					) : group === 'xuq_evaluation' ? (
-						<>Browse how the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated in the first place, the type of evaluation performed (functionally-grounded, human-grounded, application-grounded, or anecdotal evidence), the Co-12 properties{' '}<a class="ref-link" href="#references">[1]</a> addressed, and whether the applied XUQ method was benchmarked against other methods</>
+						<>Browse how the reviewed studies evaluated their explanations of uncertainty. This covers whether the explanations were evaluated in the first place, the type of evaluation performed (functionally-grounded, human-grounded, application-grounded, or anecdotal evidence), the Co-12 properties{' '}<a class="ref-link" href="#references">[2]</a> addressed, and whether the applied XUQ method was benchmarked against other methods</>
 					) : (
 						groupDef.description
 					)
@@ -86,7 +107,7 @@ function orderedValues(dim: CategoryDimension) {
 									</td>
 									<td class="overview__values">
 										{
-											orderedValues(dim).map((v) => (
+											orderedTopValues(dim).map((v) => (
 												<a
 													href={`#dim-${dim.id}-${slugify(v.value)}`}
 													class="overview__label"
@@ -105,47 +126,51 @@ function orderedValues(dim: CategoryDimension) {
 			</div>
 		</section>
 
-		<!-- One section per dimension -->
-		{
-			dims.map((dim: CategoryDimension) => (
-				<section class="dimension" id={`dim-${dim.id}`}>
-					<a class="dimension__top" href="#overview" aria-label="Back to overview">↑ Overview</a>
-					<h2 class="dimension__title" style={`--dim-color:${groupDef.color}`}>{dim.label}</h2>
-					<p class="dimension__desc">{dim.description}</p>
 
-					<div class="dimension__values">
-						{
-							orderedValues(dim).map((v) => {
-								const refs = refsByDim[dim.id][v.value];
-								return (
-									<div class="value-block" id={`dim-${dim.id}-${slugify(v.value)}`}>
-										<div class="value-block__head">
-											<div class="value-block__info">
-												<span class="value-block__name" style={`--label-color:${groupDef.color};--label-bg:${groupDef.bg}`}>
-													{displayLabel(v)}
-												</span>
-												<span class="value-block__summary">{v.summary}</span>
-											</div>
-											<button
-												class="value-block__toggle"
-												type="button"
-												aria-expanded="false"
-												aria-controls={`refs-${dim.id}-${slugify(v.value)}`}
-												data-ref-toggle
-											>
-												<span class="value-block__count">{refs.length} papers</span>
-												<span class="value-block__arrow" aria-hidden="true">▸</span>
-											</button>
+	<!-- One section per dimension -->
+	{
+		dims.map((dim: CategoryDimension) => (
+			<section class="dimension" id={`dim-${dim.id}`}>
+				<a class="dimension__top" href="#overview" aria-label="Back to overview">↑ Overview</a>
+				<h2 class="dimension__title" style={`--dim-color:${groupDef.color}`}>{dim.label}</h2>
+				<p class="dimension__desc">{dim.description}</p>
+
+				<div class="dimension__values">
+					{
+						orderedTopValues(dim).map((v) => {
+							const refs = refsByDim[dim.id][v.value];
+							const subs = orderedSubs(dim, v.value);
+							return (
+								<div class="value-block" id={`dim-${dim.id}-${slugify(v.value)}`}>
+									<div class="value-block__head">
+										<div class="value-block__info">
+											<span class="value-block__name" style={`--label-color:${groupDef.color};--label-bg:${groupDef.bg}`}>
+												{displayLabel(v)}
+											</span>
+											<span class="value-block__summary">{v.summary}</span>
 										</div>
-										<div
-											class="value-block__refs"
-											id={`refs-${dim.id}-${slugify(v.value)}`}
-											hidden
+										<button
+											class="value-block__toggle"
+											type="button"
+											aria-expanded="false"
+											aria-controls={subs.length > 0 ? `subs-${dim.id}-${slugify(v.value)}` : `refs-${dim.id}-${slugify(v.value)}`}
+											data-ref-toggle
 										>
-											<ul class="value-block__ref-list">
-												{
-													refs.map((ref) => (
-														<li class="value-block__ref">
+											<span class="value-block__count">{refs.length} papers</span>
+											<span class="value-block__arrow" aria-hidden="true">▸</span>
+										</button>
+									</div>
+									{subs.length === 0 && (
+									<div
+										class="value-block__refs"
+										id={`refs-${dim.id}-${slugify(v.value)}`}
+										hidden
+									>
+										<ul class="value-block__ref-list">
+											{
+												refs.map((ref) => (
+													<li class="value-block__ref">
+														<div class="value-block__ref-content">
 															<button
 																class="value-block__ref-title"
 																type="button"
@@ -159,26 +184,87 @@ function orderedValues(dim: CategoryDimension) {
 																{ref.year ? ` · ${ref.year}` : ''}
 																{ref.venue ? ` · ${ref.venue}` : ''}
 															</span>
-														</li>
-													))
-												}
-											</ul>
-										</div>
+														</div>
+													</li>
+												))
+											}
+										</ul>
 									</div>
-								);
-							})
-						}
-					</div>
-				</section>
-			))
-		}
+									)}
+									{subs.length > 0 && (
+										<div class="value-block__subs" id={`subs-${dim.id}-${slugify(v.value)}`} hidden>
+											{subs.map((sub) => {
+												const subRefs = refsByDim[dim.id][sub.value] ?? [];
+												return (
+													<div
+														class="subblock"
+														id={`dim-${dim.id}-${slugify(v.value)}--sub-${slugify(sub.value)}`}
+													>
+														<div class="subblock__head">
+															<div class="subblock__info">
+																<span class="subblock__name">{displayLabel(sub)}</span>
+																<span class="subblock__summary">{sub.summary}</span>
+															</div>
+															<button
+																class="value-block__toggle"
+																type="button"
+																aria-expanded="false"
+																aria-controls={`refs-${dim.id}-${slugify(v.value)}--sub-${slugify(sub.value)}`}
+																data-ref-toggle
+															>
+																<span class="value-block__count">{subRefs.length} papers</span>
+																<span class="value-block__arrow" aria-hidden="true">▸</span>
+															</button>
+														</div>
+														<div
+															class="value-block__refs subblock__refs"
+															id={`refs-${dim.id}-${slugify(v.value)}--sub-${slugify(sub.value)}`}
+															hidden
+														>
+															<ul class="value-block__ref-list">
+																{
+																	subRefs.map((ref) => (
+																		<li class="value-block__ref">
+																			<div class="value-block__ref-content">
+																				<button
+																					class="value-block__ref-title"
+																					type="button"
+																					data-open-paper={ref.id}
+																					title="Open paper profile"
+																				>
+																					{ref.title || `Paper ${ref.id}`}
+																				</button>
+																				<span class="value-block__ref-meta">
+																					{ref.authors.length ? ref.authors.join(', ') : ''}
+																					{ref.year ? ` · ${ref.year}` : ''}
+																					{ref.venue ? ` · ${ref.venue}` : ''}
+																				</span>
+																			</div>
+																		</li>
+																	))
+																}
+															</ul>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									)}
+								</div>
+							);
+						})
+					}
+				</div>
+			</section>
+		))
+	}
 
 		{
 			group === 'xuq_evaluation' && (
 				<div class="categories__reference" id="references">
 					<p class="categories__reference-title">Reference</p>
 					<p class="categories__reference-text">
-						[1] Nauta, M., Trienes, J., Pathak, S., Nguyen, E., Peters, M., Schmitt, Y., Schlötterer, J.,
+						[2] Nauta, M., Trienes, J., Pathak, S., Nguyen, E., Peters, M., Schmitt, Y., Schlötterer, J.,
 						van Keulen, M., &amp; Seifert, C. (2023). From Anecdotal Evidence to Quantitative Evaluation
 						Methods: A Systematic Review on Evaluating Explainable AI. <em>ACM Computing Surveys</em>,
 						55(13s), 1–42.
@@ -211,8 +297,9 @@ function orderedValues(dim: CategoryDimension) {
 	import { displayValueLabel } from '../data/categoryTypes';
 	import type { Paper } from '../data/paperTypes';
 
-	// Collapsible paper references.
-	document.querySelectorAll<HTMLElement>('[data-ref-toggle]').forEach((btn) => {		btn.addEventListener('click', () => {
+	// Collapsible sections (paper lists + subcategory containers).
+	document.querySelectorAll<HTMLElement>('[data-ref-toggle]').forEach((btn) => {
+		btn.addEventListener('click', () => {
 			const targetId = btn.getAttribute('aria-controls');
 			const target = document.getElementById(targetId ?? '');
 			if (!target) return;
@@ -223,6 +310,31 @@ function orderedValues(dim: CategoryDimension) {
 			if (arrow) arrow.textContent = open ? '▾' : '▸';
 		});
 	});
+
+	// Deep links to a subcategory (e.g. from a popup tag): reveal its container
+	// and its ancestors so the anchor target is actually visible.
+	function revealSubcategory(id: string): void {
+		const el = document.getElementById(id);
+		if (!el) return;
+		let node: HTMLElement | null = el;
+		while (node) {
+			if (node.hidden) node.hidden = false;
+			// Update the toggle button that controls this container.
+			if (node.id) {
+				document
+					.querySelectorAll<HTMLElement>(`[aria-controls="${node.id}"]`)
+					.forEach((btn) => {
+						btn.setAttribute('aria-expanded', 'true');
+						const arrow = btn.querySelector('.value-block__arrow');
+						if (arrow) arrow.textContent = '▾';
+					});
+			}
+			node = node.parentElement;
+		}
+	}
+	if (location.hash) {
+		revealSubcategory(decodeURIComponent(location.hash.slice(1)));
+	}
 
 	// ---- In-place paper profile popup (same design as the Paper Explorer's) ----
 	const profile = document.querySelector<HTMLElement>('[data-profile]');
@@ -241,15 +353,24 @@ function orderedValues(dim: CategoryDimension) {
 		return s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
 	}
 
-	function truncate(s: string, n: number): string {
-		return s.length > n ? `${s.slice(0, n - 1)}…` : s;
-	}
-
 	/** Category page path for a column group (cross-links to the taxonomy). */
 	const GROUP_PAGE: Record<string, string> = {
 		ml_task: '/ml-tasks',
 		xuq_method: '/xuq-methods',
 		xuq_evaluation: '/xuq-evaluation',
+	};
+
+	/**
+	 * Subcategory anchors: attribution techniques are subcategories of
+	 * 'uncertainty attribution' on the XUQ Methods page, so their tags link
+	 * to the nested subblock anchor instead of a top-level value block.
+	 */
+	const SUBCATEGORY_OF: Record<string, string> = {
+		Perturbation: 'uncertainty attribution',
+		'Gradient-based': 'uncertainty attribution',
+		'Counterfactual-based': 'uncertainty attribution',
+		SHAP: 'uncertainty attribution',
+		Other: 'uncertainty attribution',
 	};
 
 	function slugify(s: string): string {
@@ -270,8 +391,10 @@ function orderedValues(dim: CategoryDimension) {
 			: '';
 
 		// Dimension cards per group ('general' is covered by the hero header).
+		// Attribution detail is merged into the Explanation Output card (it is a
+		// subcategory of 'uncertainty attribution'), so it gets no card of its own.
 		const sectionHtml = GROUPS.filter((g) => g.id !== 'general').map((g) => {
-			const groupCols = COLUMNS.filter((c) => c.group === g.id);
+			const groupCols = COLUMNS.filter((c) => c.group === g.id && !c.mergedInto);
 			const cards = groupCols
 				.map((col) => {
 					const value = getValue(paper, col.path);
@@ -280,9 +403,36 @@ function orderedValues(dim: CategoryDimension) {
 					const color = labelColor(col.group);
 					const bg = labelBg(col.group);
 					const page = GROUP_PAGE[col.group];
+					// Attribution techniques render inside the Explanation Output card
+					// as merged pills — one per technique, matching the table cells:
+					// "Uncertainty attribution (SHAP)".
+					const detailTags =
+						col.key === 'explanation_output_type'
+							? ((getValue(paper, 'xuq_method.attribution_detail') as string[]) ?? [])
+									.map((d) => {
+										const href = page
+											? `${page}#dim-explanation_output_type-uncertainty-attribution--sub-${slugify(d)}`
+											: null;
+										const inner = `<span class="profile__tag-main">${escapeHtml(displayValueLabel('uncertainty attribution'))}</span><span class="profile__tag-detail">(${escapeHtml(displayValueLabel(d))})</span>`;
+										return href
+											? `<a class="profile__tag profile__tag--link profile__tag--merged" style="--label-color:${color};--label-bg:${bg}" href="${href}">${inner}</a>`
+											: `<span class="profile__tag profile__tag--merged" style="--label-color:${color};--label-bg:${bg}">${inner}</span>`;
+									})
+									.join('')
+							: '';
 					const tags = vals
 						.map((v) => {
-							const href = page ? `${page}#dim-${col.key}-${slugify(v)}` : null;
+							// When merged pills exist, the plain 'uncertainty attribution'
+							// chip is redundant (each pill already carries the name).
+							const hasMerged = col.key === 'explanation_output_type' && detailTags.length > 0 && v === 'uncertainty attribution';
+							if (hasMerged) return '';
+							// Subcategories (e.g. SHAP) link to their nested subblock,
+							// which lives under the explanation_output_type dimension.
+							const parent = col.key === 'attribution_detail' ? SUBCATEGORY_OF[v] : undefined;
+							const anchor = parent
+								? `dim-explanation_output_type-${slugify(parent)}--sub-${slugify(v)}`
+								: `dim-${col.key}-${slugify(v)}`;
+							const href = page ? `${page}#${anchor}` : null;
 							return href
 								? `<a class="profile__tag profile__tag--link" style="--label-color:${color};--label-bg:${bg}" href="${href}">${escapeHtml(displayValueLabel(v))}</a>`
 								: `<span class="profile__tag" style="--label-color:${color};--label-bg:${bg}">${escapeHtml(displayValueLabel(v))}</span>`;
@@ -291,7 +441,7 @@ function orderedValues(dim: CategoryDimension) {
 					return `
 						<div class="pcard" style="--g-color:${color};--g-bg:${bg}">
 							<span class="pcard__label">${escapeHtml(col.label)}</span>
-							<div class="pcard__values">${tags}</div>
+							<div class="pcard__values">${tags}${detailTags}</div>
 						</div>
 					`;
 				})
@@ -314,21 +464,6 @@ function orderedValues(dim: CategoryDimension) {
 			`;
 		}).join('');
 
-		const idx = papers.findIndex((p) => p.id === paper.id);
-		const prev = papers[(idx - 1 + papers.length) % papers.length];
-		const next = papers[(idx + 1) % papers.length];
-		const nav = `
-			<nav class="profile__nav" aria-label="Other papers">
-				<button class="profile__nav-btn" type="button" data-profile-step="-1" aria-label="Previous paper">
-					<span aria-hidden="true">←</span>
-					<span class="profile__nav-title">${escapeHtml(truncate(prev.title || `Paper ${prev.id}`, 42))}</span>
-				</button>
-				<button class="profile__nav-btn profile__nav-btn--next" type="button" data-profile-step="1" aria-label="Next paper">
-					<span aria-hidden="true">→</span>
-					<span class="profile__nav-title">${escapeHtml(truncate(next.title || `Paper ${next.id}`, 42))}</span>
-				</button>
-			</nav>
-		`;
 
 		return `
 			<header class="profile__hero">
@@ -343,7 +478,6 @@ function orderedValues(dim: CategoryDimension) {
 			</header>
 			${abstract}
 			${sectionHtml}
-			${nav}
 		`;
 	}
 
@@ -354,9 +488,6 @@ function orderedValues(dim: CategoryDimension) {
 		lastFocused = document.activeElement as HTMLElement | null;
 		profileBody.innerHTML = renderProfile(paper);
 		profileBody.scrollTop = 0;
-		profileBody.querySelectorAll<HTMLButtonElement>('[data-profile-step]').forEach((btn) => {
-			btn.addEventListener('click', () => stepProfile(Number(btn.dataset.profileStep)));
-		});
 		if (profile) {
 			profile.hidden = false;
 			profile.querySelector<HTMLButtonElement>('.profile__close')?.focus();
@@ -372,13 +503,6 @@ function orderedValues(dim: CategoryDimension) {
 		lastFocused = null;
 	}
 
-	function stepProfile(delta: number) {
-		if (currentPaperId === null) return;
-		const idx = papers.findIndex((p) => p.id === currentPaperId);
-		const next = papers[(idx + delta + papers.length) % papers.length];
-		if (next) openProfile(next.id);
-	}
-
 	// Paper titles open the profile popup in place (no redirect).
 	document.querySelectorAll<HTMLElement>('[data-open-paper]').forEach((btn) => {
 		btn.addEventListener('click', () => openProfile(btn.getAttribute('data-open-paper') ?? ''));
@@ -390,7 +514,7 @@ function orderedValues(dim: CategoryDimension) {
 		if (e.key === 'Escape' && profile && !profile.hidden) closeProfile();
 	});
 
-	// Reference links ([1]): scroll to the reference block. Smooth scrolling is
+	// Reference links ([2]): scroll to the reference block. Smooth scrolling is
 	// unreliable here (layout shifts cancel the animation), so scroll instantly.
 	document.querySelectorAll<HTMLAnchorElement>('a.ref-link[href^="#"]').forEach((link) => {
 		link.addEventListener('click', (e) => {
@@ -400,6 +524,29 @@ function orderedValues(dim: CategoryDimension) {
 				target.scrollIntoView({ behavior: 'auto', block: 'start' });
 				history.replaceState(null, '', link.getAttribute('href') ?? '');
 			}
+		});
+	});
+
+	// Category tag links inside the open popup: close the popup first, then
+	// jump to the target anchor (body scroll is locked while the popup is open,
+	// so the default anchor navigation would not scroll). The tags are injected
+	// dynamically, so delegate clicks on the popup body instead of binding
+	// each link at load time.
+	profileBody?.addEventListener('click', (e) => {
+		const link = (e.target as HTMLElement).closest<HTMLAnchorElement>('a.profile__tag--link[href*="#"]');
+		if (!link) return;
+		e.preventDefault();
+		const href = link.getAttribute('href') ?? '';
+		const hash = href.slice(href.indexOf('#'));
+		closeProfile();
+		// Defer the jump until after the popup has restored body scrolling.
+		requestAnimationFrame(() => {
+			revealSubcategory(decodeURIComponent(hash.slice(1)));
+			const target = document.getElementById(hash.slice(1));
+			if (target) {
+				target.scrollIntoView({ behavior: 'auto', block: 'start' });
+			}
+			history.replaceState(null, '', hash);
 		});
 	});
 
@@ -494,6 +641,13 @@ function orderedValues(dim: CategoryDimension) {
 	.overview__label:hover {
 		filter: brightness(0.95);
 	}
+	/* Subcategory chips in the overview: dashed outline, no arrow marker. */
+	.overview__label--sub {
+		padding-left: 0.35em;
+		font-weight: 500;
+		border-style: dashed;
+		background: transparent;
+	}
 
 	/* ---- Dimension sections ---- */
 	.dimension {
@@ -529,7 +683,7 @@ function orderedValues(dim: CategoryDimension) {
 		gap: var(--space-2);
 	}
 
-	/* ---- Reference footer (Nauta et al. [1] / PRISMA [2]) ---- */
+	/* ---- Reference footer (PRISMA [1] / Nauta et al. [2]) ---- */
 	.categories__reference {
 		margin-top: var(--space-4);
 		padding: var(--space-4) var(--space-5);
@@ -634,14 +788,18 @@ function orderedValues(dim: CategoryDimension) {
 		display: none;
 	}
 	.value-block__ref-list {
-		list-style: none;
+		list-style: disc;
 		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-2);
+		padding-left: var(--space-5);
+		display: block;
 	}
 	.value-block__ref {
+		margin-bottom: var(--space-2);
+	}
+	.value-block__ref:last-child {
+		margin-bottom: 0;
+	}
+	.value-block__ref-content {
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
@@ -666,10 +824,67 @@ function orderedValues(dim: CategoryDimension) {
 		color: var(--color-text-muted);
 	}
 
+	/* ---- Nested subcategories (e.g. attribution techniques under
+	       'uncertainty attribution') ---- */
+	.value-block__subs {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		padding: var(--space-3) var(--space-4) var(--space-4) calc(var(--space-4) + 1.25rem);
+		border-top: 1px dashed var(--color-border);
+		background: var(--color-bg-alt);
+	}
+	/* display:flex would override the UA's [hidden] rule, so restate it. */
+	.value-block__subs[hidden] {
+		display: none;
+	}
+	.subblock {
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		background: var(--color-surface);
+		overflow: hidden;
+	}
+	.subblock__head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-3);
+		padding: var(--space-2) var(--space-3);
+	}
+	.subblock__info {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		flex-wrap: wrap;
+	}
+	.subblock__name {
+		display: inline-flex;
+		align-items: center;
+		padding: 1px var(--space-2);
+		border: 1px dashed var(--label-color, var(--color-border));
+		border-radius: 999px;
+		background: var(--color-surface);
+		color: var(--label-color, var(--color-text));
+		font-size: var(--text-xs);
+		font-weight: 700;
+		white-space: nowrap;
+	}
+	.subblock__summary {
+		font-weight: 500;
+		color: var(--color-text);
+	}
+	.subblock__refs {
+		background: var(--color-bg-alt);
+	}
+
 	@media (max-width: 48rem) {
-		.value-block__head {
+		.value-block__head,
+		.subblock__head {
 			flex-direction: column;
 			align-items: flex-start;
+		}
+		.value-block__subs {
+			padding-left: var(--space-3);
 		}
 	}
 </style>

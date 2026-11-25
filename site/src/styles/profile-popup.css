@@ -224,9 +224,17 @@ global (class names are profile__/pcard-prefixed to avoid collisions). */
 		color: var(--color-text-muted);
 	}
 	.profile__cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+		/* Column-based layout: cards keep their natural (content-driven) width and
+		   stretch horizontally instead of forcing pills to wrap vertically. */
+		display: flex;
+		flex-wrap: wrap;
 		gap: var(--space-3);
+		align-items: flex-start;
+	}
+	.pcard {
+		flex: 0 0 auto;
+		min-width: 13rem;
+		max-width: 100%;
 	}
 
 	/* Dimension card: label + colored value chips, matching the table colors */
@@ -236,14 +244,13 @@ global (class names are profile__/pcard-prefixed to avoid collisions). */
 		gap: var(--space-2);
 		padding: var(--space-3);
 		border: 1px solid var(--color-border);
-		border-top: 3px solid var(--g-color);
 		border-radius: var(--radius-md);
 		background: var(--color-surface);
-		transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+		transition: border-color var(--transition-fast);
+		width: max-content;
 	}
 	.pcard:hover {
-		box-shadow: var(--shadow-md);
-		transform: translateY(-1px);
+		border-color: var(--g-color);
 	}
 	.pcard__label {
 		font-size: var(--text-xs);
@@ -277,6 +284,21 @@ global (class names are profile__/pcard-prefixed to avoid collisions). */
 		filter: brightness(0.95);
 		box-shadow: var(--shadow-sm);
 		text-decoration: underline;
+	}
+	/* Merged subcategory pills — one per technique, matching the table cells:
+	   "Uncertainty attribution (SHAP)" with the parens inside the pill. Cards
+	   stretch horizontally, so the pill stays on a single line. */
+	.profile__tag--merged {
+		gap: 4px;
+		white-space: nowrap;
+	}
+	.profile__tag-main {
+		white-space: nowrap;
+	}
+	.profile__tag-detail {
+		font-weight: 500;
+		opacity: 0.85;
+		white-space: nowrap;
 	}
 
 	/* Prev / next paper navigation */

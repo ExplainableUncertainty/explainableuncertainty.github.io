@@ -9,6 +9,18 @@ export interface CategoryValue {
 	summary: string;
 	/** Optional curated display label (overrides humanizeLabel). */
 	label?: string;
+	/**
+	 * Optional parent value: this value is a subcategory of another value in
+	 * the same dimension (e.g. SHAP is a subcategory of uncertainty attribution).
+	 * Subcategories are rendered nested under their parent instead of as
+	 * top-level blocks.
+	 */
+	subcategoryOf?: string;
+	/**
+	 * Optional dot-path overriding where a value's papers are read from
+	 * (defaults to the dimension's path in papersForValue).
+	 */
+	dataPath?: string;
 }
 
 export interface CategoryDimension {
@@ -61,6 +73,24 @@ export function getCategoryGroup(groupId: ColumnGroup): CategoryGroup {
 	return CATEGORY_GROUPS.find((g) => g.id === groupId) ?? CATEGORY_GROUPS[0];
 }
 
+/**
+ * Split a dimension's values into top-level values and their subcategories.
+ * Subcategories are values with a `subcategoryOf` field pointing at a
+ * top-level value in the same dimension.
+ */
+export function splitSubcategories(values: CategoryValue[]): {
+	top: CategoryValue[];
+	subsByParent: Record<string, CategoryValue[]>;
+} {
+	const top = values.filter((v) => !v.subcategoryOf);
+	const subsByParent: Record<string, CategoryValue[]> = {};
+	values.forEach((v) => {
+		if (!v.subcategoryOf) return;
+		(subsByParent[v.subcategoryOf] ??= []).push(v);
+	});
+	return { top, subsByParent };
+}
+
 /** The full categories data file. */
 export interface CategoriesData {
 	intro: string;
@@ -79,12 +109,15 @@ export interface PaperRef {
 
 /**
  * Compute the papers that contain a given value in a given dimension.
- * The dimension id maps to a path in the Paper object.
+ * The dimension id maps to a path in the Paper object; a value may override
+ * that path via its `dataPath` field (used by subcategories whose papers are
+ * tracked in a dedicated field, e.g. attribution_detail).
  */
 export function papersForValue(
 	papers: Paper[],
 	dimensionId: string,
-	value: string
+	value: string,
+	dataPath?: string
 ): PaperRef[] {
 	// Map dimension id -> path in the Paper object.
 	const pathMap: Record<string, string> = {
@@ -100,13 +133,13 @@ export function papersForValue(
 		portability: 'xuq_method.portability',
 		locality: 'xuq_method.locality',
 		explanation_output_type: 'xuq_method.explanation_output_type',
+		attribution_detail: 'xuq_method.attribution_detail',
 		evaluated: 'xuq_evaluation.evaluated',
 		evaluation_type: 'xuq_evaluation.evaluation_type',
 		co12: 'xuq_evaluation.co12',
 		benchmarked: 'xuq_evaluation.benchmarked',
-		shap: 'xuq_evaluation.shap',
 	};
-	const path = pathMap[dimensionId];
+	const path = dataPath ?? pathMap[dimensionId];
 	if (!path) return [];
 
 	return papers

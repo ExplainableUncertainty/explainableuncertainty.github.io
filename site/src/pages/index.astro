@@ -41,12 +41,11 @@ const paperCount = papers.length;
 
 		<!-- Figure 1 -->
 		<section class="landing__section" id="figure">
-			<h2>Overview of XUQ</h2>
 			<!-- Static scheme image (public/scheme.png). The interactive scheme can be
 			     restored by uncommenting the import above and the component below. -->
 			<figure class="landing__scheme">
 				<img
-					src="/scheme.png"
+					src="/XUQ_Overview.svg"
 					alt="Overview of XUQ: definition, motivation with stakeholders (clinician, patient, AI researcher), current state, and research gaps and future directions across scope, methods, and evaluation"
 				/>
 				<figcaption class="landing__scheme-caption">
@@ -65,7 +64,7 @@ const paperCount = papers.length;
 			<h2>How the review was conducted</h2>
 			<p>
 				We performed a systematic literature review based on the PRISMA guidelines{' '}
-				<a class="landing__ref-link" href="/category-explorer#references-prisma">[2]</a>. We identified{' '}
+				<a class="landing__ref-link" href="#references-prisma">[1]</a>. We identified{' '}
 				<strong>{paperCount} relevant publications</strong> on XUQ. Based on these publications, we answer the following
 				four research questions:
 			</p>
@@ -77,7 +76,7 @@ const paperCount = papers.length;
 			</ul>
 			<p>
 				To answer the research questions, we structured all papers according to different categories spanning
-				the addressed machine learning task, XUQ method, and evaluation of XUQ. More details on the categories
+				the overall research context, XUQ method, and evaluation of XUQ. More details on the categories
 				can be found in the <a href="/category-explorer">category explorer</a> and in the paper.
 			</p>
 		</section>
@@ -100,17 +99,33 @@ const paperCount = papers.length;
 				</a>
 			</div>
 		</section>
+
+		<!-- Reference cited in the methodology ([1] PRISMA). -->
+		<div class="landing__reference" id="references-prisma">
+			<p class="landing__reference-text">
+				[1] Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D.,
+				Shamseer, L., Tetzlaff, J. M., Akl, E. A., Brennan, S. E., et al. (2021). The PRISMA 2020
+				statement: an updated guideline for reporting systematic reviews. <em>BMJ</em>, 372, n71.
+			</p>
+		</div>
 	</article>
 </BaseLayout>
 
 <script>
-	// The [2] marker links to /category-explorer#references-prisma. Browsers jump to
-	// the anchor on navigation, but layout shifts (image loading) can land the scroll
-	// off-target — re-anchor once the page has settled.
+	// The [1] marker targets #references-prisma on this page. Smooth scrolling gets
+	// cancelled by layout shifts (image loading), so scroll instantly on click, and
+	// re-anchor after load when arriving with the hash set.
+	const scrollToRef = () => {
+		document.getElementById('references-prisma')?.scrollIntoView({ behavior: 'auto', block: 'start' });
+	};
+
+	document.querySelector<HTMLAnchorElement>('.landing__ref-link')?.addEventListener('click', (e) => {
+		e.preventDefault();
+		scrollToRef();
+		history.replaceState(null, '', '#references-prisma');
+	});
+
 	if (window.location.hash === '#references-prisma') {
-		const scrollToRef = () => {
-			document.getElementById('references-prisma')?.scrollIntoView({ behavior: 'auto', block: 'start' });
-		};
 		scrollToRef();
 		window.addEventListener('load', scrollToRef, { once: true });
 	}
@@ -190,7 +205,7 @@ const paperCount = papers.length;
 		color: var(--color-text);
 	}
 
-	/* Clickable [2] reference marker → PRISMA reference on the category explorer */
+	/* Clickable [1] reference marker → PRISMA reference on the category explorer */
 	.landing__ref-link {
 		font-weight: 700;
 		color: var(--color-teal-700);
@@ -199,6 +214,23 @@ const paperCount = papers.length;
 	}
 	.landing__ref-link:hover {
 		color: var(--color-teal-500);
+	}
+
+	/* PRISMA reference block ([1]), at the bottom of the page */
+	.landing__reference {
+		margin-top: var(--space-8);
+		padding: var(--space-4) var(--space-5);
+		border: 1px solid var(--color-border);
+		border-left: 4px solid var(--color-teal-500);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		scroll-margin-top: calc(var(--header-height) + var(--space-4));
+	}
+	.landing__reference-text {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: 1.6;
+		color: var(--color-text);
 	}
 
 	.landing__buttons {

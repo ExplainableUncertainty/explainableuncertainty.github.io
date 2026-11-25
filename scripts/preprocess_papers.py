@@ -389,13 +389,15 @@ def build_paper(row: dict[str, str], groups: dict[str, list[tuple[str, str]]]) -
             "portability": portability,
             "locality": locality,
             "explanation_output_type": explanation_output_type,
+            # Attribution detail is a subcategory of the 'uncertainty attribution'
+            # explanation output type, so it belongs to the XUQ methods group.
+            "attribution_detail": attribution_detail,
         },
         "xuq_evaluation": {
             "evaluated": evaluated,
             "evaluation_type": evaluation_type,
             "co12": co12,
             "benchmarked": benchmarked,
-            "attribution_detail": attribution_detail,
         },
     }
 

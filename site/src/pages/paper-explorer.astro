@@ -5,7 +5,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import papers from '../data/papers.json';
 import '../styles/profile-popup.css';
-import { COLUMNS, GROUPS, TABLE_GROUPS, getTableColumns, getValue, formatValue, labelColor, labelBg } from '../data/paperTypes';
+import { COLUMNS, GROUPS, TABLE_GROUPS, getVisibleTableColumns, getValue, formatValue, labelColor, labelBg } from '../data/paperTypes';
 import { valueLabel } from '../data/valueLabels';
 import type { Paper } from '../data/paperTypes';
 import type { ColumnGroup } from '../data/paperTypes';
@@ -13,6 +13,23 @@ import type { ColumnGroup } from '../data/paperTypes';
 // Humanize a snake_case / spaced label for display, preferring curated labels.
 function humanizeLabel(s: string): string {
 	return valueLabel(s) !== s ? valueLabel(s) : s.replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Merged-cell data for the Explanation Output column: each output type paired
+ * with its attribution techniques, rendered as one button per technique:
+ * "Uncertainty attribution (SHAP)", "Uncertainty attribution (Perturbation-based attribution)".
+ * Returns null for every other column.
+ */
+function mergedCellLabels(paper: Paper, colKey: string): { main: string; details: string[] }[] | null {
+	if (colKey !== 'explanation_output_type') return null;
+	const outputs = (getValue(paper, 'xuq_method.explanation_output_type') as string[]) ?? [];
+	const details = (getValue(paper, 'xuq_method.attribution_detail') as string[]) ?? [];
+	return outputs.map((output) => ({
+		main: output,
+		// Attribution techniques only belong to the uncertainty attribution output.
+		details: output === 'uncertainty attribution' ? details : [],
+	}));
 }
 
 // Table labels for the switcher.
@@ -100,7 +117,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			<!-- Three tables, one visible at a time -->
 			{
 				TABLE_GROUPS.map((g, gi) => {
-					const tableCols = getTableColumns(g);
+					const tableCols = getVisibleTableColumns(g);
 					const groupColor = GROUPS.find((gr) => gr.id === g)?.color;
 					const groupBg = GROUPS.find((gr) => gr.id === g)?.bg;
 					return (
@@ -165,6 +182,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 														const isList = Array.isArray(value) && value.length > 0;
 														const color = labelColor(col.group);
 														const bg = labelBg(col.group);
+														const merged = mergedCellLabels(paper, col.key);
 														return (
 															<td
 																class:list={[`td--${col.group}`, { 'td--always': col.always }]}
@@ -180,6 +198,39 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 																	>
 																		{col.key === 'id' ? displayId : formatValue(value)}
 																	</button>
+																) : merged ? (
+																	<div class="cell__labels">
+																		{merged.map((entry) =>
+																			entry.details.length === 0 ? (
+																				<button
+																					class="cell__label"
+																					type="button"
+																					style={`--label-color:${color};--label-bg:${bg}`}
+																					data-filter-label
+																					data-col="explanation_output_type"
+																					data-label={entry.main}
+																					title={`Filter by ${humanizeLabel(entry.main)}`}
+																				>
+																					{humanizeLabel(entry.main)}
+																				</button>
+																			) : (
+																				entry.details.map((detail) => (
+																					<button
+																						class="cell__label cell__label--merged"
+																						type="button"
+																						style={`--label-color:${color};--label-bg:${bg}`}
+																						data-filter-label
+																						data-col="attribution_detail"
+																						data-label={detail}
+																						title={`Filter by ${humanizeLabel(detail)}`}
+																					>
+																						<span class="cell__merged-main">{humanizeLabel(entry.main)}</span>
+																						<span class="cell__merged-detail">({humanizeLabel(detail)})</span>
+																					</button>
+																				))
+																			)
+																		)}
+																	</div>
 																) : isList ? (
 																	<div class="cell__labels">
 																		{(value as string[]).map((label) => (
@@ -386,6 +437,8 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	}
 
 	// ---- Filter panel (only shows columns of the active table) ----
+	// Merged columns (e.g. Attribution Detail) are included: they have no table
+	// header of their own but remain filterable.
 	function buildFilterPanel() {
 		if (!filterPanelBody) return;
 		const tableCols = getTableColumns(activeTable);
@@ -630,11 +683,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	let currentPaperId: string | null = null;
 	let lastFocused: HTMLElement | null = null;
 
-	/** Shorten long text for the prev/next navigation buttons. */
-	function truncate(s: string, n: number): string {
-		return s.length > n ? `${s.slice(0, n - 1)}…` : s;
-	}
-
 	/** Category page path for a column group (for cross-links to the taxonomy). */
 	const GROUP_PAGE: Record<string, string> = {
 		ml_task: '/ml-tasks',
@@ -654,10 +702,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		lastFocused = document.activeElement as HTMLElement | null;
 		profileBody.innerHTML = renderProfile(paper);
 		profileBody.scrollTop = 0;
-		// Wire the prev/next paper buttons of the freshly rendered profile.
-		profileBody.querySelectorAll<HTMLButtonElement>('[data-profile-step]').forEach((btn) => {
-			btn.addEventListener('click', () => stepProfile(Number(btn.dataset.profileStep)));
-		});
 		if (profile) {
 			profile.hidden = false;
 			profile.querySelector<HTMLButtonElement>('.profile__close')?.focus();
@@ -694,14 +738,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		}
 	});
 
-	/** Open the previous (-1) or next (+1) paper in the review order. */
-	function stepProfile(delta: number) {
-		if (currentPaperId === null) return;
-		const idx = papers.findIndex((p) => p.id === currentPaperId);
-		const next = papers[(idx + delta + papers.length) % papers.length];
-		if (next) openProfile(next.id);
-	}
-
 	function renderProfile(paper: Paper): string {
 		// --- Hero: identity + DOI as plain text (no external links, no buttons) ---
 		const doiLine = paper.doi ? `<p class="profile__doi">DOI: ${escapeHtml(paper.doi)}</p>` : '';
@@ -719,8 +755,10 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		// --- Category sections: one grid of dimension cards per column group ---
 		// The 'general' group is skipped: its fields (id, title, authors, year,
 		// venue, doi) are already presented in the hero header above.
+		// Attribution detail is merged into the Explanation Output card (it is a
+		// subcategory of 'uncertainty attribution'), so it gets no card of its own.
 		const sectionHtml = GROUPS.filter((g) => g.id !== 'general').map((g) => {
-			const groupCols = COLUMNS.filter((c) => c.group === g.id);
+			const groupCols = COLUMNS.filter((c) => c.group === g.id && !c.mergedInto);
 			const cards = groupCols
 				.map((col) => {
 					const value = getValue(paper, col.path);
@@ -730,9 +768,37 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 					const bg = labelBg(col.group);
 					// Each value links to its explanation on the category page.
 					const page = GROUP_PAGE[col.group];
+					// Attribution techniques render inside the Explanation Output card
+					// as merged pills — one per technique, matching the table cells:
+					// "Uncertainty attribution (SHAP)".
+					const detailTags =
+						col.key === 'explanation_output_type'
+							? ((getValue(paper, 'xuq_method.attribution_detail') as string[]) ?? [])
+									.map((d) => {
+										const href = page
+											? `${page}#dim-explanation_output_type-uncertainty-attribution--sub-${slugify(d)}`
+											: null;
+										const inner = `<span class="profile__tag-main">${escapeHtml(humanizeLabel('uncertainty attribution'))}</span><span class="profile__tag-detail">(${escapeHtml(humanizeLabel(d))})</span>`;
+										return href
+											? `<a class="profile__tag profile__tag--link profile__tag--merged" style="--label-color:${color};--label-bg:${bg}" href="${href}" title="Explain this category">${inner}</a>`
+											: `<span class="profile__tag profile__tag--merged" style="--label-color:${color};--label-bg:${bg}">${inner}</span>`;
+									})
+									.join('')
+							: '';
 					const tags = vals
 						.map((v) => {
-							const href = page ? `${page}#dim-${col.key}-${slugify(v)}` : null;
+							// When merged pills exist, the plain 'uncertainty attribution'
+							// chip is redundant (each pill already carries the name).
+							const hasMerged = col.key === 'explanation_output_type' && detailTags.length > 0 && v === 'uncertainty attribution';
+							if (hasMerged) return '';
+							// Attribution techniques are subcategories of 'uncertainty
+							// attribution' on the XUQ Methods page: link to the nested
+							// subblock anchor instead of a top-level value block.
+							const isSub = col.key === 'attribution_detail';
+							const anchor = isSub
+								? `dim-explanation_output_type-uncertainty-attribution--sub-${slugify(v)}`
+								: `dim-${col.key}-${slugify(v)}`;
+							const href = page ? `${page}#${anchor}` : null;
 							return href
 								? `<a class="profile__tag profile__tag--link" style="--label-color:${color};--label-bg:${bg}" href="${href}" title="Explain this category">${escapeHtml(humanizeLabel(v))}</a>`
 								: `<span class="profile__tag" style="--label-color:${color};--label-bg:${bg}">${escapeHtml(humanizeLabel(v))}</span>`;
@@ -741,7 +807,7 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 					return `
 						<div class="pcard" style="--g-color:${color};--g-bg:${bg}">
 							<span class="pcard__label">${escapeHtml(col.label)}</span>
-							<div class="pcard__values">${tags}</div>
+							<div class="pcard__values">${tags}${detailTags}</div>
 						</div>
 					`;
 				})
@@ -764,22 +830,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			`;
 		}).join('');
 
-		// --- Prev / next paper navigation ---
-		const idx = papers.findIndex((p) => p.id === paper.id);
-		const prev = papers[(idx - 1 + papers.length) % papers.length];
-		const next = papers[(idx + 1) % papers.length];
-		const nav = `
-			<nav class="profile__nav" aria-label="Other papers">
-				<button class="profile__nav-btn" type="button" data-profile-step="-1" aria-label="Previous paper">
-					<span aria-hidden="true">←</span>
-					<span class="profile__nav-title">${escapeHtml(truncate(prev.title || `Paper ${prev.id}`, 42))}</span>
-				</button>
-				<button class="profile__nav-btn profile__nav-btn--next" type="button" data-profile-step="1" aria-label="Next paper">
-					<span aria-hidden="true">→</span>
-					<span class="profile__nav-title">${escapeHtml(truncate(next.title || `Paper ${next.id}`, 42))}</span>
-				</button>
-			</nav>
-		`;
 
 		return `
 			<header class="profile__hero">
@@ -794,7 +844,6 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			</header>
 			${abstract}
 			${sectionHtml}
-			${nav}
 		`;
 	}
 
@@ -1280,6 +1329,23 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 	}
 	.cell__label:hover {
 		filter: brightness(0.95);
+	}
+	/* Merged button: "Uncertainty attribution (SHAP)" — one button per technique.
+	   The button wraps internally (between name and brackets) when too wide. */
+	.cell__label--merged {
+		gap: 4px;
+		text-align: left;
+		flex-wrap: wrap;
+		white-space: normal;
+	}
+	.cell__merged-main {
+		white-space: nowrap;
+	}
+	/* The bracketed technique inside the button: lighter, not underlined. */
+	.cell__merged-detail {
+		font-weight: 500;
+		opacity: 0.85;
+		white-space: nowrap;
 	}
 
 	/* ---- Column filter dropdown ---- */

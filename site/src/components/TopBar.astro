@@ -46,6 +46,13 @@
 		padding-inline: var(--space-4);
 	}
 
+	/* Center the wordmark regardless of the hamburger's width. */
+	.topbar__wordmark {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
 	.topbar__hamburger {
 		display: inline-flex;
 		flex-direction: column;

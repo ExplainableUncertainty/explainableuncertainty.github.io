@@ -25,13 +25,14 @@ export interface Paper {
 		portability: string[];
 		locality: string[];
 		explanation_output_type: string[];
+		/** Subcategory of the 'uncertainty attribution' explanation output type. */
+		attribution_detail: string[];
 	};
 	xuq_evaluation: {
 		evaluated: string[];
 		evaluation_type: string[];
 		co12: string[];
 		benchmarked: string[];
-		attribution_detail: string[];
 	};
 }
 
@@ -52,6 +53,13 @@ export interface ColumnDef {
 	isList: boolean;
 	/** Optional: always shown regardless of group filter. */
 	always?: boolean;
+	/**
+	 * Optional key of the column this one is merged into: the column gets no
+	 * table header/cell of its own; its values are shown inside the target
+	 * column's cells (e.g. attribution detail inside Explanation Output).
+	 * It remains filterable via the filter panel.
+	 */
+	mergedInto?: string;
 }
 
 /** Group metadata: label + color theme. */
@@ -80,6 +88,15 @@ export function getTableColumns(group: ColumnGroup): ColumnDef[] {
 	return COLUMNS.filter((c) => c.group === 'general' || c.group === group);
 }
 
+/**
+ * Get the columns that get their own table header/cell for a given table:
+ * like getTableColumns, but columns merged into another column are excluded
+ * (their values render inside the target column's cells instead).
+ */
+export function getVisibleTableColumns(group: ColumnGroup): ColumnDef[] {
+	return getTableColumns(group).filter((c) => !c.mergedInto);
+}
+
 /** The full column configuration. Easy to add/remove columns here. */
 export const COLUMNS: ColumnDef[] = [
 	// ---- General (always shown) ----
@@ -105,13 +122,16 @@ export const COLUMNS: ColumnDef[] = [
 	{ key: 'portability', label: 'Portability', group: 'xuq_method', path: 'xuq_method.portability', isList: true },
 	{ key: 'locality', label: 'Locality', group: 'xuq_method', path: 'xuq_method.locality', isList: true },
 	{ key: 'explanation_output_type', label: 'Explanation Output', group: 'xuq_method', path: 'xuq_method.explanation_output_type', isList: true },
+	// Attribution detail is a subcategory of the 'uncertainty attribution'
+	// explanation output type: shown in brackets inside that column's cells
+	// (Uncertainty attribution (SHAP)) and filterable via the filter panel.
+	{ key: 'attribution_detail', label: 'Attribution Detail', group: 'xuq_method', path: 'xuq_method.attribution_detail', isList: true, mergedInto: 'explanation_output_type' },
 
 	// ---- XUQ Evaluation ----
 	{ key: 'evaluated', label: 'Evaluation conducted?', group: 'xuq_evaluation', path: 'xuq_evaluation.evaluated', isList: true },
 	{ key: 'evaluation_type', label: 'Evaluation Type', group: 'xuq_evaluation', path: 'xuq_evaluation.evaluation_type', isList: true },
 	{ key: 'co12', label: 'Co-12 Properties', group: 'xuq_evaluation', path: 'xuq_evaluation.co12', isList: true },
 	{ key: 'benchmarked', label: 'Benchmarked', group: 'xuq_evaluation', path: 'xuq_evaluation.benchmarked', isList: true },
-	{ key: 'attribution_detail', label: 'Attribution Detail', group: 'xuq_evaluation', path: 'xuq_evaluation.attribution_detail', isList: true },
 ];
 
 /** Read a value from a Paper object by a dot-separated path. */
