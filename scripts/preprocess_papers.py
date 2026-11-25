@@ -347,7 +347,11 @@ def build_paper(row: dict[str, str], groups: dict[str, list[tuple[str, str]]]) -
     application_domain = collect_true(groups.get("application_domain", []), row)
     data_modality = collect_true(groups.get("data_modality", []), row)
     ml_problem_class = collect_true(groups.get("ml_problem_class", []), row)
-    audience = collect_true(groups.get("audience", []), row)
+    # Display wording: the CSV's "None / Not specified" is shown as "Not specified".
+    audience = [
+        "Not specified" if a == "None / Not specified" else a
+        for a in collect_true(groups.get("audience", []), row)
+    ]
 
     # XUQ methods
     uncertainty_type = collect_true(groups.get("uncertainty_type", []), row)

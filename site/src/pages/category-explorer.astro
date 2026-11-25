@@ -30,7 +30,7 @@ const paperCount = papers.length;
 					const dims = categories.dimensions.filter((d) => d.group === g.id);
 					return (
 						<a
-							href={`/${g.id === 'ml_task' ? 'ml-tasks' : g.id === 'xuq_method' ? 'xuq-methods' : 'xuq-evaluation'}`}
+							href={`/${g.id === 'ml_task' ? 'research-context' : g.id === 'xuq_method' ? 'xuq-methods' : 'xuq-evaluation'}`}
 							class="group-card"
 							style={`--group-color:${g.color};--group-bg:${g.bg}`}
 						>

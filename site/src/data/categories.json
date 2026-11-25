@@ -191,9 +191,9 @@
           "label": "Labelers"
         },
         {
-          "value": "None / Not specified",
-          "summary": "No target audience specified.",
-          "label": "None / not specified"
+          "value": "Not specified",
+          "summary": "",
+          "label": "Not specified"
         }
       ]
     },

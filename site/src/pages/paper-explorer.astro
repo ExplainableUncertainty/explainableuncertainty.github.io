@@ -623,6 +623,29 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 			const value = getValue(p, colDef.path);
 			if (Array.isArray(value)) value.forEach((v) => labels.add(String(v)));
 		});
+		// Merged columns (e.g. Attribution Detail inside Explanation Output) add
+		// combined entries like "Uncertainty attribution (SHAP)" that filter by
+		// the subcategory while showing the parent name.
+		const mergedCol = COLUMNS.find((c) => c.mergedInto === colKey);
+		const mergedEntries: { col: string; label: string; display: string }[] = [];
+		if (mergedCol) {
+			const seen = new Set<string>();
+			papers.forEach((p) => {
+				const value = getValue(p, mergedCol.path);
+				if (Array.isArray(value)) {
+					value.forEach((v) => {
+						const label = String(v);
+						if (seen.has(label)) return;
+						seen.add(label);
+						mergedEntries.push({
+							col: mergedCol.key,
+							label,
+							display: `${humanizeLabel('uncertainty attribution')} (${humanizeLabel(label)})`,
+						});
+					});
+				}
+			});
+		}
 		const color = labelColor(colDef.group);
 		const bg = labelBg(colDef.group);
 		const active = labelFilters.get(colKey) ?? new Set<string>();
@@ -638,6 +661,20 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 								data-menu-label="${colKey}" data-label="${label}">
 								<span class="filter-menu__check">${active.has(label) ? '✓' : ''}</span>
 								${escapeHtml(humanizeLabel(label))}
+							</button>
+						`
+					)
+					.join('')}
+				${mergedEntries.length > 0 ? '<div class="filter-menu__divider"></div>' : ''}
+				${mergedEntries
+					.sort((a, b) => a.display.localeCompare(b.display))
+					.map(
+						(entry) => `
+							<button class="filter-menu__item ${labelFilters.get(entry.col)?.has(entry.label) ? 'filter-menu__item--active' : ''}"
+								style="--label-color:${color};--label-bg:${bg}"
+								data-menu-label="${entry.col}" data-label="${entry.label}">
+								<span class="filter-menu__check">${labelFilters.get(entry.col)?.has(entry.label) ? '✓' : ''}</span>
+								${escapeHtml(entry.display)}
 							</button>
 						`
 					)
@@ -679,13 +716,28 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		}
 	});
 
+	// Close the dropdown when the page/table scrolls (it is position:fixed, so
+	// without this it would stay frozen on screen while the table moves under
+	// it). Scroll events don't bubble, so use capture to catch the table-wrap
+	// scroller too — but ignore scrolls INSIDE the dropdown itself (its list is
+	// scrollable when there are many entries).
+	document.addEventListener(
+		'scroll',
+		(e) => {
+			if (!filterMenu || filterMenu.hidden) return;
+			if (filterMenu.contains(e.target as Node)) return;
+			closeFilterMenu();
+		},
+		{ capture: true, passive: true },
+	);
+
 	// ---- Paper profile popup ----
 	let currentPaperId: string | null = null;
 	let lastFocused: HTMLElement | null = null;
 
 	/** Category page path for a column group (for cross-links to the taxonomy). */
 	const GROUP_PAGE: Record<string, string> = {
-		ml_task: '/ml-tasks',
+		ml_task: '/research-context',
 		xuq_method: '/xuq-methods',
 		xuq_evaluation: '/xuq-evaluation',
 	};
@@ -813,17 +865,11 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 				})
 				.join('');
 			if (!cards) return '';
-			const filled = groupCols.filter((c) => {
-				const value = getValue(paper, c.path);
-				const vals = Array.isArray(value) ? value : value ? [value] : [];
-				return vals.length > 0;
-			}).length;
 			return `
 				<section class="profile__section" style="--g-color:${g.color};--g-bg:${g.bg}">
 					<h3 class="profile__section-title">
 						<span class="profile__section-swatch" aria-hidden="true"></span>
 						${escapeHtml(g.label)}
-						<span class="profile__section-count">${filled} of ${groupCols.length} dimensions</span>
 					</h3>
 					<div class="profile__cards">${cards}</div>
 				</section>
@@ -1372,6 +1418,12 @@ const TABLE_LABELS: Record<ColumnGroup, string> = {
 		color: var(--color-text);
 		border-bottom: 1px solid var(--color-border);
 		margin-bottom: var(--space-1);
+	}
+	/* Separates the plain values from the merged subcategory entries. */
+	.filter-menu__divider {
+		height: 1px;
+		margin: var(--space-1) var(--space-2);
+		background: var(--color-border);
 	}
 	.filter-menu__list {
 		display: flex;
